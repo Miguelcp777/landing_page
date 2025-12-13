@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miguel Castillo Perez | CV</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* CV Specific Styling usually specific to this page */
+        body {
+            background-color: #080C16;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .cv-main {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px;
+            background: #0f1623;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .cv-header {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 50px;
+            /* Increased to make room for button */
+            position: relative;
+        }
+
+        .cv-intro {
+            flex: 1;
+            text-align: center;
+        }
+
+        .cv-intro h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+
+        .cv-intro h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #06b6d4;
+            /* Teal/Cyan color from image */
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Avatar Styling */
+        .cv-avatar-container {
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .cv-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #0e7490;
+            /* Darker teal border */
+            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.3);
+        }
+
+        .cv-contact-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.95rem;
+            color: #94a3b8;
+        }
+
+        .cv-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .icon {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        .download-btn-container {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin-bottom: 10px;
+            /* Slight offset from the border */
+        }
+
+        @media (max-width: 768px) {
+            .cv-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .download-btn-container {
+                right: auto;
+                bottom: auto;
+                margin-top: 20px;
+                position: relative;
+            }
+        }
+
+        .cv-section {
+            margin-bottom: 40px;
+        }
+
+        .cv-section h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cv-section h3::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #1e293b;
+        }
+
+        .cv-item {
+            margin-bottom: 2rem;
+        }
+
+        .cv-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .cv-role-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .cv-role-title {
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+
+        .cv-company {
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .cv-date {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            font-feature-settings: "tnum";
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cv-desc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .cv-desc li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .cv-desc li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-pill {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .cv-header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .cv-main {
+                margin: 0;
+                border-radius: 0;
+                border: none;
+            }
+
+            .cv-contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .cv-main {
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                padding: 0;
+                background: none;
+                width: 100%;
+                max-width: none;
+            }
+
+            .header,
+            .btn--primary,
+            .back-link {
+                display: none !important;
+            }
+
+            .cv-intro h1,
+            .cv-role-title,
+            .cv-section h3 {
+                color: black;
+            }
+
+            .cv-company {
+                color: #2563eb;
+            }
+
+            .cv-desc li,
+            .cv-contact-item,
+            .cv-intro h2 {
+                color: #333;
+            }
+
+            .skill-pill {
+                border: 1px solid #ddd;
+                background: #f8fafc;
+                color: #333;
+            }
+
+            .cv-section h3::after {
+                background: #ccc;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation back to home -->
+    <div style="position: absolute; top: 20px; left: 20px;" class="back-link">
+        <a href="index.html"
+            style="color: #94a3b8; text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; transition: color 0.2s;">
+            <span>←</span> Back to Portfolio
+        </a>
+    </div>
+
+    <main class="cv-main">
+        <header class="cv-header">
+            <div class="download-btn-container">
+                <button onclick="window.print()" class="btn btn--primary"
+                    style="padding: 8px 16px; font-size: 0.8rem;">Download PDF</button>
+            </div>
+
+            <div class="cv-avatar-container">
+                <img src="assets/images/profile-1.jpg" alt="Miguel Castillo" class="cv-avatar">
+            </div>
+
+            <div class="cv-intro">
+                <h1>Miguel Castillo Perez</h1>
+                <h2>Technical Service Supervisor</h2>
+
+                <div class="cv-contact-grid">
+                    <div class="cv-contact-item">
+                        <span class="icon">✉️</span> miguelcp777@gmail.com
+                    </div>
+                    <div class="cv-contact-item">
+                        <span class="icon">📞</span> +34 636 928 548
+                    </div>
+                    <div class="cv-contact-item">
+                        <span class="icon">🔗</span> miguelcastilloperez
+                    </div>
+                </div>
+                <div class="cv-contact-grid" style="margin-top: 10px;">
+                    <div class="cv-contact-item">
+                        <span class="icon">📍</span> Spain
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Summary -->
+        <section class="cv-section">
+            <h3>Professional Summary</h3>
+            <p style="color: #cbd5e1; line-height: 1.6;">
+                Detailed-oriented Supervisor of Technical Service with extensive experience in the medical device
+                industry.
+                Proven track record in leading high-performing teams, optimizing service delivery workflows, and
+                leveraging
+                data analytics (Python, SQL, Tableau) to drive operational excellence. Passionate about bridging the gap
+                between technical operations and business strategy.
+            </p>
+        </section>
+
+        <!-- Experience -->
+        <section class="cv-section">
+            <h3>Professional Experience</h3>
+
+            <div class="cv-item">
+                <div class="cv-role-header">
+                    <div class="cv-role-title">Supervisor of Technical Service</div>
+                    <div class="cv-date">2024 - Present</div>
+                </div>
+                <div class="cv-company">Johnson & Johnson Vision</div>
+                <div class="cv-desc">
+                    <ul>
+                        <li>Lead the Technical Service team for Iberia, ensuring compliance with quality standards and
+                            operational KPIs.</li>
+                        <li>Implement data-driven strategies to reduce system downtime and improve customer satisfaction
+                            scores.</li>
+                        <li>Mentor and develop team members, fostering a culture of continuous improvement and technical
+                            excellence.</li>
+                        <li>Collaborate with cross-functional teams to streamline service processes and inventory
+                            management.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cv-item">
+                <div class="cv-role-header">
+                    <div class="cv-role-title">Technical Service Coordinator</div>
+                    <div class="cv-date">2021 - 2024</div>
+                </div>
+                <div class="cv-company">Johnson & Johnson Vision</div>
+                <div class="cv-desc">
+                    <ul>
+                        <li>Coordinated daily technical operations, managing field service schedules and resource
+                            allocation.</li>
+                        <li>Developed dashboards in Tableau to visualize service metrics and identify areas for
+                            efficiency gains.</li>
+                        <li>Acted as a primary escalation point for complex technical issues, ensuring rapid resolution.
+                        </li>
+                        <li>Supported the rollout of new product launches through technical training and service
+                            readiness planning.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cv-item">
+                <div class="cv-role-header">
+                    <div class="cv-role-title">Service Engineer</div>
+                    <div class="cv-date">2017 - 2021</div>
+                </div>
+                <div class="cv-company">Johnson & Johnson / Abbott</div>
+                <div class="cv-desc">
+                    <ul>
+                        <li>Performed installation, maintenance, and repair of advanced ophthalmic surgical systems.
+                        </li>
+                        <li>Delivered technical training to hospital staff and clinical engineers.</li>
+                        <li>Maintained high levels of customer satisfaction through proactive communication and service.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="cv-section">
+            <h3>Technical Skills</h3>
+            <div class="skills-grid">
+                <div class="skill-pill">Python</div>
+                <div class="skill-pill">SQL</div>
+                <div class="skill-pill">Tableau</div>
+                <div class="skill-pill">Alteryx</div>
+                <div class="skill-pill">Pandas</div>
+                <div class="skill-pill">Data Visualization</div>
+                <div class="skill-pill">CRM Systems</div>
+                <div class="skill-pill">SAP</div>
+            </div>
+        </section>
+
+        <section class="cv-section">
+            <h3>Leadership & Core Competencies</h3>
+            <div class="skills-grid">
+                <div class="skill-pill">Team Leadership</div>
+                <div class="skill-pill">Strategic Planning</div>
+                <div class="skill-pill">Process Optimization</div>
+                <div class="skill-pill">Cross-functional Collaboration</div>
+                <div class="skill-pill">Problem Solving</div>
+                <div class="skill-pill">Project Management</div>
+            </div>
+        </section>
+
+    </main>
+</body>
+
+</html>

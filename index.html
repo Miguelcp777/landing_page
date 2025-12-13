@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miguel Angel | Full Stack Developer</title>
+    <meta name="description"
+        content="Portfolio of Miguel Angel, a Full Stack Developer specializing in modern web experiences.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Loader -->
+    <div id="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Parallax Backgrounds -->
+    <div class="parallax-shape shape-1" data-speed="0.2"></div>
+    <div class="parallax-shape shape-2" data-speed="-0.1"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header__container">
+            <a href="#" class="logo">MCP<span class="logo-dot">.</span></a>
+
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#about" class="nav__link" data-i18n="nav.about">About</a></li>
+                    <li class="nav__item"><a href="#experience" class="nav__link"
+                            data-i18n="nav.experience">Experience</a></li>
+                    <li class="nav__item"><a href="#data-passion" class="nav__link" data-i18n="nav.data">Data
+                            Passion</a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link" data-i18n="nav.contact">Contact</a></li>
+                    <li class="nav__item"><button id="lang-toggle" class="nav__lang-btn">EN | ES</button></li>
+                </ul>
+            </nav>
+
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-moon">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero reveal-section" id="hero">
+            <div class="container hero__container">
+                <div class="hero__content">
+                    <div class="hero__badge" data-i18n="hero.badge">Welcome to my portfolio</div>
+                    <h1 class="hero__name">Miguel Castillo Perez</h1>
+                    <h2 class="hero__subtitle" data-i18n="hero.subtitle">Data Enthusiast • Team Leader • Problem Solver
+                    </h2>
+                    <p class="hero__description" data-i18n="hero.description">
+                        Supervisor of Technical Service at <strong>Johnson & Johnson Vision</strong> (Iberia team).
+                        Leading with excellence in technical support for advanced ophthalmology systems.
+                    </p>
+                    <div class="hero__actions">
+                        <a href="https://www.linkedin.com/in/miguelcastilloperez" target="_blank"
+                            class="btn btn--primary" data-i18n="hero.cta_linkedin">Connect on LinkedIn</a>
+                        <a href="cv.html" class="btn btn--outline" data-i18n="hero.cta_resume">Download Resume</a>
+                    </div>
+                </div>
+                <div class="hero__visual">
+                    <div class="hero__image-wrapper">
+                        <img src="assets/images/profile-1.jpg" alt="Miguel Castillo Perez" class="hero__profile-img">
+                        <div class="hero__glow"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about reveal-section" id="about">
+            <div class="container">
+                <h2 class="section-title"><span data-i18n="about.title">About Me</span></h2>
+                <div class="about__content">
+                    <div class="about__text">
+                        <p data-i18n="about.p1">
+                            I am a seasoned service coordination professional with a deep passion for improving
+                            efficiency and optimizing technical operations.
+                            My career has been defined by a commitment to teamwork, leadership, and the relentless
+                            pursuit of operational excellence.
+                        </p>
+                        <p data-i18n="about.p2">
+                            Currently, I serve as a Supervisor of Technical Service for the Iberia team at Johnson &
+                            Johnson Vision.
+                            Beyond my core role, I leverage advanced data analytics to drive decision-making and enhance
+                            team performance.
+                        </p>
+                    </div>
+                    <div class="about__skills">
+                        <span class="skill-tag" data-i18n="about.skill1">Team Leadership</span>
+                        <span class="skill-tag" data-i18n="about.skill2">Technical Service</span>
+                        <span class="skill-tag" data-i18n="about.skill3">Ophthalmology Systems</span>
+                        <span class="skill-tag" data-i18n="about.skill4">Process Optimization</span>
+                        <span class="skill-tag" data-i18n="about.skill5">Data Science</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section experience">
+            <div class="container">
+                <h2 class="section__title" data-i18n="experience.title">Experience</h2>
+                <div class="timeline">
+                    <!-- Item 1 -->
+                    <div class="timeline__item">
+                        <div class="timeline__marker"></div>
+                        <div class="timeline__content">
+                            <span class="timeline__date" data-i18n="experience.job1.date">2024 - Present</span>
+                            <h3 class="timeline__role" data-i18n="experience.job1.role">Supervisor of Technical Service
+                            </h3>
+                            <h4 class="timeline__company">Johnson & Johnson Vision</h4>
+                            <p class="timeline__description" data-i18n="experience.job1.desc">Leading the Iberia team,
+                                ensuring high-quality technical
+                                support and operational milestones.</p>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="timeline__item">
+                        <div class="timeline__marker"></div>
+                        <div class="timeline__content">
+                            <span class="timeline__date" data-i18n="experience.job2.date">2021 - 2024</span>
+                            <h3 class="timeline__role" data-i18n="experience.job2.role">Technical Service Coordinator
+                            </h3>
+                            <h4 class="timeline__company">Johnson & Johnson Vision</h4>
+                            <p class="timeline__description" data-i18n="experience.job2.desc">Coordinated technical
+                                operations and managed service
+                                delivery workflows.</p>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="timeline__item">
+                        <div class="timeline__marker"></div>
+                        <div class="timeline__content">
+                            <span class="timeline__date" data-i18n="experience.job3.date">2017 - 2021</span>
+                            <h3 class="timeline__role" data-i18n="experience.job3.role">Service Engineer</h3>
+                            <h4 class="timeline__company">Johnson & Johnson / Abbott</h4>
+                            <p class="timeline__description" data-i18n="experience.job3.desc">Hands-on technical support
+                                and maintenance of advanced
+                                medical equipment.</p>
+                        </div>
+                    </div>
+                    <!-- Previous Roles grouped for brevity -->
+                    <div class="timeline__item">
+                        <div class="timeline__marker"></div>
+                        <div class="timeline__content">
+                            <h3 class="timeline__role" data-i18n="experience.job4.role">Previous Engineering Roles</h3>
+                            <h4 class="timeline__company">IMEX, Indo, ETRA, Indra</h4>
+                            <p class="timeline__description" data-i18n="experience.job4.desc">Various technical and
+                                engineering positions building a
+                                strong foundation in systems and service.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Passion Section -->
+        <section id="data-passion" class="section data-passion">
+            <div class="container">
+                <h2 class="section__title" data-i18n="data.title">Data & Analytics Passion</h2>
+                <p class="section__subtitle__text" data-i18n="data.subtitle">Transforming raw data into actionable
+                    insights through automation and
+                    dashboarding.</p>
+
+                <div class="tools-grid">
+                    <div class="tool-card"><span class="tool-name">Python</span></div>
+                    <div class="tool-card"><span class="tool-name">SQL</span></div>
+                    <div class="tool-card"><span class="tool-name">Tableau</span></div>
+                    <div class="tool-card"><span class="tool-name">Alteryx</span></div>
+                    <div class="tool-card"><span class="tool-name">Pandas</span></div>
+                </div>
+
+                <div class="dashboard-gallery">
+                    <!-- Dashboard 1 -->
+                    <!-- Dashboard 1 -->
+                    <div class="dashboard-item" data-project="dash1" data-tools="Tableau,SQL,SAP">
+                        <img src="assets/images/dashboard-1.png" alt="Analytics Dashboard" class="blur-sensitive">
+                        <div class="confidential-warning">Confidential • Click for Details</div>
+                        <div class="dashboard-overlay">
+                            <span data-i18n="data.dash1">Cost Per System Analysis</span>
+                        </div>
+                    </div>
+                    <!-- Dashboard 2 -->
+                    <!-- Dashboard 2 -->
+                    <div class="dashboard-item" data-project="dash2" data-tools="Python,TensorFlow,Pandas">
+                        <img src="assets/images/dashboard-2.png" alt="AI Neural Network" class="blur-sensitive">
+                        <div class="confidential-warning">Confidential • Click for Details</div>
+                        <div class="dashboard-overlay">
+                            <span data-i18n="data.dash2">ASP Maintenance Contract</span>
+                        </div>
+                    </div>
+                    <!-- Dashboard 3 -->
+                    <div class="dashboard-item" data-project="dash3" data-title="Revenue & Installation Base"
+                        data-tools="Alteryx,Tableau,Excel">
+                        <img src="assets/images/dashboard-3.png" alt="Revenue Dashboard" class="blur-sensitive">
+                        <div class="confidential-warning">Confidential • Click for Details</div>
+                        <div class="dashboard-overlay">
+                            <span data-i18n="data.dash3">Revenue & Installation Base</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section contact">
+            <div class="container contact__container">
+                <div class="contact__info">
+                    <h2 class="section__title" data-i18n="contact.title">Get In Touch</h2>
+                    <p data-i18n="contact.text">
+                        Open to discussing technical leadership, data optimization strategies, or just connecting with
+                        fellow professionals.
+                    </p>
+
+                    <div class="contact__details">
+                        <a href="mailto:miguelcp777@gmail.com" class="contact__link item-email">
+                            <span class="icon">✉️</span> miguelcp777@gmail.com
+                        </a>
+                        <a href="tel:+34636928548" class="contact__link item-phone">
+                            <span class="icon">📞</span> +34 636 928 548
+                        </a>
+                        <a href="https://linkedin.com/in/miguelcastilloperez" target="_blank"
+                            class="contact__link item-linkedin">
+                            <span class="icon">🔗</span> linkedin.com/in/miguelcastilloperez
+                        </a>
+                    </div>
+                </div>
+
+                <form class="contact__form">
+                    <div class="form-group">
+                        <label for="name" class="visually-hidden">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required
+                            data-i18n-placeholder="contact.form.name_ph">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="visually-hidden">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Your Email" required
+                            data-i18n-placeholder="contact.form.email_ph">
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="visually-hidden">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Your Message" required
+                            data-i18n-placeholder="contact.form.msg_ph"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--primary" data-i18n="contact.form.submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__container">
+            <p class="footer__copyright">&copy; 2024 Miguel Castillo Perez. <span data-i18n="footer.rights">All rights
+                    reserved.</span></p>
+            <div class="footer__socials">
+                <a href="https://linkedin.com/in/miguelcastilloperez" aria-label="LinkedIn">LinkedIn</a>
+                <a href="mailto:miguelcp777@gmail.com" aria-label="Email">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <!-- Modal Template -->
+    <div id="project-modal" class="modal-backdrop">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <img id="modal-image" class="modal-image" src="" alt="Project Thumbnail">
+            <h3 class="modal-title" id="modal-title">Project Title</h3>
+            <p class="modal-description" id="modal-desc">Description goes here...</p>
+            <div class="modal-tools-title">Tools Used:</div>
+            <div class="modal-tools" id="modal-tools">
+                <!-- Tags injected by JS -->
+            </div>
+        </div>
+    </div>
+    <!-- Link to JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>
