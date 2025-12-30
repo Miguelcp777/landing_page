@@ -11,7 +11,7 @@ This is a personal portfolio landing page built with HTML, CSS, and localized Ja
 
 ## n8n Integration
 The contact form submits data to an n8n webhook:
-- **Webhook URL**: `https://n8n.i-automate.es/webhook/9903d916-f574-47a3-8a29-1c35acd8fdb2`
+- **Webhook URL**: `your n8n webhook url `
 - **Method**: GET
 - **Payload**: `name`, `email`, `message`
 
