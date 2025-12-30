@@ -487,16 +487,36 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
 
-            const subject = `Portfolio Contact from ${name}`;
-            const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
 
-            // Construct mailto link
-            window.location.href = `mailto:miguelcp777@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            const params = new URLSearchParams({
+                name: name,
+                email: email,
+                message: message
+            });
 
-            // Optional: reset form after a delay
-            setTimeout(() => {
-                contactForm.reset();
-            }, 1000);
+            fetch(`https://n8n.i-automate.es/webhook/9903d916-f574-47a3-8a29-1c35acd8fdb2?${params.toString()}`, {
+                method: 'GET'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Message sent successfully!');
+                        contactForm.reset();
+                    } else {
+                        alert('Failed to send message. Please try again later.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                })
+                .finally(() => {
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.disabled = false;
+                });
         });
     }
 

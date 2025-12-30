@@ -1,0 +1,154 @@
+{
+  "name": "formulario_landing_page",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "9903d916-f574-47a3-8a29-1c35acd8fdb2",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -880,
+        -320
+      ],
+      "id": "5927fbb9-1a48-401a-bd34-e5962856cd68",
+      "name": "Webhook",
+      "webhookId": "9903d916-f574-47a3-8a29-1c35acd8fdb2"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Hsl4aaGjFlmyB81tJmduqFDkn_bV6xg34PK7bpohtow",
+          "mode": "list",
+          "cachedResultName": "formulario_landing_page",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Hsl4aaGjFlmyB81tJmduqFDkn_bV6xg34PK7bpohtow/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Hsl4aaGjFlmyB81tJmduqFDkn_bV6xg34PK7bpohtow/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nombre": "={{ $json.query.name }}",
+            "email": "={{ $json.query.email }}",
+            "mensaje": "={{ $json.query.message }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mensaje",
+              "displayName": "mensaje",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -672,
+        -320
+      ],
+      "id": "cd6569ce-596d-4828-80ce-eec9e0ec8f03",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "OPV6MFBDsqIZ1uKi",
+          "name": "Google Sheets miguelcp777"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "miguelcp777@gmail.com",
+        "subject": "Has recibido un mensaje de contacto en tu landing page ",
+        "message": "=Hola chaval : Acabas de recibir un mensaje de  {{ $('Webhook').item.json.query.name }} con el siguiente mensaje {{ $('Webhook').item.json.query.message }}, puedes contactar con ellos en {{ $('Webhook').item.json.query.email }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -432,
+        -320
+      ],
+      "id": "46d70d94-ba28-4473-bd4b-310b2e66c00c",
+      "name": "Send a message",
+      "webhookId": "3a013bd9-ae4a-4cbe-a888-9bf6fb0bf19d",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jKeUUDSvPsOoGFKI",
+          "name": "Gmail account miguelcp777"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "cee2e480-6cc0-44d0-aaff-667a6194adb1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2113c9e43c29326591cb76a3a34c3db62366ab2c8e6cf5934428c56220878437"
+  },
+  "id": "ylMkBiqLnQaJEHBi",
+  "tags": []
+}

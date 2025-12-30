@@ -55,6 +55,10 @@ html {
 body {
     font-family: var(--font-body);
     background-color: var(--bg-body);
+    background-image: linear-gradient(rgba(8, 12, 22, 0.85), rgba(8, 12, 22, 0.9)), url('../assets/images/data-science-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: var(--text-primary);
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
