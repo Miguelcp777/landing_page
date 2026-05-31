@@ -7,7 +7,30 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Miguel Castillo Perez | Field service Supervisor at Johnson & Johnson Vision</title>
     <meta name="description"
-        content="Portfolio of Miguel Castillo Perez, a Feld service supervisor at Johnson & Johnson Vision and data passionate.">
+        content="Portfolio of Miguel Castillo Perez, a Field service supervisor at Johnson &amp; Johnson Vision and data analytics enthusiast.">
+    <meta name="author" content="Miguel Castillo Perez">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Miguel Castillo Perez | Portfolio">
+    <meta property="og:description" content="Field service supervisor at J&J Vision and data analytics enthusiast. Dashboards, technical leadership and more.">
+    <meta property="og:image" content="assets/images/profile-1.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Miguel Castillo Perez | Portfolio">
+    <meta name="twitter:description" content="Field service supervisor at J&J Vision and data analytics enthusiast.">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Miguel Castillo Perez",
+        "jobTitle": "Supervisor of Technical Service",
+        "worksFor": { "@type": "Organization", "name": "Johnson & Johnson Vision" },
+        "email": "miguelcp777@gmail.com",
+        "sameAs": ["https://www.linkedin.com/in/miguelcastilloperez"]
+    }
+    </script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,6 +44,13 @@
 </head>
 
 <body>
+    <!-- Skip link for accessibility -->
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- Custom cursor -->
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
+
     <!-- Loader -->
     <div id="loader-wrapper">
         <div class="loader"></div>
@@ -40,8 +70,8 @@
                     <li class="nav__item"><a href="#about" class="nav__link" data-i18n="nav.about">About</a></li>
                     <li class="nav__item"><a href="#experience" class="nav__link"
                             data-i18n="nav.experience">Experience</a></li>
-                    <li class="nav__item"><a href="#data-passion" class="nav__link" data-i18n="nav.data">Data
-                            Passion</a></li>
+                    <li class="nav__item"><a href="#data-passion" class="nav__link" data-i18n="nav.data">AI / Data</a></li>
+                    <li class="nav__item"><a href="#projects" class="nav__link" data-i18n="nav.projects">Projects</a></li>
                     <li class="nav__item"><a href="#contact" class="nav__link" data-i18n="nav.contact">Contact</a></li>
                     <li class="nav__item"><button id="lang-toggle" class="nav__lang-btn">EN | ES</button></li>
                 </ul>
@@ -63,14 +93,15 @@
         </div>
     </header>
 
-    <main>
+    <main id="main">
         <!-- Hero Section -->
         <section class="hero reveal-section" id="hero">
             <div class="container hero__container">
                 <div class="hero__content">
                     <div class="hero__badge" data-i18n="hero.badge">Welcome to my portfolio</div>
                     <h1 class="hero__name">Miguel Castillo Perez</h1>
-                    <h2 class="hero__subtitle" data-i18n="hero.subtitle">Data Enthusiast • Team Leader • Problem Solver
+                    <h2 class="hero__subtitle">
+                        <span id="typewriter-text"></span><span class="typewriter-cursor" aria-hidden="true">|</span>
                     </h2>
                     <p class="hero__description" data-i18n="hero.description">
                         Supervisor of Technical Service at <strong>Johnson & Johnson Vision</strong> (Iberia team).
@@ -84,7 +115,9 @@
                 </div>
                 <div class="hero__visual">
                     <div class="hero__image-wrapper">
-                        <img src="assets/images/profile-1.jpg" alt="Miguel Castillo Perez" class="hero__profile-img">
+                        <div class="hero__frame">
+                            <img src="assets/images/profile-1.jpg" alt="Miguel Castillo Perez" class="hero__profile-img">
+                        </div>
                         <div class="hero__glow"></div>
                     </div>
                 </div>
@@ -94,7 +127,7 @@
         <!-- About Section -->
         <section class="about reveal-section" id="about">
             <div class="container">
-                <h2 class="section-title"><span data-i18n="about.title">About Me</span></h2>
+                <h2 class="section__title"><span data-i18n="about.title">About Me</span></h2>
                 <div class="about__content">
                     <div class="about__text">
                         <p data-i18n="about.p1">
@@ -111,18 +144,58 @@
                         </p>
                     </div>
                     <div class="about__skills">
-                        <span class="skill-tag" data-i18n="about.skill1">Team Leadership</span>
-                        <span class="skill-tag" data-i18n="about.skill2">Technical Service</span>
-                        <span class="skill-tag" data-i18n="about.skill3">Ophthalmology Systems</span>
-                        <span class="skill-tag" data-i18n="about.skill4">Process Optimization</span>
-                        <span class="skill-tag" data-i18n="about.skill5">Data Science</span>
+                        <div class="skill-bar">
+                            <div class="skill-bar__header">
+                                <span class="skill-bar__name" data-i18n="about.skill1">Team Leadership</span>
+                                <span class="skill-bar__pct">95%</span>
+                            </div>
+                            <div class="skill-bar__track">
+                                <div class="skill-bar__fill" data-width="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar__header">
+                                <span class="skill-bar__name" data-i18n="about.skill2">Technical Service</span>
+                                <span class="skill-bar__pct">98%</span>
+                            </div>
+                            <div class="skill-bar__track">
+                                <div class="skill-bar__fill" data-width="98"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar__header">
+                                <span class="skill-bar__name" data-i18n="about.skill3">Ophthalmology Systems</span>
+                                <span class="skill-bar__pct">92%</span>
+                            </div>
+                            <div class="skill-bar__track">
+                                <div class="skill-bar__fill" data-width="92"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar__header">
+                                <span class="skill-bar__name" data-i18n="about.skill4">Process Optimization</span>
+                                <span class="skill-bar__pct">88%</span>
+                            </div>
+                            <div class="skill-bar__track">
+                                <div class="skill-bar__fill" data-width="88"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar__header">
+                                <span class="skill-bar__name" data-i18n="about.skill5">Data Science</span>
+                                <span class="skill-bar__pct">80%</span>
+                            </div>
+                            <div class="skill-bar__track">
+                                <div class="skill-bar__fill" data-width="80"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Experience Section -->
-        <section id="experience" class="section experience">
+        <section id="experience" class="section experience reveal-section">
             <div class="container">
                 <h2 class="section__title" data-i18n="experience.title">Experience</h2>
                 <div class="timeline">
@@ -179,23 +252,200 @@
             </div>
         </section>
 
-        <!-- Data Passion Section -->
-        <section id="data-passion" class="section data-passion">
+        <!-- Stats Section -->
+        <section class="section stats reveal-section" id="stats">
             <div class="container">
-                <h2 class="section__title" data-i18n="data.title">Data & Analytics Passion</h2>
+                <div class="stats__grid">
+                    <div class="stat-item">
+                        <div class="stat-number-wrapper">
+                            <span class="stat-number" data-target="8">0</span>
+                            <span class="stat-suffix">+</span>
+                        </div>
+                        <span class="stat-label" data-i18n="stats.years">Years in MedTech</span>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number-wrapper">
+                            <span class="stat-number" data-target="3">0</span>
+                        </div>
+                        <span class="stat-label" data-i18n="stats.projects">Analytics Projects</span>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number-wrapper">
+                            <span class="stat-number" data-target="2">0</span>
+                        </div>
+                        <span class="stat-label" data-i18n="stats.languages">Languages</span>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number-wrapper">
+                            <span class="stat-number" data-target="10">0</span>
+                            <span class="stat-suffix">+</span>
+                        </div>
+                        <span class="stat-label" data-i18n="stats.team">Team Members Led</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Passion Section -->
+        <section id="data-passion" class="section data-passion reveal-section">
+            <div class="container">
+                <h2 class="section__title" data-i18n="data.title">AI & Data Analytics</h2>
                 <p class="section__subtitle__text" data-i18n="data.subtitle">Transforming raw data into actionable
                     insights through automation and
                     dashboarding.</p>
 
                 <div class="tools-grid">
-                    <div class="tool-card"><span class="tool-name">Python</span></div>
-                    <div class="tool-card"><span class="tool-name">SQL</span></div>
-                    <div class="tool-card"><span class="tool-name">Tableau</span></div>
-                    <div class="tool-card"><span class="tool-name">Alteryx</span></div>
-                    <div class="tool-card"><span class="tool-name">Pandas</span></div>
+                    <!-- Python -->
+                    <div class="tool-card">
+                        <div class="tool-card__inner">
+                            <div class="tool-card__front">
+                                <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <polyline points="16 18 22 12 16 6"></polyline>
+                                    <polyline points="8 6 2 12 8 18"></polyline>
+                                </svg>
+                                <span class="tool-name">Python</span>
+                            </div>
+                            <div class="tool-card__back">
+                                <span class="tool-level" data-i18n="tools.advanced">Advanced</span>
+                                <span class="tool-use">ETL • Automation • Analysis</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SQL -->
+                    <div class="tool-card">
+                        <div class="tool-card__inner">
+                            <div class="tool-card__front">
+                                <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                                </svg>
+                                <span class="tool-name">SQL</span>
+                            </div>
+                            <div class="tool-card__back">
+                                <span class="tool-level" data-i18n="tools.advanced">Advanced</span>
+                                <span class="tool-use">Queries • DB Management</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tableau -->
+                    <div class="tool-card">
+                        <div class="tool-card__inner">
+                            <div class="tool-card__front">
+                                <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                                    <line x1="2" y1="20" x2="22" y2="20"></line>
+                                </svg>
+                                <span class="tool-name">Tableau</span>
+                            </div>
+                            <div class="tool-card__back">
+                                <span class="tool-level" data-i18n="tools.advanced">Advanced</span>
+                                <span class="tool-use">KPI Dashboards • BI</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Alteryx -->
+                    <div class="tool-card">
+                        <div class="tool-card__inner">
+                            <div class="tool-card__front">
+                                <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                    <path d="M6.3 6.3a8 8 0 1 0 11.4 0"></path>
+                                    <polyline points="9 7 12 4 15 7"></polyline>
+                                </svg>
+                                <span class="tool-name">Alteryx</span>
+                            </div>
+                            <div class="tool-card__back">
+                                <span class="tool-level" data-i18n="tools.intermediate">Intermediate</span>
+                                <span class="tool-use">Workflow • Data Blending</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pandas -->
+                    <div class="tool-card">
+                        <div class="tool-card__inner">
+                            <div class="tool-card__front">
+                                <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                                    <line x1="3" y1="15" x2="21" y2="15"></line>
+                                    <line x1="9" y1="3" x2="9" y2="21"></line>
+                                    <line x1="15" y1="3" x2="15" y2="21"></line>
+                                </svg>
+                                <span class="tool-name">Pandas</span>
+                            </div>
+                            <div class="tool-card__back">
+                                <span class="tool-level" data-i18n="tools.advanced">Advanced</span>
+                                <span class="tool-use">Data Wrangling • Analysis</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Claude / LLM APIs -->
+                    <div class="tool-card">
+                        <div class="tool-card__inner">
+                            <div class="tool-card__front">
+                                <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M12 2a4 4 0 0 1 4 4v1h1a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3h-1v1a4 4 0 0 1-8 0v-1H7a3 3 0 0 1-3-3v-2a3 3 0 0 1 3-3h1V6a4 4 0 0 1 4-4z"></path>
+                                    <circle cx="9" cy="10" r="1" fill="currentColor"></circle>
+                                    <circle cx="15" cy="10" r="1" fill="currentColor"></circle>
+                                    <path d="M9 14s1 1 3 1 3-1 3-1"></path>
+                                </svg>
+                                <span class="tool-name">LLM APIs</span>
+                            </div>
+                            <div class="tool-card__back">
+                                <span class="tool-level" data-i18n="tools.advanced">Advanced</span>
+                                <span class="tool-use">Claude • GPT • Gemini</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- AI Agents / n8n -->
+                    <div class="tool-card">
+                        <div class="tool-card__inner">
+                            <div class="tool-card__front">
+                                <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <rect x="3" y="11" width="4" height="6" rx="1"></rect>
+                                    <rect x="10" y="7" width="4" height="10" rx="1"></rect>
+                                    <rect x="17" y="4" width="4" height="13" rx="1"></rect>
+                                    <path d="M5 11V7a7 7 0 0 1 14 0v4"></path>
+                                </svg>
+                                <span class="tool-name">AI Agents</span>
+                            </div>
+                            <div class="tool-card__back">
+                                <span class="tool-level" data-i18n="tools.advanced">Advanced</span>
+                                <span class="tool-use">n8n • Autonomous flows</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Microsoft Fabric -->
+                    <div class="tool-card">
+                        <div class="tool-card__inner">
+                            <div class="tool-card__front">
+                                <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon>
+                                    <line x1="12" y1="22" x2="12" y2="15.5"></line>
+                                    <polyline points="22 8.5 12 15.5 2 8.5"></polyline>
+                                </svg>
+                                <span class="tool-name">MS Fabric</span>
+                            </div>
+                            <div class="tool-card__back">
+                                <span class="tool-level" data-i18n="tools.intermediate">Intermediate</span>
+                                <span class="tool-use">Data Platform • Analytics</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="dashboard-gallery">
+                    <!-- Dashboard 4: Install Base -->
+                    <div class="dashboard-item" data-project="dash4" data-tools="Amazon Redshift,Spark SQL,Alteryx,Tableau,Python">
+                        <img src="assets/images/dashboard-4.png" alt="Install Base Dashboard" class="blur-sensitive">
+                        <div class="confidential-warning">Confidential • Click for Details</div>
+                        <div class="dashboard-overlay">
+                            <span data-i18n="data.dash4">Install Base — Single Source of Truth</span>
+                        </div>
+                    </div>
                     <!-- Dashboard 1 -->
                     <!-- Dashboard 1 -->
                     <div class="dashboard-item" data-project="dash1" data-tools="Tableau,SQL,SAP">
@@ -227,8 +477,79 @@
             </div>
         </section>
 
+        <!-- Projects Section -->
+        <section id="projects" class="section projects reveal-section">
+            <div class="container">
+                <h2 class="section__title"><span data-i18n="projects.title">Personal Projects</span></h2>
+                <p class="section__subtitle__text" data-i18n="projects.subtitle">Side projects exploring AI agents, automation and full-stack development.</p>
+
+                <div class="projects-grid">
+                    <!-- Project 1: Claude Invoice Agent -->
+                    <div class="project-card" data-project="proj1" data-tools="Python,Claude API,Mistral OCR,Pandas,openpyxl" role="button" tabindex="0" aria-label="View project details">
+                        <div class="project-card__visual project-card__visual--1">
+                            <svg class="project-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <div class="project-card__body">
+                            <div class="project-card__tags">
+                                <span class="project-tag project-tag--ai" data-i18n="projects.tag_ai">AI Agent</span>
+                                <span class="project-tag">Python</span>
+                            </div>
+                            <h3 class="project-card__title" data-i18n="projects.proj1.title">Claude Invoice Agent</h3>
+                            <p class="project-card__desc" data-i18n="projects.proj1.short">AI agent that processes PDF invoices with OCR, extracts structured data and auto-generates Excel reports.</p>
+                            <span class="project-card__cta" data-i18n="projects.cta">View Details →</span>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Business Plan Tool -->
+                    <div class="project-card" data-project="proj2" data-tools="Flask,SQLite,Chart.js,Python,PyInstaller" role="button" tabindex="0" aria-label="View project details">
+                        <div class="project-card__visual project-card__visual--2">
+                            <svg class="project-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                                <polyline points="7 10 10 7 13 10 17 6"></polyline>
+                            </svg>
+                        </div>
+                        <div class="project-card__body">
+                            <div class="project-card__tags">
+                                <span class="project-tag project-tag--tool" data-i18n="projects.tag_tool">Business Tool</span>
+                                <span class="project-tag">Flask</span>
+                            </div>
+                            <h3 class="project-card__title" data-i18n="projects.proj2.title">Business Plan Tool</h3>
+                            <p class="project-card__desc" data-i18n="projects.proj2.short">Desktop app for J&J MedTech: manages contracts, calculates revenue, tracks risks and generates printable reports.</p>
+                            <span class="project-card__cta" data-i18n="projects.cta">View Details →</span>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: Marathon Trainer -->
+                    <div class="project-card" data-project="proj3" data-tools="React,TypeScript,Supabase,Gemini API,Strava" role="button" tabindex="0" aria-label="View project details">
+                        <div class="project-card__visual project-card__visual--3">
+                            <svg class="project-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="project-card__body">
+                            <div class="project-card__tags">
+                                <span class="project-tag project-tag--ai" data-i18n="projects.tag_ai">AI Agent</span>
+                                <span class="project-tag">React</span>
+                            </div>
+                            <h3 class="project-card__title" data-i18n="projects.proj3.title">Entrenador Maratón</h3>
+                            <p class="project-card__desc" data-i18n="projects.proj3.short">Full-stack training platform with AI coach (Gemini), biometric dashboard, macrocycle planning and Strava integration.</p>
+                            <span class="project-card__cta" data-i18n="projects.cta">View Details →</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Contact Section -->
-        <section id="contact" class="section contact">
+        <section id="contact" class="section contact reveal-section">
             <div class="container contact__container">
                 <div class="contact__info">
                     <h2 class="section__title" data-i18n="contact.title">Get In Touch</h2>
@@ -249,25 +570,33 @@
                             <span class="icon">🔗</span> linkedin.com/in/miguelcastilloperez
                         </a>
                     </div>
+
+                    <div class="contact__qr-wrapper">
+                        <p class="contact__qr-text" data-i18n="contact.scan_qr">Scan to add contact</p>
+                        <img src="assets/images/vcard-qr.png" alt="vCard QR Code" class="contact__qr-image">
+                    </div>
                 </div>
 
-                <form class="contact__form">
+                <form class="contact__form" novalidate>
                     <div class="form-group">
                         <label for="name" class="visually-hidden">Name</label>
-                        <input type="text" id="name" name="name" placeholder="Your Name" required
-                            data-i18n-placeholder="contact.form.name_ph">
+                        <input type="text" id="name" name="name" placeholder="Your Name"
+                            data-i18n-placeholder="contact.form.name_ph" autocomplete="name">
+                        <span class="form-error" id="name-error" role="alert"></span>
                     </div>
                     <div class="form-group">
                         <label for="email" class="visually-hidden">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Your Email" required
-                            data-i18n-placeholder="contact.form.email_ph">
+                        <input type="email" id="email" name="email" placeholder="Your Email"
+                            data-i18n-placeholder="contact.form.email_ph" autocomplete="email">
+                        <span class="form-error" id="email-error" role="alert"></span>
                     </div>
                     <div class="form-group">
                         <label for="message" class="visually-hidden">Message</label>
-                        <textarea id="message" name="message" rows="5" placeholder="Your Message" required
+                        <textarea id="message" name="message" rows="5" placeholder="Your Message"
                             data-i18n-placeholder="contact.form.msg_ph"></textarea>
+                        <span class="form-error" id="message-error" role="alert"></span>
                     </div>
-                    <button type="submit" class="btn btn--primary" data-i18n="contact.form.submit">Send Message</button>
+                    <button type="submit" class="btn btn--primary btn--submit" data-i18n="contact.form.submit">Send Message</button>
                 </form>
             </div>
         </section>
@@ -283,6 +612,9 @@
             </div>
         </div>
     </footer>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
     <script src="js/script.js"></script>
 

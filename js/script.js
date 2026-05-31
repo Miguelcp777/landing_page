@@ -4,12 +4,14 @@ const translations = {
         nav: {
             about: "About",
             experience: "Experience",
-            data: "Data Passion",
+            data: "AI / Data",
+            projects: "Projects",
             contact: "Contact"
         },
         hero: {
             badge: "Welcome to my portfolio",
             subtitle: "Data Enthusiast • Team Leader • Problem Solver",
+            roles: ["Data Enthusiast", "Team Leader", "Problem Solver"],
             description: "Supervisor of Technical Service at <strong>Johnson & Johnson Vision</strong> (Iberia team). Leading with excellence in technical support for advanced ophthalmology systems.",
             cta_linkedin: "Connect on LinkedIn",
             cta_resume: "Download Resume"
@@ -47,13 +49,49 @@ const translations = {
             }
         },
         data: {
-            title: "Data & Analytics Passion",
-            subtitle: "Transforming raw data into actionable insights through automation and dashboarding.",
+            title: "AI & Data Analytics",
+            subtitle: "Transforming raw data into actionable insights through AI, automation and dashboarding.",
             dash1: "Cost Per System Analysis",
             dash2: "ASP Maintenance Contract",
-            dash3: "Revenue & Installation Base"
+            dash3: "Revenue & Installation Base",
+            dash4: "Install Base — Single Source of Truth"
         },
         projects: {
+            dash4: {
+                title: "Install Base — Single Source of Truth",
+                desc: `
+                    <h4>EMEA Medical Equipment Intelligence Platform</h4>
+                    <p>Enterprise data engineering pipeline that builds a unified "golden record" for the entire EMEA installed base of J&J Vision medical equipment. Consolidates three independent enterprise systems — SAP (ZRSM007), Salesforce/MDSR, and SAP ERP legacy — into a single, audit-ready source of truth covering 50+ countries.</p>
+
+                    <h4>The Problem</h4>
+                    <p>Equipment ownership data lived fragmented across SAP and Salesforce with timing gaps during asset transfers, causing mismatched contracts, incorrect billing, and unreliable service planning. Prior solution: manual Excel macros.</p>
+
+                    <h4>Technical Architecture</h4>
+                    <ul>
+                        <li><strong>Amazon Redshift:</strong> Primary query layer for Salesforce/MDSR operational data and ZRSM007 hardware master.</li>
+                        <li><strong>Spark SQL / Databricks:</strong> Legacy SAP ERP contract and pricing data via cross-cloud federation.</li>
+                        <li><strong>Alteryx ETL:</strong> Golden record matching logic, account reconciliation, and manual exception handling (3 documented split-billing edge cases).</li>
+                        <li><strong>Tableau:</strong> Contract expiration tracking, geographic heatmaps, capture rate KPIs by platform and region.</li>
+                        <li><strong>Python:</strong> Automated Excel validation workbooks distributed to 7 regional supervisor teams.</li>
+                    </ul>
+
+                    <h4>Key Engineering Challenges Solved</h4>
+                    <ul>
+                        <li><strong>Row deduplication:</strong> Fixed production bug where multi-technician assignments caused Cartesian products — resolved with <code>ROW_NUMBER() OVER(PARTITION BY asset, skill_level)</code>.</li>
+                        <li><strong>Heterogeneous date parsing:</strong> 4 different date formats across source systems handled with regex-driven conditional <code>TO_DATE()</code> logic.</li>
+                        <li><strong>Active contract selection:</strong> 5-level CTE chain with priority fallback — active → most recent → T&M — ensuring exactly one contract per asset.</li>
+                        <li><strong>Account ownership conflicts:</strong> Hierarchical match when SAP and MDSR disagree (post-transfer timing gaps).</li>
+                    </ul>
+
+                    <h4>Results & Impact</h4>
+                    <ul>
+                        <li>100% automated monthly reporting — replaces manual Excel workflows entirely.</li>
+                        <li>Scales across 1,000+ assets and 50+ EMEA countries.</li>
+                        <li>Formal audit protocol with discrepancy investigation runbooks.</li>
+                        <li>Enables accurate contract renewal forecasting and FSE resource planning.</li>
+                    </ul>
+                `
+            },
             dash1: {
                 title: "Cost Optimization via Data",
                 desc: `
@@ -117,7 +155,92 @@ const translations = {
                         <li><strong>Global Budget Control:</strong> Facilitates exhaustive tracking of operational expenses and financial discipline across all regions, ensuring resource optimization.</li>
                     </ul>
                 `
+            },
+            title: "Personal Projects",
+            subtitle: "Side projects exploring AI agents, automation and full-stack development.",
+            cta: "View Details →",
+            tag_ai: "AI Agent",
+            tag_tool: "Business Tool",
+            proj1: {
+                title: "Claude Invoice Agent",
+                short: "AI agent that processes PDF invoices with OCR, extracts structured data and auto-generates Excel reports.",
+                desc: `
+                    <h4>Intelligent Invoice Processing Agent</h4>
+                    <p>An AI-powered agent built to automate the extraction and processing of PDF invoices for Sisemed (J&J field-service partner). Replaces a fully manual workflow — reading PDFs, copying data, building Excel files — with a fully automated pipeline.</p>
+
+                    <h4>How It Works</h4>
+                    <ul>
+                        <li><strong>OCR Layer:</strong> Mistral's OCR API extracts raw text and structure from PDF invoices.</li>
+                        <li><strong>Intelligence Layer:</strong> Claude API interprets ambiguous fields, handles formatting inconsistencies and validates extracted data.</li>
+                        <li><strong>Output Layer:</strong> Pandas + openpyxl generate a structured Excel report with summary rows, totals and formatting.</li>
+                    </ul>
+
+                    <h4>Key Results</h4>
+                    <ul>
+                        <li>Processing time reduced from ~30 min/invoice to under 10 seconds.</li>
+                        <li>Pydantic schemas enforce strict data validation before output generation.</li>
+                        <li>Composable skill architecture — each stage is an independent, testable module.</li>
+                    </ul>
+                `
+            },
+            proj2: {
+                title: "Business Plan Tool",
+                short: "Desktop app for J&J MedTech: manages service contracts, calculates revenue, tracks risks and generates printable reports.",
+                desc: `
+                    <h4>MedTech Business Planning Desktop App</h4>
+                    <p>A full-stack desktop application designed for J&J MedTech business planning. Loads contract data from CSV/Excel, models revenue streams (base contracts, churn, T&M), tracks risks and opportunities, and generates executive-ready reports.</p>
+
+                    <h4>Features</h4>
+                    <ul>
+                        <li><strong>Revenue Engine:</strong> Models base, churn and Time & Material revenue scenarios dynamically.</li>
+                        <li><strong>Risk Tracker:</strong> Log, score and monitor risks and opportunities with visual indicators.</li>
+                        <li><strong>Report Generation:</strong> Printable HTML reports with Chart.js visualizations — exportable to PDF or email.</li>
+                        <li><strong>Offline-first:</strong> Packaged as a Windows .exe via PyInstaller — no installation required for end users.</li>
+                    </ul>
+
+                    <h4>Technologies</h4>
+                    <ul>
+                        <li><strong>Backend:</strong> Python Flask + SQLite (session persistence, data modeling)</li>
+                        <li><strong>Frontend:</strong> Vanilla JS + HTML/CSS, Chart.js, PapaParse</li>
+                        <li><strong>Distribution:</strong> PyInstaller for standalone Windows executable</li>
+                    </ul>
+                `
+            },
+            proj3: {
+                title: "Entrenador Maratón",
+                short: "Full-stack AI training platform with Gemini coach, biometric dashboard, macrocycle planning and Strava integration.",
+                desc: `
+                    <h4>AI-Powered Marathon Training Platform</h4>
+                    <p>A complete training management SaaS for the Valencia Marathon. Features an AI coach named Aurelio (powered by Gemini 2.5 with function calling), biometric data dashboard, macrocycle planner, and autonomous workout logging through Strava integration.</p>
+
+                    <h4>Key Features</h4>
+                    <ul>
+                        <li><strong>AI Coach (Aurelio):</strong> Gemini-powered agent with real-time access to your training data — adjusts plans, answers questions, logs workouts autonomously.</li>
+                        <li><strong>Biometric Dashboard:</strong> Tracks HRV, resting heart rate, sleep, fatigue and form (TSB) in real time.</li>
+                        <li><strong>Strava Integration:</strong> Syncs workout history automatically; AI uses it as context for coaching.</li>
+                        <li><strong>Macrocycle Planner:</strong> Structured periodization planning with compliance tracking per week/block.</li>
+                    </ul>
+
+                    <h4>Technologies</h4>
+                    <ul>
+                        <li><strong>Frontend:</strong> React 19 + Vite + TypeScript + Tailwind CSS</li>
+                        <li><strong>Backend:</strong> Supabase (PostgreSQL + Row Level Security + Auth)</li>
+                        <li><strong>AI:</strong> Google Gemini API with function calling for agentic behavior</li>
+                        <li><strong>Integrations:</strong> Strava OAuth API</li>
+                    </ul>
+                `
             }
+        },
+        stats: {
+            years: "Years in MedTech",
+            projects: "Analytics Projects",
+            languages: "Languages",
+            team: "Team Members Led"
+        },
+        tools: {
+            advanced: "Advanced",
+            intermediate: "Intermediate",
+            expert: "Expert"
         },
         contact: {
             title: "Get In Touch",
@@ -127,6 +250,14 @@ const translations = {
                 email_ph: "Your Email",
                 msg_ph: "Your Message",
                 submit: "Send Message"
+            },
+            success: "Message sent! I'll get back to you soon.",
+            error: "Failed to send. Please try again later.",
+            errors: {
+                name_required: "Please enter your name.",
+                email_required: "Please enter your email.",
+                email_invalid: "Please enter a valid email address.",
+                msg_required: "Please write a message."
             }
         },
         footer: {
@@ -137,12 +268,14 @@ const translations = {
         nav: {
             about: "Sobre Mí",
             experience: "Experiencia",
-            data: "Pasión por Datos",
+            data: "IA / Datos",
+            projects: "Proyectos",
             contact: "Contacto"
         },
         hero: {
             badge: "Bienvenido a mi portafolio",
             subtitle: "Entusiasta de Datos • Líder de Equipo • Solucionador",
+            roles: ["Entusiasta de Datos", "Líder de Equipo", "Solucionador"],
             description: "Supervisor de Servicio Técnico en <strong>Johnson & Johnson Vision</strong> (equipo Iberia). Liderando con excelencia el soporte técnico para sistemas oftalmológicos avanzados.",
             cta_linkedin: "Conectar en LinkedIn",
             cta_resume: "Descargar CV"
@@ -180,13 +313,49 @@ const translations = {
             }
         },
         data: {
-            title: "Pasión por Datos y Analítica",
-            subtitle: "Transformando datos brutos en insights accionables a través de automatización y dashboards.",
+            title: "IA & Analítica de Datos",
+            subtitle: "Transformando datos brutos en insights accionables a través de IA, automatización y dashboards.",
             dash1: "Análisis de Costo por Sistema",
             dash2: "ASP Maintenance Contract",
-            dash3: "Ingresos y Base Instalada"
+            dash3: "Ingresos y Base Instalada",
+            dash4: "Base Instalada — Fuente Única de Verdad"
         },
         projects: {
+            dash4: {
+                title: "Base Instalada — Fuente Única de Verdad",
+                desc: `
+                    <h4>Plataforma de Inteligencia para Equipamiento Médico EMEA</h4>
+                    <p>Pipeline de ingeniería de datos que construye un "golden record" unificado para toda la base instalada de equipamiento médico de J&J Vision en EMEA. Consolida tres sistemas empresariales independientes — SAP (ZRSM007), Salesforce/MDSR y SAP ERP legacy — en una única fuente de verdad auditada que abarca más de 50 países.</p>
+
+                    <h4>El Problema</h4>
+                    <p>Los datos de propiedad del equipamiento estaban fragmentados en SAP y Salesforce con desfases temporales durante las transferencias, causando contratos erróneos, facturación incorrecta y planificación de servicio poco fiable. La solución previa: macros manuales de Excel.</p>
+
+                    <h4>Arquitectura Técnica</h4>
+                    <ul>
+                        <li><strong>Amazon Redshift:</strong> Capa de consulta principal para datos operativos Salesforce/MDSR y master hardware ZRSM007.</li>
+                        <li><strong>Spark SQL / Databricks:</strong> Datos de contratos y precios SAP ERP legacy mediante federación multi-cloud.</li>
+                        <li><strong>Alteryx ETL:</strong> Lógica de golden record, reconciliación de cuentas y gestión de excepciones (3 casos documentados de split-billing).</li>
+                        <li><strong>Tableau:</strong> Seguimiento de vencimiento de contratos, mapas de calor geográficos, KPIs de capture rate por plataforma.</li>
+                        <li><strong>Python:</strong> Workbooks Excel de validación automatizados distribuidos a 7 equipos de supervisores regionales.</li>
+                    </ul>
+
+                    <h4>Retos Técnicos Resueltos</h4>
+                    <ul>
+                        <li><strong>Deduplicación de filas:</strong> Bug de producción solucionado con <code>ROW_NUMBER() OVER(PARTITION BY asset, skill_level)</code> para asignaciones multi-técnico.</li>
+                        <li><strong>Parsing heterogéneo de fechas:</strong> 4 formatos diferentes gestionados con lógica <code>TO_DATE()</code> condicional basada en regex.</li>
+                        <li><strong>Selección de contrato activo:</strong> Cadena de 5 CTEs con fallback jerárquico — activo → más reciente → T&M.</li>
+                        <li><strong>Conflictos de propiedad:</strong> Lógica de match jerárquica cuando SAP y MDSR difieren (desfase post-transferencia).</li>
+                    </ul>
+
+                    <h4>Resultados</h4>
+                    <ul>
+                        <li>Reporting mensual 100% automatizado — reemplaza flujos manuales de Excel por completo.</li>
+                        <li>Escala a 1.000+ activos y 50+ países EMEA.</li>
+                        <li>Protocolo formal de auditoría con runbooks de investigación de discrepancias.</li>
+                        <li>Permite previsión precisa de renovación de contratos y planificación de recursos FSE.</li>
+                    </ul>
+                `
+            },
             dash1: {
                 title: "Optimización de Costos de Servicio",
                 desc: `
@@ -250,7 +419,92 @@ const translations = {
                         <li><strong>Control Presupuestario Global:</strong> Facilita un seguimiento exhaustivo de los gastos operativos y la disciplina financiera en todas las regiones, asegurando la optimización de recursos.</li>
                     </ul>
                 `
+            },
+            title: "Proyectos Personales",
+            subtitle: "Proyectos paralelos explorando agentes IA, automatización y desarrollo full-stack.",
+            cta: "Ver Detalles →",
+            tag_ai: "Agente IA",
+            tag_tool: "Herramienta",
+            proj1: {
+                title: "Agente de Facturas Claude",
+                short: "Agente IA que procesa facturas PDF con OCR, extrae datos estructurados y genera reportes Excel automáticamente.",
+                desc: `
+                    <h4>Agente Inteligente de Procesamiento de Facturas</h4>
+                    <p>Agente impulsado por IA para automatizar la extracción y procesamiento de facturas PDF para Sisemed (partner de servicio de campo de J&J). Sustituye un flujo de trabajo completamente manual por una pipeline automatizada.</p>
+
+                    <h4>Cómo Funciona</h4>
+                    <ul>
+                        <li><strong>Capa OCR:</strong> La API OCR de Mistral extrae texto y estructura de facturas PDF.</li>
+                        <li><strong>Capa de Inteligencia:</strong> Claude API interpreta campos ambiguos y valida los datos extraídos.</li>
+                        <li><strong>Capa de Salida:</strong> Pandas + openpyxl generan un Excel estructurado con filas de resumen y totales.</li>
+                    </ul>
+
+                    <h4>Resultados Clave</h4>
+                    <ul>
+                        <li>Tiempo de procesamiento reducido de ~30 min/factura a menos de 10 segundos.</li>
+                        <li>Esquemas Pydantic garantizan validación estricta antes de generar el output.</li>
+                        <li>Arquitectura modular — cada etapa es un módulo independiente y testeable.</li>
+                    </ul>
+                `
+            },
+            proj2: {
+                title: "Business Plan Tool",
+                short: "App desktop para J&J MedTech: gestiona contratos de servicio, calcula revenue, rastrea riesgos y genera reportes.",
+                desc: `
+                    <h4>Aplicación Desktop de Planificación para MedTech</h4>
+                    <p>Aplicación full-stack de escritorio para la planificación de negocio de J&J MedTech. Carga datos de contratos desde CSV/Excel, modela ingresos (base, churn, T&M), rastrea riesgos y genera reportes ejecutivos.</p>
+
+                    <h4>Funcionalidades</h4>
+                    <ul>
+                        <li><strong>Motor de Revenue:</strong> Modela escenarios de ingresos base, churn y Tiempo & Material dinámicamente.</li>
+                        <li><strong>Gestor de Riesgos:</strong> Registro, puntuación y monitorización de riesgos y oportunidades.</li>
+                        <li><strong>Generación de Reportes:</strong> Reportes HTML imprimibles con visualizaciones Chart.js.</li>
+                        <li><strong>Offline-first:</strong> Distribuido como .exe de Windows con PyInstaller.</li>
+                    </ul>
+
+                    <h4>Tecnologías</h4>
+                    <ul>
+                        <li><strong>Backend:</strong> Python Flask + SQLite</li>
+                        <li><strong>Frontend:</strong> JS vanilla + HTML/CSS, Chart.js, PapaParse</li>
+                        <li><strong>Distribución:</strong> PyInstaller para ejecutable Windows</li>
+                    </ul>
+                `
+            },
+            proj3: {
+                title: "Entrenador Maratón",
+                short: "Plataforma full-stack con coach IA (Gemini), dashboard biométrico, planificación de macrociclos e integración con Strava.",
+                desc: `
+                    <h4>Plataforma de Entrenamiento con IA para Maratón</h4>
+                    <p>SaaS completo para gestión del entrenamiento del Maratón de Valencia. Incluye un coach IA llamado Aurelio (Gemini 2.5 con function calling), dashboard biométrico, planificador de macrociclos y registro autónomo de entrenamientos vía Strava.</p>
+
+                    <h4>Características Principales</h4>
+                    <ul>
+                        <li><strong>Coach IA (Aurelio):</strong> Agente Gemini con acceso en tiempo real a tus datos de entrenamiento — ajusta planes y registra entrenamientos autónomamente.</li>
+                        <li><strong>Dashboard Biométrico:</strong> Seguimiento de HRV, frecuencia cardíaca, sueño, fatiga y forma (TSB) en tiempo real.</li>
+                        <li><strong>Integración Strava:</strong> Sincroniza historial de entrenamientos automáticamente.</li>
+                        <li><strong>Planificador de Macrociclos:</strong> Periodización estructurada con seguimiento de cumplimiento por semana/bloque.</li>
+                    </ul>
+
+                    <h4>Tecnologías</h4>
+                    <ul>
+                        <li><strong>Frontend:</strong> React 19 + Vite + TypeScript + Tailwind CSS</li>
+                        <li><strong>Backend:</strong> Supabase (PostgreSQL + Row Level Security + Auth)</li>
+                        <li><strong>IA:</strong> Google Gemini API con function calling</li>
+                        <li><strong>Integraciones:</strong> Strava OAuth API</li>
+                    </ul>
+                `
             }
+        },
+        stats: {
+            years: "Años en MedTech",
+            projects: "Proyectos Analíticos",
+            languages: "Idiomas",
+            team: "Miembros de Equipo"
+        },
+        tools: {
+            advanced: "Avanzado",
+            intermediate: "Intermedio",
+            expert: "Experto"
         },
         contact: {
             title: "Contacto",
@@ -260,6 +514,14 @@ const translations = {
                 email_ph: "Tu Email",
                 msg_ph: "Tu Mensaje",
                 submit: "Enviar Mensaje"
+            },
+            success: "¡Mensaje enviado! Me pondré en contacto pronto.",
+            error: "Error al enviar. Por favor, inténtalo de nuevo.",
+            errors: {
+                name_required: "Por favor, introduce tu nombre.",
+                email_required: "Por favor, introduce tu email.",
+                email_invalid: "Por favor, introduce un email válido.",
+                msg_required: "Por favor, escribe un mensaje."
             }
         },
         footer: {
@@ -420,42 +682,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalDesc = document.getElementById('modal-desc');
     const modalTools = document.getElementById('modal-tools');
     const closeBtn = document.querySelector('.modal-close');
-    const dashboardItems = document.querySelectorAll('.dashboard-item');
 
-    if (modal && dashboardItems.length > 0) {
+    const allClickableItems = document.querySelectorAll('.dashboard-item, .project-card[data-project]');
+
+    function openProjectModal(item) {
+        const projectId = item.getAttribute('data-project');
+        const toolsAttr = item.getAttribute('data-tools');
+        const tools = toolsAttr ? toolsAttr.split(',') : [];
+
+        const lang = localStorage.getItem('site-lang') || 'en';
+        const projectData = translations[lang] && translations[lang].projects ? translations[lang].projects[projectId] : null;
+
+        if (!projectData || !modal) return;
+
+        modalTitle.textContent = projectData.title;
+        modalDesc.innerHTML = projectData.desc;
+
         const modalImage = document.getElementById('modal-image');
+        if (modalImage) {
+            const img = item.querySelector('img');
+            if (img) {
+                modalImage.src = img.src;
+                modalImage.style.display = 'block';
+            } else {
+                modalImage.style.display = 'none';
+            }
+        }
 
-        dashboardItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                // Read data attributes
-                const projectId = item.getAttribute('data-project');
-                const toolsAttr = item.getAttribute('data-tools');
-                const tools = toolsAttr ? toolsAttr.split(',') : [];
-                // Get image source from the clicked item's image
-                const imgSource = item.querySelector('img').src;
+        modalTools.innerHTML = '';
+        tools.forEach(tool => {
+            const tag = document.createElement('span');
+            tag.className = 'modal-tag';
+            tag.textContent = tool.trim();
+            modalTools.appendChild(tag);
+        });
 
-                // Get current language and data
-                // Ensure translations object exists and has the language key
-                const lang = localStorage.getItem('site-lang') || 'en';
-                const projectData = translations[lang] && translations[lang].projects ? translations[lang].projects[projectId] : null;
+        modal.classList.add('active');
+        setTimeout(() => {
+            const cb = modal.querySelector('.modal-close');
+            if (cb) cb.focus();
+        }, 50);
+    }
 
-                if (projectData) {
-                    // Populate Modal
-                    modalTitle.textContent = projectData.title;
-                    modalDesc.innerHTML = projectData.desc; // Use innerHTML for formatting
-                    if (modalImage) modalImage.src = imgSource; // Set thumbnail
-
-                    // Clear and populate tools
-                    modalTools.innerHTML = '';
-                    tools.forEach(tool => {
-                        const tag = document.createElement('span');
-                        tag.className = 'modal-tag';
-                        tag.textContent = tool.trim();
-                        modalTools.appendChild(tag);
-                    });
-
-                    // Show Modal
-                    modal.classList.add('active');
+    if (modal && allClickableItems.length > 0) {
+        allClickableItems.forEach(item => {
+            item.addEventListener('click', () => openProjectModal(item));
+            item.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openProjectModal(item);
                 }
             });
         });
@@ -476,48 +751,243 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------
-    // Contact Form Logic (Mailto)
+    // Contact Form Logic (POST + validation + toast)
     // -------------------
     const contactForm = document.querySelector('.contact__form');
     if (contactForm) {
         contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
+            const lang = localStorage.getItem('site-lang') || 'en';
+            const t = translations[lang].contact;
 
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const msgInput = document.getElementById('message');
+
+            let valid = true;
+
+            function setError(input, errorId, msg) {
+                const el = document.getElementById(errorId);
+                if (msg) {
+                    el.textContent = msg;
+                    input.classList.add('is-invalid');
+                    valid = false;
+                } else {
+                    el.textContent = '';
+                    input.classList.remove('is-invalid');
+                }
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            setError(nameInput,  'name-error',    nameInput.value.trim()  ? '' : t.errors.name_required);
+            setError(emailInput, 'email-error',   !emailInput.value.trim() ? t.errors.email_required :
+                                                  !emailRegex.test(emailInput.value.trim()) ? t.errors.email_invalid : '');
+            setError(msgInput,   'message-error', msgInput.value.trim()   ? '' : t.errors.msg_required);
+
+            if (!valid) return;
 
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.textContent;
-            submitBtn.textContent = 'Sending...';
+            submitBtn.textContent = '⏳ Sending…';
             submitBtn.disabled = true;
 
-            const params = new URLSearchParams({
-                name: name,
-                email: email,
-                message: message
-            });
-
-            fetch(`https://n8n.i-automate.es/webhook/9903d916-f574-47a3-8a29-1c35acd8fdb2?${params.toString()}`, {
-                method: 'GET'
+            fetch('https://n8n.i-automate.es/webhook/9903d916-f574-47a3-8a29-1c35acd8fdb2', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: nameInput.value.trim(),
+                    email: emailInput.value.trim(),
+                    message: msgInput.value.trim()
+                })
             })
                 .then(response => {
                     if (response.ok) {
-                        alert('Message sent successfully!');
+                        showToast(t.success, 'success');
                         contactForm.reset();
                     } else {
-                        alert('Failed to send message. Please try again later.');
+                        showToast(t.error, 'error');
                     }
                 })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred. Please try again.');
-                })
+                .catch(() => showToast(t.error, 'error'))
                 .finally(() => {
                     submitBtn.textContent = originalBtnText;
                     submitBtn.disabled = false;
                 });
         });
+    }
+
+    // -------------------
+    // Toast Helper
+    // -------------------
+    function showToast(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+        const toast = document.createElement('div');
+        toast.className = `toast toast--${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.classList.add('fade-out');
+            toast.addEventListener('animationend', () => toast.remove());
+        }, 4000);
+    }
+
+    // -------------------
+    // Dark Mode Toggle
+    // -------------------
+    const themeToggle = document.querySelector('.theme-toggle');
+    const sunSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+    const moonSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+
+    function applyTheme(theme) {
+        if (theme === 'light') {
+            document.documentElement.classList.add('light-theme');
+            if (themeToggle) themeToggle.innerHTML = moonSVG;
+        } else {
+            document.documentElement.classList.remove('light-theme');
+            if (themeToggle) themeToggle.innerHTML = sunSVG;
+        }
+    }
+
+    const savedTheme = localStorage.getItem('site-theme') || 'dark';
+    applyTheme(savedTheme);
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const isDark = !document.documentElement.classList.contains('light-theme');
+            const next = isDark ? 'light' : 'dark';
+            applyTheme(next);
+            localStorage.setItem('site-theme', next);
+        });
+    }
+
+    // -------------------
+    // Typewriter Effect
+    // -------------------
+    const typewriterEl = document.getElementById('typewriter-text');
+    if (typewriterEl) {
+        let twLang = localStorage.getItem('site-lang') || 'en';
+        let roles = translations[twLang].hero.roles || [];
+        let roleIdx = 0, charIdx = 0, isDeleting = false;
+
+        function typeLoop() {
+            twLang = localStorage.getItem('site-lang') || 'en';
+            roles = translations[twLang].hero.roles || [];
+            const current = roles[roleIdx] || '';
+
+            if (!isDeleting) {
+                typewriterEl.textContent = current.slice(0, ++charIdx);
+                if (charIdx === current.length) {
+                    isDeleting = true;
+                    setTimeout(typeLoop, 2000);
+                    return;
+                }
+            } else {
+                typewriterEl.textContent = current.slice(0, --charIdx);
+                if (charIdx === 0) {
+                    isDeleting = false;
+                    roleIdx = (roleIdx + 1) % roles.length;
+                }
+            }
+            setTimeout(typeLoop, isDeleting ? 55 : 90);
+        }
+        setTimeout(typeLoop, 800);
+    }
+
+    // -------------------
+    // Stats Counter Animation
+    // -------------------
+    const statNumbers = document.querySelectorAll('.stat-number');
+    if (statNumbers.length > 0) {
+        const statsObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                const target = parseInt(el.getAttribute('data-target'), 10);
+                const duration = 1500;
+                const start = performance.now();
+                function update(now) {
+                    const elapsed = now - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const ease = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = Math.floor(ease * target);
+                    if (progress < 1) requestAnimationFrame(update);
+                    else el.textContent = target;
+                }
+                requestAnimationFrame(update);
+                obs.unobserve(el);
+            });
+        }, { threshold: 0.5 });
+
+        statNumbers.forEach(n => statsObserver.observe(n));
+    }
+
+    // -------------------
+    // Skill Bar Animation
+    // -------------------
+    const skillFills = document.querySelectorAll('.skill-bar__fill');
+    if (skillFills.length > 0) {
+        const skillObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const fill = entry.target;
+                fill.style.width = fill.getAttribute('data-width') + '%';
+                obs.unobserve(fill);
+            });
+        }, { threshold: 0.3 });
+
+        skillFills.forEach(f => skillObserver.observe(f));
+    }
+
+    // -------------------
+    // Custom Cursor
+    // -------------------
+    const cursorDot  = document.querySelector('.cursor-dot');
+    const cursorRing = document.querySelector('.cursor-ring');
+    if (cursorDot && cursorRing && window.matchMedia('(pointer: fine)').matches) {
+        document.body.classList.add('has-custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursorDot.style.left  = e.clientX + 'px';
+            cursorDot.style.top   = e.clientY + 'px';
+            cursorRing.style.left = e.clientX + 'px';
+            cursorRing.style.top  = e.clientY + 'px';
+        });
+
+        const hoverTargets = 'a, button, [role="button"], .tool-card, .dashboard-item, .timeline__content';
+        document.querySelectorAll(hoverTargets).forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorDot.classList.add('hovered');
+                cursorRing.classList.add('hovered');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorDot.classList.remove('hovered');
+                cursorRing.classList.remove('hovered');
+            });
+        });
+    }
+
+    // -------------------
+    // Modal: Focus Trap
+    // -------------------
+    const modalEl = document.getElementById('project-modal');
+    if (modalEl) {
+        modalEl.addEventListener('keydown', (e) => {
+            if (!modalEl.classList.contains('active')) return;
+            const focusable = modalEl.querySelectorAll('button, [href], input, [tabindex]:not([tabindex="-1"])');
+            const first = focusable[0];
+            const last  = focusable[focusable.length - 1];
+            if (e.key === 'Tab') {
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            }
+            if (e.key === 'Escape') modalEl.classList.remove('active');
+        });
+
     }
 
 });
