@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m http.server 8743)",
+      "Bash(Start-Sleep -Seconds 2)",
+      "Bash(npx --yes playwright install chromium --with-deps)",
+      "Bash(python -m http.server 8743 --directory \"c:\\\\Users\\\\migue\\\\Documents\\\\Proyectos antigravity\\\\Landing page\")",
+      "Bash(node -e ' *)",
+      "Read(//c/Users/migue/**)",
+      "Bash(npx playwright@latest --version)",
+      "Bash(npx playwright *)",
+      "Bash(python - *)",
+      "Bash(python -c *)"
+    ]
+  }
+}
