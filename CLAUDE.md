@@ -90,6 +90,27 @@ y también al reemplazar un asset en el sitio (los diagramas, por ejemplo).
 El repo **es** la raíz web: todo lo commiteado queda accesible públicamente. `.gitignore`
 ya excluye los artefactos de desarrollo — no lo deshagas.
 
+### Reglas del web root
+- **Solo git.** No copiar ficheros por SMB ni File Station. Se hizo en el pasado y dejó el
+  árbol del NAS divergido, con CRLF de Windows: cada pull abortaba con "local changes".
+- **Ficheros sin trackear que hay que conservar:** `googlebcc3d894ce85ddc8.html` (verificación
+  de Google Search Console), `@eaDir/` (metadata de Synology). **Nunca `git clean -fd`** ahí:
+  se los llevaría por delante.
+- Git ya no controla lo que subiste a mano. Si borras algo del repo, sigue en el NAS hasta que
+  lo borres allí (le pasó a `contact.php`).
+
+### Trampas de despliegue ya resueltas (no volver a tropezar)
+```bash
+git config --global --add safe.directory /volume1/web   # dueño distinto del repo
+git config core.autocrlf false                          # en Linux sobra y rompe los pull
+git reset --hard origin/master                          # si checkout -- . no limpia el índice
+```
+Antes de un `reset --hard`, respaldar y comprobar que no se pierde nada propio del NAS:
+```bash
+tar czf ~/web-backup-$(date +%F).tgz -C /volume1/web .   # al home, NUNCA al web root
+git diff --ignore-cr-at-eol --stat origin/master -- <ficheros>
+```
+
 ## Próximas features planificadas
 - **Evidencia verificable:** es la carencia mayor de la página. Cero enlaces a GitHub, repos
   o dashboards públicos. Lo que más movería la aguja es reconstruir los dashboards de Tableau
