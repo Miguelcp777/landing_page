@@ -266,3 +266,7 @@ html .editorial .stat-number,html .editorial .stat-suffix {background:none;backg
  .editorial .contact__qr {justify-self:start;text-align:left;}
  .editorial .contact__qr figcaption {max-width:190px;}
 }
+
+/* 33. LinkedIn brand mark. The contact links are inline, so the glyph rides the
+   text baseline rather than being flex-centred. */
+.editorial .contact__link svg.icon--brand {width:1.05em;height:1.05em;fill:#0A66C2;vertical-align:-.16em;}
