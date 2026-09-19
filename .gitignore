@@ -11,3 +11,8 @@ assets/images/profile-transparent.png
 assets/images/profile-silhouette-mask.svg
 assets/images/dashboard-3.svg
 assets/images/project-art/bizplan-*.webp
+
+# Documentacion interna y artefactos de despliegue: el repo es la raiz web,
+# y estos llevan IPs, usuario SSH y rutas del NAS.
+AGENTS.md
+deploy/

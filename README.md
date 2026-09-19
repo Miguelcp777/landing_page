@@ -44,12 +44,14 @@ git push origin master
 ```
 
 ```bash
-ssh admin@192.168.1.35
+ssh <user>@<nas>
 ```
 
 ```bash
-cd /volume1/web && git pull origin master
+cd <web-root> && git pull origin master
 ```
+
+> Host, usuario y ruta no se escriben aquí: este fichero se sirve en `/README.md`.
 
 Bump the `?v=` query string on the CSS and JS links in `index.html` whenever you
 change those files, or returning visitors keep the cached copies. The same

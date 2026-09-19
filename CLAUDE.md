@@ -3,7 +3,6 @@
 ## Proyecto
 Portfolio personal estático (HTML/CSS/JS) servido desde un NAS Synology.
 - **URL pública:** `https://www.miguelcastillo.es`
-- **Web root en NAS:** `/volume1/web/`
 - **Repositorio GitHub:** `https://github.com/Miguelcp777/landing_page`
 - **Objetivo de la página:** posicionar a Miguel para roles de **Data Analyst** (luego BI
   Analyst, luego Data Engineer). Cada cambio debería reforzar ese encuadre, no diluirlo.
@@ -68,21 +67,27 @@ de clientes, contratos o del empleador. Al añadir un visual nuevo:
   de sistema (p. ej. transacciones SAP) ni marca del empleador.
 - Deja el pie que declara que los datos son sintéticos.
 
-## NAS Synology — Conexión SSH
-- **Host:** `192.168.1.35` · **Puerto:** 22 · **Usuario:** admin
-- **Sin autenticación por clave:** pide contraseña, así que Claude no puede desplegar.
-  Para habilitarlo: `ssh-copy-id -p 22 admin@192.168.1.35` (lo lanza Miguel).
-- **Docker binary:** `/var/packages/Docker/target/usr/bin/docker`
+## NAS Synology
+> Host, usuario SSH, DDNS e IPs **no se escriben aquí**: este fichero se sirve en
+> `/CLAUDE.md`. Están en la memoria local de Claude (`reference_nas_connection`), que no
+> se commitea.
+- **Sin autenticación por clave:** el SSH pide contraseña, así que Claude no puede desplegar.
+  Para habilitarlo, Miguel lanza `ssh-copy-id` contra el NAS.
 - **Nota Docker:** versión 20.10.3 — incompatible con imágenes modernas (error `invalid tar header`).
   Actualizar el paquete Docker desde DSM antes de hacer `docker pull` de imágenes nuevas.
+
+## Qué NO escribir en este fichero
+El repo **es** la raíz web: `CLAUDE.md`, `README.md` y `.gitignore` se sirven en internet
+(compruébalo con `curl https://www.miguelcastillo.es/CLAUDE.md`). No pongas aquí IPs,
+hostnames DDNS, usuarios SSH ni rutas absolutas del NAS. Esos datos viven en la memoria
+local de Claude. Lo ideal es además bloquearlos en Nginx — ver la sección de despliegue.
 
 ## Deployment
 El web root del NAS es un clon de este repo y **no se sincroniza solo**. Hacer push no basta.
 ```bash
 git push origin master
-# y después, en el NAS:
-ssh admin@192.168.1.35
-cd /volume1/web && git pull origin master
+# y después, por SSH en el NAS:
+cd <web-root> && git pull origin master
 ```
 Subir el `?v=` de los enlaces a CSS/JS en `index.html` en cada despliegue que los toque,
 y también al reemplazar un asset en el sitio (los diagramas, por ejemplo).
@@ -101,13 +106,13 @@ ya excluye los artefactos de desarrollo — no lo deshagas.
 
 ### Trampas de despliegue ya resueltas (no volver a tropezar)
 ```bash
-git config --global --add safe.directory /volume1/web   # dueño distinto del repo
+git config --global --add safe.directory <web-root>   # dueño distinto del repo
 git config core.autocrlf false                          # en Linux sobra y rompe los pull
 git reset --hard origin/master                          # si checkout -- . no limpia el índice
 ```
 Antes de un `reset --hard`, respaldar y comprobar que no se pierde nada propio del NAS:
 ```bash
-tar czf ~/web-backup-$(date +%F).tgz -C /volume1/web .   # al home, NUNCA al web root
+tar czf ~/web-backup-$(date +%F).tgz -C <web-root> .   # al home, NUNCA al web root
 git diff --ignore-cr-at-eol --stat origin/master -- <ficheros>
 ```
 
@@ -120,20 +125,20 @@ git diff --ignore-cr-at-eol --stat origin/master -- <ficheros>
   Miguel decidió resolverlo **cuando la landing esté terminada**. Diagnóstico en la sección
   siguiente — no re-diagnosticar desde cero.
 - **Sección de noticias (#news):** n8n cron diario → RSS feeds (TechCrunch AI, Healthcare IT News,
-  MobiHealthNews) → `/volume1/web/news.json` → frontend fetch y render de cards.
+  MobiHealthNews) → `<web-root>/news.json` → frontend fetch y render de cards.
   Pendiente de: actualizar Docker en NAS para poder hacer pull de n8n actualizado.
 
 ## Dominio sin `www` — diagnóstico hecho, arreglo aplazado
 Medido el 2026-09-20. **Son dos fallos, no uno.**
 ```
-http://miguelcastillo.es       200  "Parked Domain name on Hostinger"  (2.57.91.91)
+http://miguelcastillo.es       200, página de aparcamiento del registrador
 https://miguelcastillo.es      fallo de handshake TLS
 http://www.miguelcastillo.es   200, sin redirigir a HTTPS
-https://www.miguelcastillo.es  200, la web  (88.17.119.190 vía nasmiguel.ddns.net)
+https://www.miguelcastillo.es  200, la web (apunta al NAS vía DDNS)
 ```
-1. **DNS:** el apex apunta a Hostinger, no al NAS. DNS gestionado en Hostinger (`ns1/ns2.dns-parking.com`).
+1. **DNS:** el apex apunta a Hostinger, no al NAS. DNS gestionado en el registrador.
 2. **Certificado:** el del NAS tiene SAN solo `www.miguelcastillo.es`; el por defecto es
-   `nasmiguel.ddns.net`. Ninguno cubre el apex.
+   el hostname DDNS del NAS. Ninguno cubre el apex.
 
 **Orden obligatorio: DNS primero, certificado después.** Let's Encrypt valida por el puerto 80
 y no puede emitir para el apex hasta que este resuelva al NAS.
