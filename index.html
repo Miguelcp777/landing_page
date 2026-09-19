@@ -34,6 +34,9 @@
         "sameAs": ["https://www.linkedin.com/in/miguelcastilloperez"]
     }
     </script>
+<link href="/favicon.ico" rel="icon" sizes="32x32"/>
+<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="/apple-touch-icon.png" rel="apple-touch-icon"/>
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -41,8 +44,8 @@
 <link as="image" fetchpriority="high" href="assets/images/profile-800.webp" imagesrcset="assets/images/profile-400.webp 400w, assets/images/profile-800.webp 800w" imagesizes="(max-width:768px) 280px, 320px" rel="preload"/>
 <!-- Styles -->
 <!-- ?v= invalida la caché del navegador: súbelo en cada despliegue que toque css/ o js/ -->
-<link href="css/styles.css?v=20260920-dual2" rel="stylesheet"/>
-<link href="css/editorial.css?v=20260920-dual2" rel="stylesheet"/><script>try { document.documentElement.classList.toggle("light-theme", (localStorage.getItem("site-theme") || "light") === "light"); } catch (_) {}</script></head>
+<link href="css/styles.css?v=20260920-fixes" rel="stylesheet"/>
+<link href="css/editorial.css?v=20260920-fixes" rel="stylesheet"/><script>try { document.documentElement.classList.toggle("light-theme", (localStorage.getItem("site-theme") || "light") === "light"); } catch (_) {}</script></head>
 <body class="portfolio-v2 editorial">
 <!-- Skip link for accessibility -->
 <a class="skip-link" data-i18n="studio.skip" href="#main">Skip to content</a>
@@ -287,13 +290,13 @@
 </footer>
 <!-- Toast Notifications -->
 <div aria-atomic="true" aria-live="polite" id="toast-container"></div>
-<script src="js/script.js?v=20260920-dual2"></script>
-<script src="js/portfolio.js?v=20260920-dual2"></script>
+<script src="js/script.js?v=20260920-fixes"></script>
+<script src="js/portfolio.js?v=20260920-fixes"></script>
 <!-- Modal Template -->
 <div class="modal-backdrop" id="project-modal">
 <div aria-labelledby="modal-title" aria-modal="true" class="modal-content" role="dialog">
 <button aria-label="Cerrar / Close" class="modal-close">×</button>
-<img alt="Project Thumbnail" class="modal-image" id="modal-image" src=""/>
+<img alt="" class="modal-image" id="modal-image" style="display:none"/>
 <h3 class="modal-title" id="modal-title">Project Title</h3>
 <div class="modal-description" id="modal-desc"></div>
 <div class="modal-tools-title" data-i18n="studio.toolsUsed">Tools used:</div>
