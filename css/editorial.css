@@ -251,3 +251,7 @@ html .editorial .stat-number,html .editorial .stat-suffix {background:none;backg
 /* The CV headline carries the target role; the line under it carries the real post. */
 .cv-editorial .cv-current-post,
 .cv-current-post {display:block;margin-top:4px;font-size:13px;font-weight:400;color:var(--text-secondary,#536157);letter-spacing:0;}
+
+/* 31. The About thesis, marked like the method note so it reads as the argument. */
+.editorial .bio-synthesis {border-left:3px solid var(--primary-color);padding:2px 0 2px 20px;margin:26px 0 0;font-size:17px;line-height:1.75;color:var(--text-primary);}
+@media(max-width:768px) {.editorial .bio-synthesis {padding-left:16px;font-size:16px;}}
