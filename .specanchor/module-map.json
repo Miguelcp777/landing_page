@@ -1,0 +1,42 @@
+{
+  "modules": [
+    {
+      "name": "site-pages",
+      "paths": ["index.html", "cv.html"],
+      "spec": ".specanchor/modules/site-pages.spec.md"
+    },
+    {
+      "name": "site-styles",
+      "paths": ["css/*"],
+      "spec": ".specanchor/modules/site-styles.spec.md"
+    },
+    {
+      "name": "site-behavior",
+      "paths": ["js/script.js", "js/portfolio.js"],
+      "spec": ".specanchor/modules/site-behavior.spec.md"
+    },
+    {
+      "name": "chat-widget",
+      "paths": ["js/chat.js"],
+      "spec": ".specanchor/modules/chat-widget.spec.md"
+    },
+    {
+      "name": "chat-worker",
+      "paths": ["chatbot/*"],
+      "spec": ".specanchor/modules/chat-worker.spec.md"
+    },
+    {
+      "name": "site-assets",
+      "paths": ["assets/*", "favicon.ico", "favicon.svg", "apple-touch-icon.png"],
+      "spec": ".specanchor/modules/site-assets.spec.md"
+    },
+    {
+      "name": "site-meta",
+      "paths": ["robots.txt", "googlebcc3d894ce85ddc8.html"],
+      "spec": ".specanchor/modules/site-meta.spec.md"
+    }
+  ],
+  "global_spec_paths": [
+    ".specanchor/global/*.spec.md"
+  ]
+}

@@ -7,6 +7,24 @@ Portfolio personal estático (HTML/CSS/JS) servido desde un NAS Synology.
 - **Objetivo de la página:** posicionar a Miguel para roles de **Data Analyst** (luego BI
   Analyst, luego Data Engineer). Cada cambio debería reforzar ese encuadre, no diluirlo.
 
+## Protocolo de cambios — Spec Anchor
+Este proyecto ha adoptado SDD Spec Anchor. **Para cambios materiales, aplica el
+protocolo de `.specanchor/README.md`**: tarea *light* o *full* segun el impacto,
+verifica los criterios de aceptacion afectados y documenta las dos revisiones
+direccionales. Reporta la cobertura documental **por separado** de la alineacion
+semantica: el guard solo comprueba la primera.
+
+- Contratos globales: `.specanchor/global/` — arquitectura, producto, operacion,
+  calidad y seguridad.
+- Contratos por modulo: `.specanchor/modules/` — siete modulos, mapeados en
+  `.specanchor/module-map.json`.
+- Guard: `python .specanchor/scripts/check-spec-sync.py --baseline`
+- Estado inicial y lo que quedo sin verificar: `.specanchor/bootstrap-report.md`
+
+Las trampas que este fichero ya documentaba (cascada CSS, `--primary-gradient`,
+asignacion dura de `portfolio.js`) viven ahora tambien en el spec del modulo
+correspondiente, que es donde las buscara quien toque ese codigo.
+
 ## Stack
 - HTML5 / CSS3 / JavaScript vanilla (sin frameworks, sin build)
 - Nginx (NAS Synology) como servidor web

@@ -22,3 +22,6 @@ deploy/
 chatbot/node_modules/
 chatbot/.wrangler/
 chatbot/.dev.vars
+
+# El guard escribe aqui en cada ejecucion; es un artefacto, no una fuente.
+.specanchor/evidence/baseline.json
