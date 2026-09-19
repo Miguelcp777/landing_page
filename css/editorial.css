@@ -242,3 +242,12 @@ html .editorial .stat-number,html .editorial .stat-suffix {background:none;backg
 /* 29. A UI capture is anchored top-left: cropping the centre loses the KPI row. */
 .editorial .project-cover--ui {object-fit:cover;object-position:top left;background:#0f172a;}
 .editorial .modal-image {max-height:420px;}
+
+/* 30. Portrait caption on two levels: the post, then the employer. */
+.editorial-portrait figcaption .portrait-role,
+.editorial-portrait figcaption .portrait-org {display:block;}
+.editorial-portrait figcaption .portrait-role {color:var(--text-primary);font-weight:500;}
+.editorial-portrait figcaption .portrait-org {margin-top:2px;opacity:.8;}
+/* The CV headline carries the target role; the line under it carries the real post. */
+.cv-editorial .cv-current-post,
+.cv-current-post {display:block;margin-top:4px;font-size:13px;font-weight:400;color:var(--text-secondary,#536157);letter-spacing:0;}
