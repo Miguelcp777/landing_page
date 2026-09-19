@@ -87,8 +87,16 @@ El web root del NAS es un clon de este repo y **no se sincroniza solo**. Hacer p
 ```bash
 git push origin master
 # y después, por SSH en el NAS:
-cd <web-root> && git pull origin master
+~/deploy-landing.sh
 ```
+**El `.git` ya no está en la raíz web.** Se sirvió públicamente durante meses (cualquiera
+podía reconstruir el historial con `git-dumper`), así que se movió al home y el árbol de
+trabajo se maneja con un git dir separado. De ahí el script, que envuelve:
+```bash
+git --git-dir=$HOME/landing-git.git --work-tree=<web-root> pull origin master
+```
+Un `cd <web-root> && git pull` **ya no funciona** ahí: no hay repo. Y no vuelvas a poner un
+`.git` en la raíz web, ni siquiera el fichero `gitdir:` — Nginx lo serviría como texto plano.
 Subir el `?v=` de los enlaces a CSS/JS en `index.html` en cada despliegue que los toque,
 y también al reemplazar un asset en el sitio (los diagramas, por ejemplo).
 
@@ -120,33 +128,62 @@ git diff --ignore-cr-at-eol --stat origin/master -- <ficheros>
 - **Evidencia verificable:** es la carencia mayor de la página. Cero enlaces a GitHub, repos
   o dashboards públicos. Lo que más movería la aguja es reconstruir los dashboards de Tableau
   con datos sintéticos en Tableau Public y enlazarlos.
-- **Dominio sin `www` — APLAZADO a propósito.** `miguelcastillo.es` a secas sirve una página
-  de aparcamiento de Hostinger por HTTP y falla el handshake TLS por HTTPS; solo funciona `www`.
-  Miguel decidió resolverlo **cuando la landing esté terminada**. Diagnóstico en la sección
-  siguiente — no re-diagnosticar desde cero.
+- **Dominio sin `www` — EN CURSO.** Plan elegido: mover el DNS a Cloudflare. Procedimiento
+  completo en la sección siguiente; el diagnóstico ya está hecho y verificado dos veces.
 - **Sección de noticias (#news):** n8n cron diario → RSS feeds (TechCrunch AI, Healthcare IT News,
   MobiHealthNews) → `<web-root>/news.json` → frontend fetch y render de cards.
   Pendiente de: actualizar Docker en NAS para poder hacer pull de n8n actualizado.
 
-## Dominio sin `www` — diagnóstico hecho, arreglo aplazado
-Medido el 2026-09-20. **Son dos fallos, no uno.**
+## Dominio sin `www` — plan: Cloudflare
+Medido el 2026-09-19 y **reverificado el 2026-09-19**; idéntico las dos veces.
 ```
-http://miguelcastillo.es       200, página de aparcamiento del registrador
-https://miguelcastillo.es      fallo de handshake TLS
+http://miguelcastillo.es       200, aparcamiento del registrador
+https://miguelcastillo.es      fallo TLS (alert 80, sin certificado)
 http://www.miguelcastillo.es   200, sin redirigir a HTTPS
-https://www.miguelcastillo.es  200, la web (apunta al NAS vía DDNS)
+https://www.miguelcastillo.es  200, la web (vía DDNS del NAS)
 ```
-1. **DNS:** el apex apunta a Hostinger, no al NAS. DNS gestionado en el registrador.
-2. **Certificado:** el del NAS tiene SAN solo `www.miguelcastillo.es`; el por defecto es
-   el hostname DDNS del NAS. Ninguno cubre el apex.
+**Son dos fallos, no uno:**
+1. **DNS:** el apex apunta al registrador, no al NAS.
+2. **Certificado:** el del NAS tiene SAN **solo** `www.miguelcastillo.es`. Ninguno cubre el apex.
 
-**Orden obligatorio: DNS primero, certificado después.** Let's Encrypt valida por el puerto 80
-y no puede emitir para el apex hasta que este resuelva al NAS.
+La zona es mínima: A del apex al aparcamiento, CNAME `www` al DDNS y un TXT de verificación
+del registrador. **Sin registros MX** — no hay correo en el dominio, así que mover los
+nameservers no puede romper ningún buzón. Comprobado, no asumido.
 
-**Obstáculo:** la IP de casa es dinámica (de ahí el DDNS) y el apex no admite CNAME por estándar.
-Opción recomendada: mover el DNS a Cloudflare (gratis) por su *CNAME flattening*, que hace que el
-apex siga al DDNS solo, y de paso oculta la IP doméstica, hoy pública. El dominio sigue registrado
-en Hostinger. Alternativa pobre: registro A fijo, que se rompe al cambiar la IP.
+### Por qué Cloudflare y no un registro A
+La IP de casa es dinámica (de ahí el DDNS) y el apex **no admite CNAME** por estándar. Un
+registro A fijo al apex se rompe el día que el router coja otra IP. El *CNAME flattening* de
+Cloudflare resuelve el CNAME del apex en el borde y devuelve un A, así que el apex sigue al
+DDNS solo. Gratis. El dominio sigue registrado donde está: solo cambian los nameservers.
 
-Para el mismo momento: añadir el 301 de HTTP a HTTPS (hoy no existe) y meter
-`<link rel="canonical">` y `og:url` en el `<head>`, que nunca se pusieron.
+De paso resuelve otras dos cosas: el proxy **oculta la IP doméstica**, hoy pública en el DNS,
+y *Always Use HTTPS* da el **301 de HTTP a HTTPS** que hoy no existe.
+
+### Procedimiento (el orden importa)
+1. Alta en Cloudflare, añadir el dominio, plan Free. Importa la zona sola.
+2. Dejar exactamente: apex → `CNAME` al DDNS del NAS **proxied**; `www` → `CNAME` al DDNS
+   **proxied**; el TXT de verificación. **Borrar la A del aparcamiento.**
+3. Cambiar los nameservers en el registrador a los dos que dé Cloudflare.
+4. SSL/TLS → **Full**. Nunca *Flexible* (deja el tramo Cloudflare↔NAS en claro).
+   *Full (strict)* solo después del paso 6.
+5. **Web Station del DSM: añadir `miguelcastillo.es` como host del portal**, junto a `www`.
+   Cloudflare reenvía el `Host:` original; si el vhost no lo reconoce, el apex cae en el
+   sitio por defecto del NAS. Es el paso que más fácil se olvida.
+6. Opcional pero recomendable: instalar un *Origin Certificate* de Cloudflare en el DSM
+   (gratis, 15 años, cubre apex y `www`) y subir a *Full (strict)*. Con el proxy activo el
+   certificado del NAS ya no lo ve ningún visitante, solo Cloudflare.
+
+**Con proxy no hace falta reemitir el Let's Encrypt del NAS para el apex.** Cloudflare
+termina el TLS del visitante con su propio certificado, que cubre apex y `www`.
+
+### Verificación
+```bash
+curl -sI https://miguelcastillo.es | head -1          # 200, no fallo TLS
+curl -sI http://miguelcastillo.es | head -2           # 301 a https
+dig +short miguelcastillo.es                          # IPs de Cloudflare, no la de casa
+```
+
+Ya hecho en el repo, para que el apex no duplique la indexación: `<link rel="canonical">`
+en `index.html` y `cv.html`, y `og:url` / `og:site_name` en el `<head>` de la landing.
+Ambos apuntan a `https://www.miguelcastillo.es` — **`www` es la forma canónica**, el apex
+solo tiene que llegar. Si algún día se invierte, hay que cambiar las dos etiquetas.
