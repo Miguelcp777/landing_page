@@ -90,6 +90,29 @@
             color: #94a3b8;
         }
 
+        .cv-qr {
+            margin: 0;
+            flex: 0 0 auto;
+            text-align: center;
+        }
+
+        .cv-qr img {
+            display: block;
+            width: 122px;
+            height: 122px;
+            background: #fff;
+            padding: 6px;
+            border-radius: 4px;
+        }
+
+        .cv-qr figcaption {
+            margin-top: 6px;
+            max-width: 122px;
+            font-size: 0.68rem;
+            line-height: 1.35;
+            color: #94a3b8;
+        }
+
         .cv-contact-item a {
             color: inherit;
             text-decoration: none;
@@ -302,22 +325,28 @@
             @page { size: A4; margin: 10mm 12mm; }
             html, body { font-size: 10.5px; }
             .cv-main { padding: 0 !important; margin: 0 !important; }
-            .cv-header { margin-bottom: 10px !important; padding-bottom: 8px !important; gap: 14px; }
+            .cv-header { margin-bottom: 8px !important; padding-bottom: 6px !important;
+                flex-direction: row !important; align-items: center !important; gap: 16px !important; }
+            .cv-intro { flex: 1 1 auto; min-width: 0; }
             .cv-avatar-container { flex: 0 0 auto; }
             .cv-avatar { width: 74px !important; height: 74px !important; }
             .cv-intro h1 { font-size: 21px !important; margin-bottom: 2px !important; }
             .cv-intro h2 { font-size: 11.5px !important; margin-bottom: 6px !important; }
             .cv-current-post { font-size: 9.5px !important; margin-top: 2px !important; }
             .cv-contact-grid { gap: 4px 14px !important; margin-top: 4px !important; }
-            .cv-contact-item { font-size: 9.5px !important; }
+            .cv-contact-item { font-size: 9.2px !important; }
+            .cv-contact-grid { gap: 3px 10px !important; }
             svg.icon--brand { width: 1em !important; height: 1em !important; }
-            .cv-section { margin: 11px 0 !important; }
+            /* 130px keeps a 69-module symbol at ~0.5mm per module, the scannable floor. */
+            .cv-qr img { width: 130px !important; height: 130px !important; padding: 4px !important; }
+            .cv-qr figcaption { font-size: 8px !important; margin-top: 3px !important; max-width: 130px !important; }
+            .cv-section { margin: 12px 0 !important; }
             .cv-section h3 { font-size: 12px !important; margin-bottom: 6px !important; padding-bottom: 3px !important; }
-            .cv-section > p { font-size: 9.8px !important; line-height: 1.42 !important; margin: 0 0 5px !important; }
+            .cv-section > p { font-size: 9.8px !important; line-height: 1.45 !important; margin: 0 0 5px !important; }
             .cv-item { margin-bottom: 9px !important; }
             .cv-role-title { font-size: 11.5px !important; }
             .cv-company, .cv-date { font-size: 9.5px !important; }
-            .cv-desc li { font-size: 9.6px !important; line-height: 1.38 !important; margin-bottom: 2px !important; }
+            .cv-desc li { font-size: 9.7px !important; line-height: 1.4 !important; margin-bottom: 2px !important; }
             .skills-grid { gap: 4px !important; }
             .skill-pill { font-size: 9px !important; padding: 2px 7px !important; }
         }
@@ -349,6 +378,7 @@
 <div class="cv-contact-item"><span class="icon">🌐</span> <a href="https://www.miguelcastillo.es" rel="noopener noreferrer" target="_blank">www.miguelcastillo.es</a></div>
 </div>
 </div>
+<figure class="cv-qr"><img alt="" height="122" src="assets/images/vcard-qr.svg?v=20260920qr" width="122"/><figcaption>Scan to save my contact</figcaption></figure>
 </header>
 <!-- Summary -->
 <section class="cv-section">

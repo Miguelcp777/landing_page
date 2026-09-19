@@ -77,7 +77,7 @@ html.light-theme .editorial { --bg-body:#f7f6f0; --bg-surface:#ffffff; --bg-surf
 .editorial .more-projects summary {padding:16px 0;min-height:48px;color:var(--primary-color);cursor:pointer;font-size:16px;}
 .editorial .more-projects .projects-grid {margin-top:24px;}
 /* No form any more: a half-empty second column would read as breakage. */
-.editorial .contact__container {grid-template-columns:1fr;gap:28px;}
+.editorial .contact__container {grid-template-columns:minmax(0,1fr) auto;gap:56px;align-items:start;}
 .editorial .contact__info {max-width:660px;}
 .editorial .contact__link {font-size:15px;overflow-wrap:anywhere;}
 .editorial .contact__form {background:var(--bg-surface);border:1px solid var(--border);padding:28px;border-radius:5px;}
@@ -255,3 +255,14 @@ html .editorial .stat-number,html .editorial .stat-suffix {background:none;backg
 /* 31. The About thesis, marked like the method note so it reads as the argument. */
 .editorial .bio-synthesis {border-left:3px solid var(--primary-color);padding:2px 0 2px 20px;margin:26px 0 0;font-size:17px;line-height:1.75;color:var(--text-primary);}
 @media(max-width:768px) {.editorial .bio-synthesis {padding-left:16px;font-size:16px;}}
+
+/* 32. vCard QR. A phone camera reads BEGIN:VCARD and offers to save the contact.
+   The light background is fixed: inverted modules under the dark theme do not scan. */
+.editorial .contact__qr {margin:0;text-align:center;justify-self:end;}
+.editorial .contact__qr img {display:block;width:190px;height:190px;background:#fff;padding:10px;border-radius:6px;border:1px solid var(--border);}
+.editorial .contact__qr figcaption {margin-top:12px;max-width:210px;font-size:12px;line-height:1.5;color:var(--text-secondary);}
+@media(max-width:860px) {
+ .editorial .contact__container {grid-template-columns:1fr;gap:32px;}
+ .editorial .contact__qr {justify-self:start;text-align:left;}
+ .editorial .contact__qr figcaption {max-width:190px;}
+}
