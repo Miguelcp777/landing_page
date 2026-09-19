@@ -7,15 +7,45 @@
  * input and was only ever inside the handler by accident of writing it there first.
  */
 
-/** Deliberately tight. A portfolio bot has no legitimate use for long sessions. */
+/**
+ * Deliberately tight. A portfolio bot has no legitimate use for long sessions, and
+ * the budget behind it is 5 EUR/month.
+ *
+ * The message counts are derived in TASK-002 from an assumed Haiku 4.5 list price
+ * and a ~1,400-token cached system prompt: roughly $0.0022 per message, so about
+ * 2,450 messages fit in the budget. `globalPerMonth` sits below that with margin
+ * for the estimate being wrong. Recheck the arithmetic when prices change rather
+ * than adjusting these numbers by feel.
+ */
 export const LIMITS = {
   maxMessages: 24, // turns kept in one conversation
   maxCharsPerMessage: 1500,
   maxCharsTotal: 12000,
   maxTokensOut: 700,
-  perIpPerDay: 40,
-  globalPerDay: 800, // the real spend ceiling: bounds the worst day absolutely
+  perIpPerDay: 15,
+  globalPerDay: 150, // caps any single day at ~7.5% of the month
+  globalPerMonth: 2000, // the real budget control
 };
+
+export type GateReason = "month_exhausted" | "busy_today" | "rate_limited";
+export type Gate = { ok: true } | { ok: false; reason: GateReason };
+
+/**
+ * Pure decision over three counters, so the part worth testing has no I/O in it.
+ *
+ * Order matters: the monthly cap is the real budget, so when several limits are
+ * exceeded at once it is the one the visitor is told about. Being told to come back
+ * tomorrow when the month is gone would be a lie.
+ */
+export function gateDecision(
+  counts: { ip: number; day: number; month: number },
+  limits = LIMITS,
+): Gate {
+  if (counts.month >= limits.globalPerMonth) return { ok: false, reason: "month_exhausted" };
+  if (counts.day >= limits.globalPerDay) return { ok: false, reason: "busy_today" };
+  if (counts.ip >= limits.perIpPerDay) return { ok: false, reason: "rate_limited" };
+  return { ok: true };
+}
 
 export type Msg = { role: "user" | "assistant"; content: string };
 

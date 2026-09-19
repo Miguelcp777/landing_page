@@ -16,9 +16,10 @@
 
   "vars": {
     "ALLOWED_ORIGINS": "https://www.miguelcastillo.es,https://miguelcastillo.es",
-    // Sonnet is comfortably enough to answer from a fixed profile. Swapping this
-    // string to claude-opus-5 is the whole upgrade path.
-    "MODEL": "claude-sonnet-5"
+    // Haiku answers from a fixed 4k-token profile at roughly a third of Sonnet's
+    // cost, which is what makes a 5 EUR/month budget workable. See TASK-002 for
+    // the arithmetic. Swapping this string is the whole upgrade path.
+    "MODEL": "claude-haiku-4-5-20251001"
   },
 
   // Rate-limit counters. Create with:

@@ -20,8 +20,8 @@ Vanilla JavaScript, consistent with the no-build constraint.
 - **Endpoint** — `POST /api/chat`, same origin, body `{messages: [{role, content}]}`.
 - **Response** — Server-Sent Events. `{"t": "..."}` per text delta, `{"done": true}`
   to finish, `{"error": "..."}` on failure.
-- **Error codes** rendered as copy: `rate_limited`, `busy_today`, anything else falls
-  back to a generic message. All three name the email address.
+- **Error codes** rendered as copy: `rate_limited`, `busy_today`, `month_exhausted`;
+  anything else falls back to a generic message. All of them name the email address.
 - **Storage** — `sessionStorage` key `chat-history`.
 - CSS contract: section 34 of `editorial.css`, `.chat*` class names.
 
@@ -55,7 +55,11 @@ No automated tests. Verified manually in a browser.
   (NOT_VERIFIED)
 - No Turnstile token is sent. If `TURNSTILE_SECRET` is ever set on the Worker, this
   module must start supplying a token in the same change, or chat stops working.
-  (OBSERVED — a real coupling between two modules.)
+  (OBSERVED — a real coupling between two modules; see `FIND-001`.)
+- **Any error code the Worker can return needs copy here, in the same change.** The
+  fallback is graceful, but graceful means the visitor gets a vague message where a
+  specific one existed. `month_exhausted` was added with its copy under TASK-002
+  for exactly this reason.
 
 ## Statement evidence
 
@@ -65,6 +69,7 @@ No automated tests. Verified manually in a browser.
 | Renders launcher, panel, starters | VERIFIED | DOM query with the flag temporarily on | pass |
 | Error path clears state correctly | VERIFIED | starter clicked with no endpoint; message shown, input re-enabled, history not polluted | pass |
 | Language follows `<html lang>` | VERIFIED | all six strings switched to Spanish on toggle | pass |
+| `month_exhausted` has copy in both languages | VERIFIED | `grep` of `js/chat.js`, 2 matches @ `492759cdc5998358a3c2be000cb7a8f8c77377ad` | pass |
 | No horizontal overflow at 375px | VERIFIED | panel 343px in a 375px viewport, `scrollWidth` 375 | pass |
 | Textarea not clipped | VERIFIED | `scrollHeight` 44 against a 46px box after the placeholder fix | pass |
 | Happy path | NOT_VERIFIED | no deployed Worker, no API key | not_run |

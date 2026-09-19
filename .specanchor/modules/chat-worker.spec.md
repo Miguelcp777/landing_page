@@ -30,9 +30,9 @@ a secret.
 
 ### Code interface
 
-`src/validate.ts` exports `LIMITS`, `Msg`, `validateMessages` and
-`toTextEventStream`. These are part of the module's contract: the tests bind to them
-and the handler consumes them.
+`src/validate.ts` exports `LIMITS`, `Msg`, `GateReason`, `Gate`,
+`validateMessages`, `gateDecision` and `toTextEventStream`. These are part of the
+module's contract: the tests bind to them and the handler consumes them.
 
 ### HTTP interface
 
@@ -41,8 +41,9 @@ and the handler consumes them.
 - Request: `{"messages": [{"role": "user"|"assistant", "content": string}]}`
 - Success: `text/event-stream`, frames `{"t": string}`, terminated by `{"done": true}`
 - Errors, all JSON: `bad_request` (400), `forbidden` (403), `challenge_failed` (403),
-  `rate_limited` (429), `busy_today` (429), `upstream_unreachable` (502),
-  `upstream_error` (502), `not_found` (404), `method_not_allowed` (405)
+  `rate_limited` (429), `busy_today` (429), `month_exhausted` (429),
+  `upstream_unreachable` (502), `upstream_error` (502), `not_found` (404),
+  `method_not_allowed` (405)
 
 Any other method or path is rejected.
 
@@ -56,12 +57,13 @@ Bindings declared in `chatbot/wrangler.jsonc`:
 | `TURNSTILE_SECRET` | secret | optional; absent disables the check |
 | `CHAT_RL` | KV namespace | rate-limit counters |
 | `ALLOWED_ORIGINS` | var | comma-separated origin allowlist |
-| `MODEL` | var | currently `claude-sonnet-5` |
+| `MODEL` | var | currently `claude-haiku-4-5-20251001` |
 
 ## Data / persistence
 
-Two KV key shapes, counters only, two-day TTL: `rl:ip:<ip>:<yyyy-mm-dd>` and
-`rl:all:<yyyy-mm-dd>`. No conversation content is stored anywhere.
+Three KV key shapes, counters only. `rl:ip:<ip>:<yyyy-mm-dd>` and
+`rl:all:<yyyy-mm-dd>` expire after two days; `rl:month:<yyyy-mm>` after forty. No
+conversation content is stored anywhere.
 
 ## Domain invariants
 
@@ -71,8 +73,14 @@ Two KV key shapes, counters only, two-day TTL: `rl:ip:<ip>:<yyyy-mm-dd>` and
   can echo request details, and an upstream 401 is an operator problem.
 - **INV-WORKER-003** — Message shape, roles, strict alternation starting with `user`,
   per-message and total size are validated server-side. The frontend is not trusted.
-- **INV-WORKER-004** — A global daily ceiling applies independently of the per-IP
-  limit. It is what actually bounds the bill.
+- **INV-WORKER-004** — A global **monthly** ceiling applies independently of the
+  daily and per-IP limits. It is what actually bounds the bill, because the budget
+  it protects is monthly: a daily ceiling alone lets thirty quiet days plus one
+  busy one exceed it. The daily ceiling exists to stop a single day consuming the
+  month, and must stay well under a quarter of `globalPerMonth`.
+- **INV-WORKER-007** — The limit values are derived from a written price
+  calculation in `TASK-002`, not chosen by feel. When prices change, redo the
+  arithmetic rather than nudging the numbers.
 - **INV-WORKER-005** — The system prompt is sent with `cache_control: ephemeral` and
   must stay above roughly 1024 tokens, or Anthropic will not cache it.
 - **INV-WORKER-006** — The Worker is mounted on routes of the site's own domain with
@@ -112,7 +120,7 @@ the limit. Accepted at this scale; Durable Objects would be the strict version.
 
 ## Tests / verification
 
-    cd chatbot && npm test          # 23 tests over src/validate.ts
+    cd chatbot && npm test          # 33 tests over src/validate.ts
     cd chatbot && ./node_modules/.bin/tsc --noEmit
 
 The pure logic is covered. Everything with I/O — the origin check, Turnstile, the
@@ -139,7 +147,10 @@ surfaces as a generic code without leaking the upstream body.
 | Typecheck passes | VERIFIED | `tsc --noEmit` exit 0 @ `ebaf2a1298fab854cfc3b571215d8d5f90a21fa5` | pass |
 | Endpoint, methods and error codes | OBSERVED | `chatbot/src/index.ts` | — |
 | Validation is server-side | OBSERVED | `validateMessages()` | — |
-| Validation rejects malformed input | VERIFIED | `npm test`, 23/23 pass @ `17f67458a495f539d29adcc7622ce929562f1914` | pass |
+| Validation rejects malformed input | VERIFIED | `npm test`, 33/33 pass @ `492759cdc5998358a3c2be000cb7a8f8c77377ad` | pass |
+| Monthly cap outranks daily and per-IP | VERIFIED | `npm test`, precedence cases | pass |
+| One day cannot exhaust the month | VERIFIED | `npm test` asserts `globalPerDay * 4 < globalPerMonth` | pass |
+| Model is Haiku 4.5 | VERIFIED | `grep` of `wrangler.jsonc` @ `492759cdc5998358a3c2be000cb7a8f8c77377ad` | pass |
 | Stream rewrite never leaks upstream detail | VERIFIED | `npm test`, error-event case | pass |
 | Split is behavior-preserving for HTTP | VERIFIED | `tsc --noEmit` exit 0; handler logic untouched | pass |
 | Global ceiling independent of per-IP | OBSERVED | `rateLimit()`, `LIMITS.globalPerDay` | — |

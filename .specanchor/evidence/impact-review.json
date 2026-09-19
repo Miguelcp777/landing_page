@@ -1,6 +1,6 @@
 {
-  "revision": "17f67458a495f539d29adcc7622ce929562f1914",
-  "task_spec": ".specanchor/tasks/TASK-001.spec.md",
+  "revision": "492759cdc5998358a3c2be000cb7a8f8c77377ad",
+  "task_spec": ".specanchor/tasks/TASK-002.spec.md",
   "files": [
     {
       "path": "chatbot/src/validate.ts",
@@ -8,10 +8,10 @@
       "specs": [
         ".specanchor/modules/chat-worker.spec.md"
       ],
-      "rationale": "New module. Adds LIMITS, Msg, validateMessages and toTextEventStream to the module's code interface, which the tests and the handler both bind to. Logic moved verbatim from index.ts; the HTTP contract is unchanged.",
+      "rationale": "New limit values, a new globalPerMonth limit, and gateDecision plus its Gate/GateReason types added to the exported interface. Changes what the endpoint allows.",
       "evidence": [
-        ".specanchor/tasks/TASK-001.spec.md#ev-001",
-        ".specanchor/tasks/TASK-001.spec.md#ev-002"
+        ".specanchor/tasks/TASK-002.spec.md#ev-001",
+        ".specanchor/tasks/TASK-002.spec.md#ev-002"
       ]
     },
     {
@@ -20,10 +20,21 @@
       "specs": [
         ".specanchor/modules/chat-worker.spec.md"
       ],
-      "rationale": "Same code interface change seen from the other side: the handler now imports what it used to define. No behavioural edit to the origin check, Turnstile, rate limiting or the Anthropic call.",
+      "rationale": "rateLimit now reads and writes a third KV counter and delegates the decision to gateDecision. New persisted key shape rl:month:<yyyy-mm> and a new error code reaching the client.",
       "evidence": [
-        ".specanchor/tasks/TASK-001.spec.md#ev-001",
-        ".specanchor/tasks/TASK-001.spec.md#ev-002"
+        ".specanchor/tasks/TASK-002.spec.md#ev-001",
+        ".specanchor/tasks/TASK-002.spec.md#ev-002"
+      ]
+    },
+    {
+      "path": "chatbot/wrangler.jsonc",
+      "kind": "contract",
+      "specs": [
+        ".specanchor/modules/chat-worker.spec.md"
+      ],
+      "rationale": "MODEL changes from claude-sonnet-5 to claude-haiku-4-5-20251001, which changes cost and answer characteristics for every request.",
+      "evidence": [
+        ".specanchor/tasks/TASK-002.spec.md#ev-003"
       ]
     },
     {
@@ -32,31 +43,20 @@
       "specs": [
         ".specanchor/modules/chat-worker.spec.md"
       ],
-      "rationale": "Tests only. Adds no production behaviour; executes the validation boundary that until now was documented but never run.",
+      "rationale": "Tests only. Adds ten gateDecision cases covering each limit in isolation, the precedence order and the limit-minus-one boundary.",
       "evidence": [
-        ".specanchor/tasks/TASK-001.spec.md#ev-001"
+        ".specanchor/tasks/TASK-002.spec.md#ev-001"
       ]
     },
     {
-      "path": "chatbot/package.json",
-      "kind": "behavior_preserving",
+      "path": "js/chat.js",
+      "kind": "contract",
       "specs": [
-        ".specanchor/modules/chat-worker.spec.md"
+        ".specanchor/modules/chat-widget.spec.md"
       ],
-      "rationale": "Adds the test script and @types/node as a dev dependency. No runtime dependency and no change to what is deployed.",
+      "rationale": "Renders the new month_exhausted code in both languages and clarifies the busy_today copy. Landed in the same change as the server code deliberately, per the coupling rule now recorded in the widget spec.",
       "evidence": [
-        ".specanchor/tasks/TASK-001.spec.md#ev-001"
-      ]
-    },
-    {
-      "path": "chatbot/tsconfig.json",
-      "kind": "behavior_preserving",
-      "specs": [
-        ".specanchor/modules/chat-worker.spec.md"
-      ],
-      "rationale": "Typechecks tests/ alongside src/ and enables allowImportingTsExtensions, required because Node's type stripping needs explicit .ts specifiers. Compiler settings only.",
-      "evidence": [
-        ".specanchor/tasks/TASK-001.spec.md#ev-002"
+        ".specanchor/tasks/TASK-002.spec.md#ev-003"
       ]
     },
     {
@@ -65,60 +65,73 @@
       "specs": [
         ".specanchor/modules/chat-worker.spec.md"
       ],
-      "rationale": "Records the new source split and the exported code interface, and upgrades the validation statements from OBSERVED to VERIFIED with the executed run as evidence.",
+      "rationale": "Records the new model, the monthly ceiling as INV-WORKER-004, the derived-limits rule as INV-WORKER-007, the third KV key shape and the new error code.",
       "evidence": [
-        ".specanchor/tasks/TASK-001.spec.md#ev-001",
-        ".specanchor/tasks/TASK-001.spec.md#ev-002"
+        ".specanchor/tasks/TASK-002.spec.md#ev-001",
+        ".specanchor/tasks/TASK-002.spec.md#ev-003"
       ]
     },
     {
-      "path": ".specanchor/global/quality-and-security.spec.md",
-      "kind": "correction",
+      "path": ".specanchor/modules/chat-widget.spec.md",
+      "kind": "requirement",
       "specs": [
-        ".specanchor/global/quality-and-security.spec.md"
+        ".specanchor/modules/chat-widget.spec.md"
       ],
-      "rationale": "The spec stated the typecheck was the only executable check. That was true when written at the bootstrap revision and is now false. Corrected against the previously authorized statement, which is recorded in .specanchor/bootstrap-report.md.",
+      "rationale": "Records month_exhausted in the rendered code list and adds the rule that any new server error code needs client copy in the same change.",
       "evidence": [
-        ".specanchor/tasks/TASK-001.spec.md#ev-001",
-        ".specanchor/bootstrap-report.md"
+        ".specanchor/tasks/TASK-002.spec.md#ev-003"
       ]
     }
   ],
   "traceability": [
     {
-      "requirement": "TASK-001/REQ-001",
-      "acceptance": "TASK-001/AC-001",
-      "verification": "npm test - validateMessages rejection cases",
+      "requirement": "TASK-002/REQ-001",
+      "acceptance": "TASK-002/AC-001",
+      "verification": "grep of chatbot/wrangler.jsonc",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-001.spec.md#ev-001"
+      "evidence": ".specanchor/tasks/TASK-002.spec.md#ev-003"
     },
     {
-      "requirement": "TASK-001/REQ-001",
-      "acceptance": "TASK-001/AC-002",
-      "verification": "npm test - validateMessages acceptance cases",
+      "requirement": "TASK-002/REQ-002",
+      "acceptance": "TASK-002/AC-002",
+      "verification": "npm test, monthly cap and precedence cases",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-001.spec.md#ev-001"
+      "evidence": ".specanchor/tasks/TASK-002.spec.md#ev-001"
     },
     {
-      "requirement": "TASK-001/REQ-001",
-      "acceptance": "TASK-001/AC-003",
-      "verification": "npm test - toTextEventStream cases",
+      "requirement": "TASK-002/REQ-003",
+      "acceptance": "TASK-002/AC-003",
+      "verification": "npm test, daily and per-IP precedence cases",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-001.spec.md#ev-001"
+      "evidence": ".specanchor/tasks/TASK-002.spec.md#ev-001"
     },
     {
-      "requirement": "TASK-001/REQ-002",
-      "acceptance": "TASK-001/AC-004",
+      "requirement": "TASK-002/REQ-004",
+      "acceptance": "TASK-002/AC-004",
+      "verification": "npm test, limit-minus-one boundary",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-002.spec.md#ev-001"
+    },
+    {
+      "requirement": "TASK-002/REQ-004",
+      "acceptance": "TASK-002/AC-005",
       "verification": "cd chatbot && npm test",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-001.spec.md#ev-001"
+      "evidence": ".specanchor/tasks/TASK-002.spec.md#ev-001"
     },
     {
-      "requirement": "TASK-001/REQ-001",
-      "acceptance": "TASK-001/AC-005",
+      "requirement": "TASK-002/REQ-004",
+      "acceptance": "TASK-002/AC-006",
       "verification": "cd chatbot && ./node_modules/.bin/tsc --noEmit",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-001.spec.md#ev-002"
+      "evidence": ".specanchor/tasks/TASK-002.spec.md#ev-002"
+    },
+    {
+      "requirement": "TASK-002/REQ-005",
+      "acceptance": "TASK-002/AC-007",
+      "verification": "grep of js/chat.js, both languages",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-002.spec.md#ev-003"
     }
   ]
 }

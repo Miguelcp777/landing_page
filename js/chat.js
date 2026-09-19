@@ -29,7 +29,8 @@
             ],
             errors: {
                 rate_limited: 'You have reached the message limit for today. Email miguelcp777@gmail.com and Miguel will reply himself.',
-                busy_today: 'The assistant has hit its daily budget. Email miguelcp777@gmail.com — that always works.',
+                busy_today: 'The assistant has hit its daily budget. Try again tomorrow, or email miguelcp777@gmail.com — that always works.',
+                month_exhausted: 'The assistant has used up its budget for this month. Email miguelcp777@gmail.com and Miguel will answer you himself.',
                 generic: 'Something went wrong on my side. Try again, or email miguelcp777@gmail.com.'
             }
         },
@@ -50,7 +51,8 @@
             ],
             errors: {
                 rate_limited: 'Has llegado al límite de mensajes por hoy. Escribe a miguelcp777@gmail.com y te contesta Miguel en persona.',
-                busy_today: 'El asistente ha agotado su presupuesto diario. Escribe a miguelcp777@gmail.com, eso siempre funciona.',
+                busy_today: 'El asistente ha agotado su presupuesto diario. Vuelve mañana o escribe a miguelcp777@gmail.com, eso siempre funciona.',
+                month_exhausted: 'El asistente ha agotado su presupuesto de este mes. Escribe a miguelcp777@gmail.com y te contesta Miguel en persona.',
                 generic: 'Algo ha fallado por mi parte. Inténtalo otra vez o escribe a miguelcp777@gmail.com.'
             }
         }

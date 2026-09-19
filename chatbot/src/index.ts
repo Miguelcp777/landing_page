@@ -10,7 +10,7 @@
  * a paid API from turning into someone else's free toy.
  */
 import { SYSTEM_PROMPT } from "./profile";
-import { LIMITS, toTextEventStream, validateMessages } from "./validate";
+import { LIMITS, gateDecision, toTextEventStream, validateMessages } from "./validate";
 
 export interface Env {
   ANTHROPIC_API_KEY: string;
@@ -125,35 +125,50 @@ async function verifyTurnstile(secret: string, token: unknown, ip: string): Prom
 }
 
 /**
- * Two counters: one per visitor, one for the whole day across everyone. The
- * global one is what actually caps the bill — a botnet defeats a per-IP limit,
- * but not a hard ceiling on total calls.
+ * Three counters: one per visitor per day, one for the whole day, one for the whole
+ * month. The monthly one is what actually caps the bill — the budget is monthly, so
+ * a daily ceiling alone lets thirty quiet days plus one busy one exceed it.
  *
- * KV is eventually consistent, so a burst can slip a few calls past the limit.
- * That is an acceptable overshoot here; Durable Objects would be the strict
- * version, and are worth it only if this ever gets real traffic.
+ * The decision itself lives in validate.ts as a pure function; this only does the
+ * I/O. KV is eventually consistent, so a burst can slip a few calls past the limit.
+ * That is an acceptable overshoot here; Durable Objects would be the strict version,
+ * and are worth it only if this ever gets real traffic.
  */
 async function rateLimit(kv: KVNamespace, ip: string, ctx: ExecutionContext) {
-  const day = new Date().toISOString().slice(0, 10);
+  const now = new Date().toISOString();
+  const day = now.slice(0, 10);
+  const month = now.slice(0, 7);
+
   const ipKey = `rl:ip:${ip}:${day}`;
-  const globalKey = `rl:all:${day}`;
-  const ttl = 172800; // two days, comfortably past midnight in any timezone
+  const dayKey = `rl:all:${day}`;
+  const monthKey = `rl:month:${month}`;
 
-  const [ipRaw, globalRaw] = await Promise.all([kv.get(ipKey), kv.get(globalKey)]);
-  const ipCount = Number(ipRaw ?? 0);
-  const globalCount = Number(globalRaw ?? 0);
+  const dayTtl = 172800; // two days, comfortably past midnight in any timezone
+  const monthTtl = 3456000; // forty days, comfortably past any month boundary
 
-  if (globalCount >= LIMITS.globalPerDay) return { ok: false as const, reason: "busy_today" };
-  if (ipCount >= LIMITS.perIpPerDay) return { ok: false as const, reason: "rate_limited" };
+  const [ipRaw, dayRaw, monthRaw] = await Promise.all([
+    kv.get(ipKey),
+    kv.get(dayKey),
+    kv.get(monthKey),
+  ]);
+  const counts = {
+    ip: Number(ipRaw ?? 0),
+    day: Number(dayRaw ?? 0),
+    month: Number(monthRaw ?? 0),
+  };
+
+  const gate = gateDecision(counts);
+  if (!gate.ok) return gate;
 
   // Counted after the checks and outside the response path: a slow KV write
   // should not delay the first token reaching the visitor.
   ctx.waitUntil(
     Promise.all([
-      kv.put(ipKey, String(ipCount + 1), { expirationTtl: ttl }),
-      kv.put(globalKey, String(globalCount + 1), { expirationTtl: ttl }),
+      kv.put(ipKey, String(counts.ip + 1), { expirationTtl: dayTtl }),
+      kv.put(dayKey, String(counts.day + 1), { expirationTtl: dayTtl }),
+      kv.put(monthKey, String(counts.month + 1), { expirationTtl: monthTtl }),
     ]),
   );
 
-  return { ok: true as const };
+  return gate;
 }

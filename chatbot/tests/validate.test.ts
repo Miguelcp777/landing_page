@@ -9,7 +9,7 @@
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { LIMITS, toTextEventStream, validateMessages } from "../src/validate.ts";
+import { LIMITS, gateDecision, toTextEventStream, validateMessages } from "../src/validate.ts";
 
 const user = (content: string) => ({ role: "user", content });
 const bot = (content: string) => ({ role: "assistant", content });
@@ -172,4 +172,63 @@ test("surfaces an upstream error as a generic code, never the upstream body", as
 
 test("always terminates, even on an empty upstream stream", async () => {
   assert.equal(await pump([]), 'data: {"done":true}\n\n');
+});
+
+/* ------------------------------------------------------------ budget gate */
+
+const counts = (ip: number, day: number, month: number) => ({ ip, day, month });
+
+test("allows a request when every counter is below its limit", () => {
+  assert.deepEqual(gateDecision(counts(0, 0, 0)), { ok: true });
+});
+
+test("allows a request at limit minus one on every counter", () => {
+  const at = counts(
+    LIMITS.perIpPerDay - 1,
+    LIMITS.globalPerDay - 1,
+    LIMITS.globalPerMonth - 1,
+  );
+  assert.deepEqual(gateDecision(at), { ok: true }, "the last allowed request must pass");
+});
+
+test("blocks on the per-IP ceiling", () => {
+  assert.deepEqual(gateDecision(counts(LIMITS.perIpPerDay, 0, 0)),
+    { ok: false, reason: "rate_limited" });
+});
+
+test("blocks on the daily ceiling", () => {
+  assert.deepEqual(gateDecision(counts(0, LIMITS.globalPerDay, 0)),
+    { ok: false, reason: "busy_today" });
+});
+
+test("blocks on the monthly budget", () => {
+  assert.deepEqual(gateDecision(counts(0, 0, LIMITS.globalPerMonth)),
+    { ok: false, reason: "month_exhausted" });
+});
+
+test("the monthly budget outranks the daily and per-IP limits", () => {
+  // Telling someone to come back tomorrow when the month is gone would be a lie.
+  const all = counts(LIMITS.perIpPerDay, LIMITS.globalPerDay, LIMITS.globalPerMonth);
+  assert.deepEqual(gateDecision(all), { ok: false, reason: "month_exhausted" });
+});
+
+test("the daily ceiling outranks the per-IP limit", () => {
+  const both = counts(LIMITS.perIpPerDay, LIMITS.globalPerDay, 0);
+  assert.deepEqual(gateDecision(both), { ok: false, reason: "busy_today" });
+});
+
+test("blocks above a limit, not only exactly at it", () => {
+  assert.deepEqual(gateDecision(counts(0, 0, LIMITS.globalPerMonth + 500)),
+    { ok: false, reason: "month_exhausted" });
+});
+
+test("the daily ceiling cannot consume the whole month in one day", () => {
+  // A budget control that a single day can exhaust is not a budget control.
+  assert.ok(LIMITS.globalPerDay * 4 < LIMITS.globalPerMonth,
+    "one day must stay well under a quarter of the month");
+});
+
+test("a single visitor cannot drain the day", () => {
+  assert.ok(LIMITS.perIpPerDay * 5 <= LIMITS.globalPerDay,
+    "the day should need several distinct visitors to exhaust");
 });
