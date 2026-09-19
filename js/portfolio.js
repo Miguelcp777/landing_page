@@ -4,7 +4,7 @@ translations.es.studio = {
     description: 'Conecto mi experiencia en operaciones con el análisis de negocio: preparo datos, analizo tendencias y construyo dashboards para apoyar decisiones.',
     explore: 'Explorar mis proyectos', about: 'Un poco sobre mí', art: 'IDEAS EN MOVIMIENTO', artCaption: 'IA × AUTOMATIZACIÓN × DATOS',
     pause: 'Pausar animación', resume: 'Activar animación', foot: 'De entender un problema a construir una solución.', portrait: 'Servicio técnico · Iberia',
-    background: 'LO QUE APORTO DESDE OPERACIONES', toolboxLabel: '02 / CAPACIDADES Y HERRAMIENTAS', toolboxTitle: 'Mi caja de herramientas.',
+    background: 'CAPACIDADES EN LA PRÁCTICA', toolboxLabel: '02 / CAPACIDADES Y HERRAMIENTAS', toolboxTitle: 'Mi caja de herramientas.',
     toolboxText: 'De los datos a las decisiones: SQL, Python, Tableau, Power BI y Alteryx. Utilizo IA como apoyo para programar y sigo desarrollando mis capacidades técnicas.',
     aiTitle: 'Inteligencia artificial', aiText: 'Uso modelos de IA para razonar, crear aplicaciones y trabajar con documentos. Exploro agentes y asistentes con contexto.',
     autoTitle: 'Automatización', autoText: 'Conecto herramientas, APIs y pasos repetitivos para construir flujos de trabajo y procesamiento de documentos.',
@@ -17,7 +17,7 @@ translations.en.studio = {
     description: 'I connect my operations experience with business analysis: preparing data, analysing trends and building dashboards to support decisions.',
     explore: 'Explore my projects', about: 'A little about me', art: 'IDEAS IN MOTION', artCaption: 'AI × AUTOMATION × DATA',
     pause: 'Pause animation', resume: 'Start animation', foot: 'From understanding a problem to building a solution.', portrait: 'Technical service · Iberia',
-    background: 'WHAT I BRING FROM OPERATIONS', toolboxLabel: '02 / CAPABILITIES & TOOLS', toolboxTitle: 'My toolbox.',
+    background: 'CAPABILITIES IN PRACTICE', toolboxLabel: '02 / CAPABILITIES & TOOLS', toolboxTitle: 'My toolbox.',
     toolboxText: 'From data to decisions: SQL, Python, Tableau, Power BI and Alteryx. I use AI support for coding while continuing to develop my technical skills.',
     aiTitle: 'Artificial intelligence', aiText: 'I use AI models to reason, build applications and work with documents. I explore agents and assistants with context.',
     autoTitle: 'Automation', autoText: 'I connect tools, APIs and repetitive steps to build workflows and document processing tools.',
@@ -125,6 +125,10 @@ Object.assign(translations.es.experience, {
         data: 'Desarrollé aplicaciones internas con Power Apps y Excel para apoyar el día a día del servicio.'
     })
 });
+
+// Capability bars: tiers reflect the production work described in the timeline.
+Object.assign(translations.en.about, {skill1: 'Data integration & ETL — Alteryx', skill2: 'Dashboard design — Tableau, Salesforce', skill3: 'Data quality & record reconciliation', skill4: 'Service & contract analytics — cost, ASP', skill5: 'SQL & Python', skill6: 'Medtech service operations — EMEA scope'});
+Object.assign(translations.es.about, {skill1: 'Integración de datos y ETL — Alteryx', skill2: 'Diseño de dashboards — Tableau, Salesforce', skill3: 'Calidad de dato y conciliación de registros', skill4: 'Analítica de servicio y contratos — coste, ASP', skill5: 'SQL y Python', skill6: 'Operaciones de servicio medtech — alcance EMEA'});
 
 // Skill bars express a tier, not a percentage: no invented precision.
 Object.assign(translations.en.about, {level: {core: 'Core', working: 'Working', developing: 'Developing'}});
