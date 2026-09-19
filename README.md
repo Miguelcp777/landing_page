@@ -1,56 +1,60 @@
 # Portfolio Landing Page
 
-This is a personal portfolio landing page built with HTML, CSS, and localized JavaScript (English/Spanish).
+Personal portfolio for Miguel Castillo, positioned for data analyst and BI roles.
+HTML, CSS and vanilla JavaScript with an English/Spanish toggle. Fully static:
+no build step, no server-side code.
 
-## Features
-- **Hero Section**: Dynamic introduction.
-- **Experience Timeline**: Professional history.
-- **Data Projects**: Highlighted dashboards and BI projects.
-- **Contact Form**: PHP receiver with authenticated Gmail SMTP delivery.
-- **Localization**: EN/ES language toggle.
+Live at [www.miguelcastillo.es](https://www.miguelcastillo.es).
 
-## Formulario con Gmail — configuración pendiente en el NAS
+## Sections
+- **Hero** — staggered entry animation, responsive WebP portrait.
+- **Stats** — animated counters.
+- **Analytical cases** — three service-analytics case studies, each with an
+  animated SVG diagram and a modal describing the data work behind it.
+- **Capabilities** — data preparation, analysis and visualisation.
+- **About** — biography and capability bars.
+- **Projects** — seven applications, each with a detail modal.
+- **Experience** — timeline carrying the analytical work done in each role.
+- **Contact** — email, phone, LinkedIn and CV links.
 
-El navegador envía JSON a `contact.php`. PHP valida la petición y envía un correo
-desde y hacia la cuenta Gmail configurada; al responder, el destinatario será el
-visitante. El workflow n8n se conserva únicamente como backup histórico.
+## Confidentiality
 
-1. En Web Station, configurar este sitio con PHP 8.2 o superior, OpenSSL y salida
-   de red a Gmail por el puerto 465. Desactivar `display_errors` en producción.
-2. Crear `/volume1/landing-private/`, fuera de `/volume1/web/`. Copiar allí
-   `deploy/composer.json` y ejecutar `composer install --no-dev --prefer-dist
-   --no-interaction --no-plugins --no-scripts`. Conservar el archivo lock generado
-   y comprobar `composer audit` antes de activar el endpoint.
-3. Copiar `deploy/contact-config.example.php` a
-   `/volume1/landing-private/contact-config.php`. Configurar la contraseña de
-   aplicación de Gmail (no la contraseña normal) y un secreto aleatorio de al
-   menos 32 bytes para `rate_secret`. No compartirlos en el chat ni subirlos a Git.
-   Google requiere verificación en dos pasos y que la cuenta admita contraseñas
-   de aplicación: https://support.google.com/accounts/answer/185833?hl=es
-4. Crear `/volume1/landing-private/state/`. Permitir al proceso PHP leer la
-   configuración y dependencias, y escribir únicamente en `state/`. Impedir acceso
-   a otros usuarios del NAS. La configuración también puede localizarse mediante
-   la variable de entorno `LANDING_CONTACT_CONFIG`.
-5. Publicar `contact.php`, HTML, CSS y JavaScript. No publicar configuración real,
-   dependencias, archivos de estado ni la carpeta `deploy/`.
-6. Ejecutar `php -l contact.php`. Probar campos vacíos y email inválido; después,
-   con autorización para el envío, enviar un mensaje de prueba desde el dominio
-   público, verificar recepción en Gmail y que «Responder» apunta al remitente.
-   Comprobar también un fallo de credenciales: debe aparecer un error y conservar
-   los campos. La aceptación SMTP no garantiza llegada a la bandeja de entrada.
+Every figure in the dashboards and case diagrams is synthetic and deliberately
+blurred. Nothing shown is derived from customer, contract or employer data, and
+de-blurring recovers invented values only. Keep it that way: if you add a new
+visual, generate the numbers rather than reusing a real report, and say so in
+the caption.
 
-Protecciones: JSON y origen permitido, tamaños máximos, campo trampa, destinatario
-fijo, texto plano y límite de 5 intentos por IP y 30 globales por hora. Los intentos
-fallidos de SMTP también consumen el límite. No se confía en `X-Forwarded-For`:
-si un proxy oculta la IP del cliente, varios visitantes compartirán el límite.
-El archivo de estado solo contiene contadores, caducidades e IPs seudonimizadas;
-se depura durante las peticiones. No se guardan copias locales de mensajes.
+## Local development
 
-Estado de validación: integración y sintaxis JavaScript revisadas localmente.
-PHP, dependencias y entrega SMTP requieren validación en el NAS; no hay PHP ni
-Composer instalados en el entorno local. El acceso SSH disponible fue rechazado.
+```bash
+python -m http.server 4390
+```
 
-## Local Development
-1. Clone the repository.
-2. For visual preview, run `python -m http.server`. This does not execute PHP:
-   the contact form requires the PHP environment described above.
+Then open <http://localhost:4390>. The site is static, so this serves the real
+thing — there is nothing that only works in production.
+
+## Deployment
+
+The NAS web root is a clone of this repository and **does not sync by itself**;
+pushing to GitHub is not enough.
+
+```bash
+git push origin master
+```
+
+```bash
+ssh admin@192.168.1.35
+```
+
+```bash
+cd /volume1/web && git pull origin master
+```
+
+Bump the `?v=` query string on the CSS and JS links in `index.html` whenever you
+change those files, or returning visitors keep the cached copies. The same
+applies to any asset you replace in place, such as the case diagrams.
+
+Keep the repository limited to files the site actually serves: it *is* the web
+root, so anything committed is publicly reachable. `.gitignore` already excludes
+the development artefacts.
