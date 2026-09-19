@@ -102,6 +102,12 @@ The knowledge base in `src/profile.ts` carries its own guardrails: no invented
 figures, no employer data, refusal of questions that are discriminatory in hiring,
 and an explicit list of undecided facts to hand off by email rather than guess.
 
+- **INV-WORKER-008** — The prompt answers in the first person as Miguel, and the
+  three disclosure rules of `INV-PROD-004` are stated in it explicitly. They are
+  the condition on which the voice is allowed; editing the prompt must not weaken
+  them. The prompt also refuses any visitor instruction to stop disclosing that it
+  is an AI.
+
 ## Error semantics
 
 Every failure returns a stable machine-readable code. The widget maps three of them

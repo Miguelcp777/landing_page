@@ -33,6 +33,10 @@ Vanilla JavaScript, consistent with the no-build constraint.
 - **INV-WIDGET-003** — The input is re-enabled on every exit path, including errors.
 - **INV-WIDGET-004** — Copy exists in both languages and follows `<html lang>`.
 - **INV-WIDGET-005** — Ships disabled. See INV-PAGES-003.
+- **INV-WIDGET-006** — The `.chat__note` line in the panel header is the primary
+  AI disclosure, not decoration. It must stay visible whenever the panel is open,
+  in both languages, and must keep naming AI. Hiding it on small screens, removing
+  it for space, or softening the wording breaks `INV-PROD-004` and `ADR-0001`.
 
 ## Error semantics
 
@@ -71,6 +75,8 @@ No automated tests. Verified manually in a browser.
 | Language follows `<html lang>` | VERIFIED | all six strings switched to Spanish on toggle | pass |
 | `month_exhausted` has copy in both languages | VERIFIED | `grep` of `js/chat.js`, 2 matches @ `492759cdc5998358a3c2be000cb7a8f8c77377ad` | pass |
 | No horizontal overflow at 375px | VERIFIED | panel 343px in a 375px viewport, `scrollWidth` 375 | pass |
+| First-person copy in both languages | VERIFIED | browser read of all five strings plus starters | pass |
+| AI label rendered and visible | VERIFIED | computed `display` of `.chat__note` is not `none` | pass |
 | Textarea not clipped | VERIFIED | `scrollHeight` 44 against a 46px box after the placeholder fix | pass |
 | Happy path | NOT_VERIFIED | no deployed Worker, no API key | not_run |
 

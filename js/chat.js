@@ -13,47 +13,51 @@
 
     var COPY = {
         en: {
-            open: 'Ask about my experience',
-            title: 'Ask about Miguel',
-            note: 'AI assistant · answers from his CV and portfolio',
-            placeholder: 'Ask a question…',
-            inputLabel: 'Ask about his experience, tools or projects',
+            open: 'Ask me about my experience',
+            title: 'Ask Miguel',
+            // ADR-0001: this label is the primary disclosure, not decoration.
+            // The first person is only legitimate while it is visible. Do not
+            // remove it, shorten away the word "AI", or hide it on small screens.
+            note: 'AI assistant · answers in Miguel\'s voice, from his CV',
+            placeholder: 'Ask me anything…',
+            inputLabel: 'Ask me about my experience, tools or projects',
             send: 'Send',
             close: 'Close chat',
             clear: 'New conversation',
             thinking: 'Thinking…',
             starters: [
-                'What data tools does he actually use?',
+                'What data tools do you actually use?',
                 'Tell me about the install base project',
                 'Why move from service into data?'
             ],
             errors: {
-                rate_limited: 'You have reached the message limit for today. Email miguelcp777@gmail.com and Miguel will reply himself.',
-                busy_today: 'The assistant has hit its daily budget. Try again tomorrow, or email miguelcp777@gmail.com — that always works.',
-                month_exhausted: 'The assistant has used up its budget for this month. Email miguelcp777@gmail.com and Miguel will answer you himself.',
-                generic: 'Something went wrong on my side. Try again, or email miguelcp777@gmail.com.'
+                rate_limited: 'You have reached the message limit for today. Email miguelcp777@gmail.com and I will reply myself.',
+                busy_today: 'This assistant has hit its daily budget. Try again tomorrow, or email miguelcp777@gmail.com — that always reaches me.',
+                month_exhausted: 'This assistant has used up its budget for this month. Email miguelcp777@gmail.com and I will answer you myself.',
+                generic: 'Something went wrong at my end. Try again, or email miguelcp777@gmail.com.'
             }
         },
         es: {
-            open: 'Pregunta sobre mi experiencia',
-            title: 'Pregunta sobre Miguel',
-            note: 'Asistente IA · responde desde su CV y su portfolio',
-            placeholder: 'Escribe tu pregunta…',
-            inputLabel: 'Pregunta por su experiencia, herramientas o proyectos',
+            open: 'Pregúntame por mi experiencia',
+            title: 'Pregunta a Miguel',
+            // Ver la nota en la versión EN: esta etiqueta es la divulgación, no un adorno.
+            note: 'Asistente IA · respondo con la voz y el CV de Miguel',
+            placeholder: 'Pregúntame lo que quieras…',
+            inputLabel: 'Pregúntame por mi experiencia, herramientas o proyectos',
             send: 'Enviar',
             close: 'Cerrar el chat',
             clear: 'Nueva conversación',
             thinking: 'Pensando…',
             starters: [
-                '¿Qué herramientas de datos usa de verdad?',
+                '¿Qué herramientas de datos usas de verdad?',
                 'Cuéntame el proyecto de install base',
                 '¿Por qué pasar de servicio técnico a datos?'
             ],
             errors: {
-                rate_limited: 'Has llegado al límite de mensajes por hoy. Escribe a miguelcp777@gmail.com y te contesta Miguel en persona.',
-                busy_today: 'El asistente ha agotado su presupuesto diario. Vuelve mañana o escribe a miguelcp777@gmail.com, eso siempre funciona.',
-                month_exhausted: 'El asistente ha agotado su presupuesto de este mes. Escribe a miguelcp777@gmail.com y te contesta Miguel en persona.',
-                generic: 'Algo ha fallado por mi parte. Inténtalo otra vez o escribe a miguelcp777@gmail.com.'
+                rate_limited: 'Has llegado al límite de mensajes por hoy. Escríbeme a miguelcp777@gmail.com y te contesto en persona.',
+                busy_today: 'Este asistente ha agotado su presupuesto diario. Vuelve mañana o escríbeme a miguelcp777@gmail.com, eso siempre me llega.',
+                month_exhausted: 'Este asistente ha agotado su presupuesto de este mes. Escríbeme a miguelcp777@gmail.com y te contesto en persona.',
+                generic: 'Algo ha fallado por mi parte. Inténtalo otra vez o escríbeme a miguelcp777@gmail.com.'
             }
         }
     };

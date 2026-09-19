@@ -1,18 +1,146 @@
 {
-  "revision": "ef815c3c30d20acd5a59152e8c023db0613c3983",
-  "task_spec": ".specanchor/tasks/TASK-003.spec.md",
+  "revision": "1537cd484005951502fa62f2bf49765a8c6f04c9",
+  "task_spec": ".specanchor/tasks/TASK-004.spec.md",
   "files": [
     {
       "path": "chatbot/src/profile.ts",
-      "kind": "behavior_preserving",
+      "kind": "contract",
       "specs": [
         ".specanchor/modules/chat-worker.spec.md"
       ],
-      "rationale": "Knowledge-base text only. The module contract - HTTP interface, bindings, invariants, error codes - is untouched, and the spec's statements about the profile carrying guardrails and an undecided list both remain true; the list is simply shorter. What changes is what the bot says, which is content rather than contract.",
+      "rationale": "The prompt changes voice to the first person and gains the three disclosure rules as explicit instructions. This changes how the product represents a real person, so it is a contract change governed by ADR-0001, not a content tweak.",
       "evidence": [
-        ".specanchor/tasks/TASK-003.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-004.spec.md#16-evidence-ledger",
+        ".specanchor/decisions/ADR-0001-first-person-voice.md"
+      ]
+    },
+    {
+      "path": "js/chat.js",
+      "kind": "contract",
+      "specs": [
+        ".specanchor/modules/chat-widget.spec.md"
+      ],
+      "rationale": "Copy moves to the first person in both languages, and the header AI label is promoted from decoration to the primary disclosure, now covered by INV-WIDGET-006.",
+      "evidence": [
+        ".specanchor/tasks/TASK-004.spec.md#16-evidence-ledger",
+        ".specanchor/decisions/ADR-0001-first-person-voice.md"
+      ]
+    },
+    {
+      "path": "index.html",
+      "kind": "behavior_preserving",
+      "specs": [
+        ".specanchor/modules/site-pages.spec.md"
+      ],
+      "rationale": "Cache-busting ?v= bumped from 20260919-chat to 20260919-voice because js/chat.js changed, as INV-OPS-002 requires. No structural or content change to the document.",
+      "evidence": [
+        ".specanchor/tasks/TASK-004.spec.md#16-evidence-ledger"
+      ]
+    },
+    {
+      "path": ".specanchor/global/product-behavior.spec.md",
+      "kind": "requirement",
+      "specs": [
+        ".specanchor/global/product-behavior.spec.md"
+      ],
+      "rationale": "INV-PROD-004 previously mandated the third person. It now mandates the three disclosure conditions instead. This is a genuine requirement change, decided by the owner and recorded in ADR-0001.",
+      "evidence": [
+        ".specanchor/decisions/ADR-0001-first-person-voice.md",
+        ".specanchor/tasks/TASK-004.spec.md#16-evidence-ledger"
+      ]
+    },
+    {
+      "path": ".specanchor/modules/chat-worker.spec.md",
+      "kind": "requirement",
+      "specs": [
+        ".specanchor/modules/chat-worker.spec.md"
+      ],
+      "rationale": "Adds INV-WORKER-008: the prompt must carry the disclosure rules and must refuse instructions to stop disclosing that it is an AI.",
+      "evidence": [
+        ".specanchor/decisions/ADR-0001-first-person-voice.md",
+        ".specanchor/tasks/TASK-004.spec.md#16-evidence-ledger"
+      ]
+    },
+    {
+      "path": ".specanchor/modules/chat-widget.spec.md",
+      "kind": "requirement",
+      "specs": [
+        ".specanchor/modules/chat-widget.spec.md"
+      ],
+      "rationale": "Adds INV-WIDGET-006 making the header label load-bearing, and records the browser evidence for the first-person copy.",
+      "evidence": [
+        ".specanchor/decisions/ADR-0001-first-person-voice.md",
+        ".specanchor/tasks/TASK-004.spec.md#16-evidence-ledger"
+      ]
+    },
+    {
+      "path": ".specanchor/decisions/ADR-0001-first-person-voice.md",
+      "kind": "requirement",
+      "specs": [
+        ".specanchor/global/product-behavior.spec.md"
+      ],
+      "rationale": "New ADR recording why the voice changed, which alternatives were rejected, and the conditions under which the decision must be revisited.",
+      "evidence": [
+        ".specanchor/tasks/TASK-004.spec.md#16-evidence-ledger"
       ]
     }
   ],
-  "traceability": []
+  "traceability": [
+    {
+      "requirement": "TASK-004/REQ-001",
+      "acceptance": "TASK-004/AC-001",
+      "verification": "pattern scan of the prompt body for third-person references",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-004.spec.md#16-evidence-ledger"
+    },
+    {
+      "requirement": "TASK-004/REQ-002",
+      "acceptance": "TASK-004/AC-002",
+      "verification": "grep of chatbot/src/profile.ts for the identity rule",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-004.spec.md#16-evidence-ledger"
+    },
+    {
+      "requirement": "TASK-004/REQ-005",
+      "acceptance": "TASK-004/AC-003",
+      "verification": "grep of chatbot/src/profile.ts for Valencian",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-004.spec.md#16-evidence-ledger"
+    },
+    {
+      "requirement": "TASK-004/REQ-004",
+      "acceptance": "TASK-004/AC-004",
+      "verification": "browser read of widget copy in en and es",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-004.spec.md#16-evidence-ledger"
+    },
+    {
+      "requirement": "TASK-004/REQ-003",
+      "acceptance": "TASK-004/AC-005",
+      "verification": "browser read plus computed style of .chat__note",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-004.spec.md#16-evidence-ledger"
+    },
+    {
+      "requirement": "TASK-004/REQ-006",
+      "acceptance": "TASK-004/AC-006",
+      "verification": "node --check, npm test, tsc --noEmit",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-004.spec.md#16-evidence-ledger"
+    },
+    {
+      "requirement": "TASK-004/REQ-001",
+      "acceptance": "TASK-004/AC-007",
+      "verification": "prompt length measured against the 1024-token caching floor",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-004.spec.md#16-evidence-ledger"
+    },
+    {
+      "requirement": "TASK-004/REQ-004",
+      "acceptance": "TASK-004/AC-008",
+      "verification": "grep of index.html for the version string",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-004.spec.md#16-evidence-ledger"
+    }
+  ]
 }
