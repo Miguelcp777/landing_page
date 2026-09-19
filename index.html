@@ -41,8 +41,8 @@
 <link as="image" fetchpriority="high" href="assets/images/profile-800.webp" imagesrcset="assets/images/profile-400.webp 400w, assets/images/profile-800.webp 800w" imagesizes="(max-width:768px) 280px, 320px" rel="preload"/>
 <!-- Styles -->
 <!-- ?v= invalida la caché del navegador: súbelo en cada despliegue que toque css/ o js/ -->
-<link href="css/styles.css?v=20260919-bars" rel="stylesheet"/>
-<link href="css/editorial.css?v=20260919-bars" rel="stylesheet"/><script>try { document.documentElement.classList.toggle("light-theme", (localStorage.getItem("site-theme") || "light") === "light"); } catch (_) {}</script></head>
+<link href="css/styles.css?v=20260919-noform" rel="stylesheet"/>
+<link href="css/editorial.css?v=20260919-noform" rel="stylesheet"/><script>try { document.documentElement.classList.toggle("light-theme", (localStorage.getItem("site-theme") || "light") === "light"); } catch (_) {}</script></head>
 <body class="portfolio-v2 editorial">
 <!-- Skip link for accessibility -->
 <a class="skip-link" data-i18n="studio.skip" href="#main">Skip to content</a>
@@ -273,28 +273,6 @@
                         </a>
 <a class="contact__link" data-i18n="studio.cv" href="cv.html">View CV</a></div>
 </div>
-<form action="contact.php" class="contact__form" method="post" novalidate="">
-<div aria-hidden="true" class="contact-honeypot">
-<label for="website">Website</label>
-<input autocomplete="off" id="website" name="website" tabindex="-1" type="text"/>
-</div>
-<div class="form-group">
-<label data-i18n="studio.name" for="name">Name</label>
-<input autocomplete="name" data-i18n-placeholder="contact.form.name_ph" id="name" maxlength="100" name="name" placeholder="Your Name" type="text"/>
-<span class="form-error" id="name-error" role="alert"></span>
-</div>
-<div class="form-group">
-<label data-i18n="studio.email" for="email">Email</label>
-<input autocomplete="email" data-i18n-placeholder="contact.form.email_ph" id="email" maxlength="254" name="email" placeholder="Your Email" type="email"/>
-<span class="form-error" id="email-error" role="alert"></span>
-</div>
-<div class="form-group">
-<label data-i18n="studio.message" for="message">Message</label>
-<textarea data-i18n-placeholder="contact.form.msg_ph" id="message" maxlength="2500" name="message" placeholder="Your Message" rows="5"></textarea>
-<span class="form-error" id="message-error" role="alert"></span>
-</div>
-<button class="btn btn--primary btn--submit" data-i18n="contact.form.submit" type="submit">Send Message</button>
-</form>
 </div>
 </section></main>
 <footer class="footer">
@@ -308,8 +286,8 @@
 </footer>
 <!-- Toast Notifications -->
 <div aria-atomic="true" aria-live="polite" id="toast-container"></div>
-<script src="js/script.js?v=20260919-bars"></script>
-<script src="js/portfolio.js?v=20260919-bars"></script>
+<script src="js/script.js?v=20260919-noform"></script>
+<script src="js/portfolio.js?v=20260919-noform"></script>
 <!-- Modal Template -->
 <div class="modal-backdrop" id="project-modal">
 <div aria-labelledby="modal-title" aria-modal="true" class="modal-content" role="dialog">

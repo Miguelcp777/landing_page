@@ -76,7 +76,9 @@ html.light-theme .editorial { --bg-body:#f7f6f0; --bg-surface:#ffffff; --bg-surf
 .editorial .more-projects {margin-top:28px;}
 .editorial .more-projects summary {padding:16px 0;min-height:48px;color:var(--primary-color);cursor:pointer;font-size:16px;}
 .editorial .more-projects .projects-grid {margin-top:24px;}
-.editorial .contact__container {gap:60px;}
+/* No form any more: a half-empty second column would read as breakage. */
+.editorial .contact__container {grid-template-columns:1fr;gap:28px;}
+.editorial .contact__info {max-width:660px;}
 .editorial .contact__link {font-size:15px;overflow-wrap:anywhere;}
 .editorial .contact__form {background:var(--bg-surface);border:1px solid var(--border);padding:28px;border-radius:5px;}
 .editorial input,.editorial textarea {background:var(--bg-body);color:var(--text-primary);border-color:var(--border);font-size:16px;}
