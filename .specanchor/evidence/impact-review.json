@@ -1,0 +1,124 @@
+{
+  "revision": "17f67458a495f539d29adcc7622ce929562f1914",
+  "task_spec": ".specanchor/tasks/TASK-001.spec.md",
+  "files": [
+    {
+      "path": "chatbot/src/validate.ts",
+      "kind": "contract",
+      "specs": [
+        ".specanchor/modules/chat-worker.spec.md"
+      ],
+      "rationale": "New module. Adds LIMITS, Msg, validateMessages and toTextEventStream to the module's code interface, which the tests and the handler both bind to. Logic moved verbatim from index.ts; the HTTP contract is unchanged.",
+      "evidence": [
+        ".specanchor/tasks/TASK-001.spec.md#ev-001",
+        ".specanchor/tasks/TASK-001.spec.md#ev-002"
+      ]
+    },
+    {
+      "path": "chatbot/src/index.ts",
+      "kind": "contract",
+      "specs": [
+        ".specanchor/modules/chat-worker.spec.md"
+      ],
+      "rationale": "Same code interface change seen from the other side: the handler now imports what it used to define. No behavioural edit to the origin check, Turnstile, rate limiting or the Anthropic call.",
+      "evidence": [
+        ".specanchor/tasks/TASK-001.spec.md#ev-001",
+        ".specanchor/tasks/TASK-001.spec.md#ev-002"
+      ]
+    },
+    {
+      "path": "chatbot/tests/validate.test.ts",
+      "kind": "behavior_preserving",
+      "specs": [
+        ".specanchor/modules/chat-worker.spec.md"
+      ],
+      "rationale": "Tests only. Adds no production behaviour; executes the validation boundary that until now was documented but never run.",
+      "evidence": [
+        ".specanchor/tasks/TASK-001.spec.md#ev-001"
+      ]
+    },
+    {
+      "path": "chatbot/package.json",
+      "kind": "behavior_preserving",
+      "specs": [
+        ".specanchor/modules/chat-worker.spec.md"
+      ],
+      "rationale": "Adds the test script and @types/node as a dev dependency. No runtime dependency and no change to what is deployed.",
+      "evidence": [
+        ".specanchor/tasks/TASK-001.spec.md#ev-001"
+      ]
+    },
+    {
+      "path": "chatbot/tsconfig.json",
+      "kind": "behavior_preserving",
+      "specs": [
+        ".specanchor/modules/chat-worker.spec.md"
+      ],
+      "rationale": "Typechecks tests/ alongside src/ and enables allowImportingTsExtensions, required because Node's type stripping needs explicit .ts specifiers. Compiler settings only.",
+      "evidence": [
+        ".specanchor/tasks/TASK-001.spec.md#ev-002"
+      ]
+    },
+    {
+      "path": ".specanchor/modules/chat-worker.spec.md",
+      "kind": "requirement",
+      "specs": [
+        ".specanchor/modules/chat-worker.spec.md"
+      ],
+      "rationale": "Records the new source split and the exported code interface, and upgrades the validation statements from OBSERVED to VERIFIED with the executed run as evidence.",
+      "evidence": [
+        ".specanchor/tasks/TASK-001.spec.md#ev-001",
+        ".specanchor/tasks/TASK-001.spec.md#ev-002"
+      ]
+    },
+    {
+      "path": ".specanchor/global/quality-and-security.spec.md",
+      "kind": "correction",
+      "specs": [
+        ".specanchor/global/quality-and-security.spec.md"
+      ],
+      "rationale": "The spec stated the typecheck was the only executable check. That was true when written at the bootstrap revision and is now false. Corrected against the previously authorized statement, which is recorded in .specanchor/bootstrap-report.md.",
+      "evidence": [
+        ".specanchor/tasks/TASK-001.spec.md#ev-001",
+        ".specanchor/bootstrap-report.md"
+      ]
+    }
+  ],
+  "traceability": [
+    {
+      "requirement": "TASK-001/REQ-001",
+      "acceptance": "TASK-001/AC-001",
+      "verification": "npm test - validateMessages rejection cases",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-001.spec.md#ev-001"
+    },
+    {
+      "requirement": "TASK-001/REQ-001",
+      "acceptance": "TASK-001/AC-002",
+      "verification": "npm test - validateMessages acceptance cases",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-001.spec.md#ev-001"
+    },
+    {
+      "requirement": "TASK-001/REQ-001",
+      "acceptance": "TASK-001/AC-003",
+      "verification": "npm test - toTextEventStream cases",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-001.spec.md#ev-001"
+    },
+    {
+      "requirement": "TASK-001/REQ-002",
+      "acceptance": "TASK-001/AC-004",
+      "verification": "cd chatbot && npm test",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-001.spec.md#ev-001"
+    },
+    {
+      "requirement": "TASK-001/REQ-001",
+      "acceptance": "TASK-001/AC-005",
+      "verification": "cd chatbot && ./node_modules/.bin/tsc --noEmit",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-001.spec.md#ev-002"
+    }
+  ]
+}

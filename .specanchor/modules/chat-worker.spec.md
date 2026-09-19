@@ -15,7 +15,26 @@ Custody of the Anthropic API key, request validation, rate limiting, and streami
 the model response back to the browser. The only component in the project that holds
 a secret.
 
+## Source ownership
+
+- `src/index.ts` — the request handler and everything with I/O: origin check,
+  Turnstile, KV counters, the Anthropic call.
+- `src/validate.ts` — **pure logic, no imports, no runtime dependencies**:
+  `LIMITS`, `Msg`, `validateMessages`, `toTextEventStream`. Split out under TASK-001
+  so the security boundary can be executed by plain Node without workerd, a bundler
+  or a test framework.
+- `src/profile.ts` — the knowledge base sent as the cached system prompt.
+- `tests/validate.test.ts` — executable coverage for `src/validate.ts`.
+
 ## Public interfaces
+
+### Code interface
+
+`src/validate.ts` exports `LIMITS`, `Msg`, `validateMessages` and
+`toTextEventStream`. These are part of the module's contract: the tests bind to them
+and the handler consumes them.
+
+### HTTP interface
 
 `POST /api/chat`
 
@@ -93,14 +112,20 @@ the limit. Accepted at this scale; Durable Objects would be the strict version.
 
 ## Tests / verification
 
+    cd chatbot && npm test          # 23 tests over src/validate.ts
     cd chatbot && ./node_modules/.bin/tsc --noEmit
 
-No unit tests. The Worker has never run.
+The pure logic is covered. Everything with I/O — the origin check, Turnstile, the
+KV counters and the Anthropic call — is **not** covered and has never executed.
+
+The tests deliberately pin the two properties that matter most if they ever regress:
+a history whose last entry is not from the user is rejected, and an upstream error
+surfaces as a generic code without leaking the upstream body.
 
 ## Known uncertainties and debt
 
-- **Never deployed, never executed.** (UNKNOWN) Everything below the typecheck is
-  unverified behavior.
+- **Never deployed.** (UNKNOWN) The handler, the rate limiter and the Anthropic
+  call have never executed. TASK-001 closed the gap for the pure logic only.
 - `wrangler.jsonc` carries a placeholder KV id that must be replaced before deploy.
 - The apex route is dead configuration if the Cloudflare redirect rule stays, since
   the redirect fires before Workers. Harmless, but it is not doing anything.
@@ -114,6 +139,9 @@ No unit tests. The Worker has never run.
 | Typecheck passes | VERIFIED | `tsc --noEmit` exit 0 @ `ebaf2a1298fab854cfc3b571215d8d5f90a21fa5` | pass |
 | Endpoint, methods and error codes | OBSERVED | `chatbot/src/index.ts` | — |
 | Validation is server-side | OBSERVED | `validateMessages()` | — |
+| Validation rejects malformed input | VERIFIED | `npm test`, 23/23 pass @ `17f67458a495f539d29adcc7622ce929562f1914` | pass |
+| Stream rewrite never leaks upstream detail | VERIFIED | `npm test`, error-event case | pass |
+| Split is behavior-preserving for HTTP | VERIFIED | `tsc --noEmit` exit 0; handler logic untouched | pass |
 | Global ceiling independent of per-IP | OBSERVED | `rateLimit()`, `LIMITS.globalPerDay` | — |
 | Upstream body never forwarded | OBSERVED | the `!upstream.ok` branch logs and returns a fixed code | — |
 | `workers_dev` false, domain routes | OBSERVED | `chatbot/wrangler.jsonc` | — |
