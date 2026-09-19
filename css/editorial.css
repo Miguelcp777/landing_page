@@ -222,9 +222,8 @@ html .editorial .stat-number,html .editorial .stat-suffix {background:none;backg
 /* Case diagrams ship their own dark panel, so the contain-fit letterbox matches it. */
 .editorial .case-card > img {background:#18241f;}
 
-/* Skill bars: tier label plus a track. Flat --primary-color, because --primary-gradient
-   is dark green and would disappear on the dark surface. */
-.editorial .skill-bar__level {margin-left:auto;font:600 11px Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--primary-color);white-space:nowrap;}
+/* Capability bars: a full accent rule, no tier label. Flat --primary-color, because
+   --primary-gradient is dark green and would disappear on the dark surface. */
 .editorial .skill-bar__track {height:6px;margin-top:11px;background:var(--border);border-radius:100px;overflow:hidden;}
 .editorial .skill-bar__fill {background:var(--primary-color);}
 

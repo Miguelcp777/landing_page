@@ -130,9 +130,6 @@ Object.assign(translations.es.experience, {
 Object.assign(translations.en.about, {skill1: 'Data integration & ETL — Alteryx', skill2: 'Dashboard design — Tableau, Salesforce', skill3: 'Data quality & record reconciliation', skill4: 'Service & contract analytics — cost, ASP', skill5: 'SQL & Python', skill6: 'Medtech service operations — EMEA scope'});
 Object.assign(translations.es.about, {skill1: 'Integración de datos y ETL — Alteryx', skill2: 'Diseño de dashboards — Tableau, Salesforce', skill3: 'Calidad de dato y conciliación de registros', skill4: 'Analítica de servicio y contratos — coste, ASP', skill5: 'SQL y Python', skill6: 'Operaciones de servicio medtech — alcance EMEA'});
 
-// Skill bars express a tier, not a percentage: no invented precision.
-Object.assign(translations.en.about, {level: {core: 'Core', working: 'Working', developing: 'Developing'}});
-Object.assign(translations.es.about, {level: {core: 'Consolidado', working: 'En uso', developing: 'En desarrollo'}});
 
 // Stats band. Figures are derived from the timeline and project lists on this page.
 Object.assign(translations.en, {stats: {tools: 'Data tools in use', cases: 'Analytical cases', apps: 'Applications built', domain: 'Years of medtech operations'}});
