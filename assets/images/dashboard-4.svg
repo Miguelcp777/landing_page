@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Install base: three enterprise systems reconciled into one record per asset, with the installed base broken down by platform. Synthetic data.">
+<style>
+  .p{fill:#18241f}
+  .card{fill:#22312b;stroke:#3a5145;stroke-width:1.5}
+  .t{font-family:Inter,system-ui,"Segoe UI",Arial,sans-serif;fill:#eef4ef}
+  .t2{font-family:Inter,system-ui,"Segoe UI",Arial,sans-serif;fill:#9fb3a6}
+  .num{font-family:Inter,system-ui,"Segoe UI",Arial,sans-serif;fill:#b5ddc1;font-weight:600}
+  .ac{font-family:Inter,system-ui,"Segoe UI",Arial,sans-serif;fill:#7fc59b}
+  .flow{fill:none;stroke:#7fc59b;stroke-width:2.5;stroke-linecap:round}
+  .grid{stroke:#3a5145;stroke-width:1}
+  .bar{fill:#7fc59b}
+
+  .flow{stroke-dasharray:60;stroke-dashoffset:60;animation:draw .7s ease-out forwards}
+  .d1{animation-delay:.4s} .d2{animation-delay:.6s}
+  .fade{opacity:0;animation:fade .5s ease-out forwards}
+  .f0{animation-delay:.05s} .f1{animation-delay:.25s} .f2{animation-delay:.45s} .f3{animation-delay:.65s} .f4{animation-delay:.85s}
+  .bar{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);animation:grow .6s cubic-bezier(.25,1,.5,1) forwards}
+  .vlab{opacity:0;animation:fade .4s ease-out forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes fade{to{opacity:1}}
+  @keyframes grow{to{transform:scaleY(1)}}
+  @media (prefers-reduced-motion:reduce){
+    .flow{stroke-dashoffset:0;animation:none}
+    .fade,.vlab{opacity:1;animation:none}
+    .bar{transform:none;animation:none}
+  }
+</style>
+<rect class="p" width="800" height="450"/>
+<text class="t2 fade f0" x="48" y="46" font-size="15" letter-spacing="2.4">01 / INSTALL BASE</text>
+<text class="t fade f0" x="48" y="80" font-size="26" font-weight="600" letter-spacing="-.5">Three systems, one record per asset</text>
+
+<g class="fade f1"><rect class="card" x="48" y="102" width="214" height="98" rx="6"/>
+<text class="ac" x="70" y="130" font-size="15" letter-spacing="1.4">SOURCES</text>
+<text class="num" x="70" y="166" font-size="30">3</text>
+<text class="t2" x="70" y="188" font-size="15">enterprise systems</text></g>
+<path class="flow d1" d="M262 151h44"/>
+<g class="fade f2"><rect class="card" x="306" y="102" width="214" height="98" rx="6"/>
+<text class="ac" x="328" y="130" font-size="15" letter-spacing="1.4">RECONCILED</text>
+<text class="num" x="328" y="166" font-size="30">3,060</text>
+<text class="t2" x="328" y="188" font-size="15">assets, one record each</text></g>
+<path class="flow d2" d="M520 151h44"/>
+<g class="fade f3"><rect class="card" x="564" y="102" width="188" height="98" rx="6"/>
+<text class="ac" x="586" y="130" font-size="15" letter-spacing="1.4">PLANNING</text>
+<text class="num" x="586" y="166" font-size="30">52</text>
+<text class="t2" x="586" y="188" font-size="15">countries covered</text></g>
+
+<g class="fade f4"><rect class="card" x="48" y="214" width="704" height="194" rx="6"/>
+<text class="t2" x="72" y="244" font-size="15" letter-spacing="1.4">INSTALL BASE BY PLATFORM</text>
+<line class="grid" x1="72" y1="366" x2="728" y2="366"/>
+</g>
+<g class="bar" style="animation-delay:.95s"><rect x="100" y="250" width="52" height="116"/></g>
+<g class="bar" style="animation-delay:1.05s"><rect x="230" y="312" width="52" height="54"/></g>
+<g class="bar" style="animation-delay:1.15s"><rect x="360" y="324" width="52" height="42"/></g>
+<g class="bar" style="animation-delay:1.25s"><rect x="490" y="335" width="52" height="31"/></g>
+<g class="bar" style="animation-delay:1.35s"><rect x="620" y="343" width="52" height="23"/></g>
+<g class="num" font-size="17" text-anchor="middle">
+<text class="vlab" style="animation-delay:1.35s" x="126" y="242">1,340</text>
+<text class="vlab" style="animation-delay:1.45s" x="256" y="304">620</text>
+<text class="vlab" style="animation-delay:1.55s" x="386" y="316">480</text>
+<text class="vlab" style="animation-delay:1.65s" x="516" y="327">355</text>
+<text class="vlab" style="animation-delay:1.75s" x="646" y="335">265</text>
+</g>
+<g class="t2" font-size="15" text-anchor="middle">
+<text class="vlab" style="animation-delay:1.5s" x="126" y="390">PHACO</text>
+<text class="vlab" style="animation-delay:1.55s" x="256" y="390">MDG</text>
+<text class="vlab" style="animation-delay:1.6s" x="386" y="390">INTRALASE</text>
+<text class="vlab" style="animation-delay:1.65s" x="516" y="390">STARLASER</text>
+<text class="vlab" style="animation-delay:1.7s" x="646" y="390">LCS</text>
+</g>
+<text class="t2" x="48" y="436" font-size="14" letter-spacing=".8">SYNTHETIC DATA · STRUCTURE OF THE REAL DASHBOARD</text>
+</svg>

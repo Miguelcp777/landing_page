@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Cost per system: average cost, planned versus ad hoc split, year-on-year change, and total service cost by year. Synthetic data.">
+<style>
+  .p{fill:#18241f}
+  .card{fill:#22312b;stroke:#3a5145;stroke-width:1.5}
+  .t{font-family:Inter,system-ui,"Segoe UI",Arial,sans-serif;fill:#eef4ef}
+  .t2{font-family:Inter,system-ui,"Segoe UI",Arial,sans-serif;fill:#9fb3a6}
+  .num{font-family:Inter,system-ui,"Segoe UI",Arial,sans-serif;fill:#b5ddc1;font-weight:600}
+  .grid{stroke:#3a5145;stroke-width:1}
+  .bar{fill:#7fc59b}
+  .line{fill:none;stroke:#eef4ef;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+  .fade{opacity:0;animation:fade .5s ease-out forwards}
+  .f0{animation-delay:.05s} .f1{animation-delay:.25s} .f2{animation-delay:.4s} .f3{animation-delay:.55s} .f4{animation-delay:.7s}
+  .bar{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);animation:grow .55s cubic-bezier(.25,1,.5,1) forwards}
+  .vlab{opacity:0;animation:fade .4s ease-out forwards}
+  .line{stroke-dasharray:560;stroke-dashoffset:560;animation:draw 1.2s ease-out 1.3s forwards}
+  @keyframes fade{to{opacity:1}}
+  @keyframes grow{to{transform:scaleY(1)}}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){
+    .fade,.vlab{opacity:1;animation:none}
+    .bar{transform:none;animation:none}
+    .line{stroke-dashoffset:0;animation:none}
+  }
+</style>
+<rect class="p" width="800" height="450"/>
+<text class="t2 fade f0" x="48" y="46" font-size="15" letter-spacing="2.4">02 / COST PER SYSTEM</text>
+<text class="t fade f0" x="48" y="80" font-size="26" font-weight="600" letter-spacing="-.5">Where service cost actually sits</text>
+
+<g class="fade f1"><rect class="card" x="48" y="104" width="220" height="88" rx="6"/>
+<text class="t2" x="70" y="132" font-size="15" letter-spacing="1.4">AVG COST / SYSTEM</text>
+<text class="num" x="70" y="172" font-size="32">$18.4K</text></g>
+<g class="fade f2"><rect class="card" x="290" y="104" width="220" height="88" rx="6"/>
+<text class="t2" x="312" y="132" font-size="15" letter-spacing="1.4">PLANNED / AD HOC</text>
+<text class="num" x="312" y="172" font-size="32">62 / 38</text></g>
+<g class="fade f3"><rect class="card" x="532" y="104" width="220" height="88" rx="6"/>
+<text class="t2" x="554" y="132" font-size="15" letter-spacing="1.4">YEAR ON YEAR</text>
+<text class="num" x="554" y="172" font-size="32" fill="#7fc59b">-7.3%</text></g>
+
+<g class="fade f4"><rect class="card" x="48" y="212" width="704" height="196" rx="6"/>
+<text class="t2" x="72" y="242" font-size="15" letter-spacing="1.4">TOTAL SERVICE COST BY YEAR</text>
+<line class="grid" x1="72" y1="366" x2="728" y2="366"/>
+<line class="grid" x1="72" y1="310" x2="728" y2="310" stroke-dasharray="3 6"/>
+<line class="grid" x1="72" y1="262" x2="728" y2="262" stroke-dasharray="3 6"/>
+</g>
+<g class="bar" style="animation-delay:.85s"><rect x="120" y="256" width="72" height="110"/></g>
+<g class="bar" style="animation-delay:.98s"><rect x="280" y="268" width="72" height="98"/></g>
+<g class="bar" style="animation-delay:1.11s"><rect x="440" y="282" width="72" height="84"/></g>
+<g class="bar" style="animation-delay:1.24s"><rect x="600" y="292" width="72" height="74"/></g>
+<path class="line" d="M156 248 L316 260 L476 274 L636 284"/>
+<g class="num" font-size="19" text-anchor="middle">
+<text class="vlab" style="animation-delay:1.3s" x="156" y="244">$7.2M</text>
+<text class="vlab" style="animation-delay:1.4s" x="316" y="256">$6.9M</text>
+<text class="vlab" style="animation-delay:1.5s" x="476" y="270">$6.4M</text>
+<text class="vlab" style="animation-delay:1.6s" x="636" y="280">$6.1M</text>
+</g>
+<g class="t2" font-size="15" text-anchor="middle">
+<text class="vlab" style="animation-delay:1.45s" x="156" y="390">2023</text>
+<text class="vlab" style="animation-delay:1.5s" x="316" y="390">2024</text>
+<text class="vlab" style="animation-delay:1.55s" x="476" y="390">2025</text>
+<text class="vlab" style="animation-delay:1.6s" x="636" y="390">2026</text>
+</g>
+<text class="t2" x="48" y="436" font-size="14" letter-spacing=".8">SYNTHETIC DATA · STRUCTURE OF THE REAL DASHBOARD</text>
+</svg>

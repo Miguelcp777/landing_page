@@ -161,6 +161,9 @@ const translations = {
             cta: "View Details →",
             tag_ai: "AI Agent",
             tag_tool: "Business Tool",
+            tag_web: "Web App",
+            live: "Live",
+            visit: "Visit the site",
             proj1: {
                 title: "Claude Invoice Agent",
                 short: "AI agent that processes PDF invoices with OCR, extracts structured data and auto-generates Excel reports.",
@@ -177,7 +180,7 @@ const translations = {
 
                     <h4>Key Results</h4>
                     <ul>
-                        <li>Processing time reduced from ~30 min/invoice to under 10 seconds.</li>
+                        <li>Structured invoice data exported to an Excel report.</li>
                         <li>Pydantic schemas enforce strict data validation before output generation.</li>
                         <li>Composable skill architecture — each stage is an independent, testable module.</li>
                     </ul>
@@ -229,6 +232,118 @@ const translations = {
                         <li><strong>Integrations:</strong> Strava OAuth API</li>
                     </ul>
                 `
+            },
+            proj4: {
+                title: "Clavaría S.A.B.",
+                short: "Management platform for a cultural association: public portal plus an internal RBAC back office for members, treasury, events and inventory.",
+                desc: `
+                    <h4>Full Management Web App for a Festive Association</h4>
+                    <p>An integral platform for the Clavaría de San Antonio de Benagéber. It combines a <strong>public portal</strong> (festival programme, news, gallery, lottery) with an <strong>internal back office</strong> where the board manages the member roll, treasury, inventory and minutes — all behind role-based access control.</p>
+
+                    <h4>Key Features</h4>
+                    <ul>
+                        <li><strong>RBAC with 8 roles:</strong> president, treasurer, secretary, lottery lead, logistics, pyrotechnics, board member and member — each writing only in its own area.</li>
+                        <li><strong>Configurable permissions:</strong> a role × section table drives the Postgres RLS policies themselves, so access is edited from the web, not from SQL.</li>
+                        <li><strong>Treasury:</strong> income/expenses by festival and category, with per-event budget breakdown and CSS-only charts.</li>
+                        <li><strong>Event management:</strong> preparation checklist, suppliers, materials, documents and event duplication for the following year.</li>
+                        <li><strong>Member onboarding:</strong> public sign-up request → board approval → Edge Function creates the Auth user and sends the invitation by email.</li>
+                        <li><strong>File storage:</strong> avatars, gallery and a private bucket for minutes served through 5-minute signed URLs.</li>
+                    </ul>
+
+                    <h4>Technologies</h4>
+                    <ul>
+                        <li><strong>Frontend:</strong> Next.js 16 (App Router, static export) + React 19 + Tailwind CSS v4</li>
+                        <li><strong>Design system:</strong> hand-built Material 3 with light/dark tokens</li>
+                        <li><strong>Backend:</strong> Supabase — PostgreSQL, Auth, Row Level Security and Deno Edge Functions</li>
+                        <li><strong>Deployment:</strong> Netlify (static export, no server runtime — RLS is the only real access guard)</li>
+                    </ul>
+                `
+            },
+            proj5: {
+                title: "Falla Turia",
+                short: "Official web app for a Valencian falla: news, agenda, gallery, lottery and a role-based admin dashboard, in Spanish and Valencian.",
+                desc: `
+                    <h4>Official Web App for Falla Turia — Plaça de l'Ajuntament</h4>
+                    <p>Web platform for the falla commission's members: news, event calendar, photo gallery, official representatives and the Christmas lottery draw, backed by a complete administrative dashboard with differentiated roles.</p>
+
+                    <h4>Key Features</h4>
+                    <ul>
+                        <li><strong>Member area:</strong> news with multi-photo carousel, dynamic agenda with archive, gallery, representatives and a suggestion box.</li>
+                        <li><strong>Bilingual:</strong> full Spanish / Valencian interface driven by a language context.</li>
+                        <li><strong>Admin dashboard:</strong> content and user management with four roles (Admin, Editor, Author, Subscriber) enforced by RLS.</li>
+                        <li><strong>Full authentication:</strong> Supabase Auth with registration, password recovery by email and protected routes.</li>
+                        <li><strong>n8n integration:</strong> a webhook syncs every new registration automatically.</li>
+                        <li><strong>Themed design:</strong> animated fire background matching the falla's identity.</li>
+                    </ul>
+
+                    <h4>Technologies</h4>
+                    <ul>
+                        <li><strong>Frontend:</strong> React 18 + TypeScript + Vite + React Router + Tailwind CSS</li>
+                        <li><strong>Backend:</strong> Supabase — PostgreSQL, Auth, Storage, Row Level Security and Edge Functions</li>
+                        <li><strong>Automation:</strong> n8n webhook for new-member sync</li>
+                        <li><strong>Deployment:</strong> Netlify with serverless functions and SPA routing</li>
+                    </ul>
+                `
+            },
+            proj6: {
+                title: "TuriaDJ",
+                short: "Democratic jukebox for live events: guests vote the queue and a real-time audio engine streams it with gapless 3-second crossfades.",
+                desc: `
+                    <h4>Democratic Jukebox with a Real-Time Audio Engine</h4>
+                    <p>A web jukebox for live falla events. Guests search the music library, add tracks to the queue and vote on them; the DJ keeps control from an admin panel, and every phone in the room can listen to the same live stream.</p>
+
+                    <h4>Key Features</h4>
+                    <ul>
+                        <li><strong>Voted queue:</strong> everyone adds and upvotes tracks (rate-limited to 2 every 4 minutes) with Socket.IO broadcasting the queue to all clients instantly.</li>
+                        <li><strong>Broadcast engine:</strong> a custom server streams MP3 at playback rate to every listener, frame-aligned so a splice never breaks a frame.</li>
+                        <li><strong>Automatic crossfade:</strong> the server analyses how each track ends (dry, trailing silence or fade-out) with ffmpeg RMS windows and computes where the next one should come in — always a 3-second overlap.</li>
+                        <li><strong>AutoDJ:</strong> keeps the music going when the queue empties, pre-picking and preloading the next track ~90s ahead.</li>
+                        <li><strong>Session resilience:</strong> heartbeat, watchdog and full resync so an all-night event survives phones going to background and dropped sockets.</li>
+                        <li><strong>Auth:</strong> JWT with admin/user roles, plus optional Google Sign-In verified server-side by ID token.</li>
+                    </ul>
+
+                    <h4>Engineering Highlights</h4>
+                    <ul>
+                        <li>ID3v2 tags were eating <strong>2.8s of airtime per track</strong> — skipping them removed every silent gap between songs (9 → 0 starvation windows, measured A/B).</li>
+                        <li>Dual <code>&lt;audio&gt;</code> elements fanned into a single Web Audio AnalyserNode for the client-side crossfader.</li>
+                        <li>Native <code>bcrypt</code> replaced the pure-JS one after 60 concurrent logins blocked the broadcast thread for 4.75s — max delay dropped to 2ms.</li>
+                    </ul>
+
+                    <h4>Technologies</h4>
+                    <ul>
+                        <li><strong>Backend:</strong> Node.js 22 + Express + Socket.IO + better-sqlite3</li>
+                        <li><strong>Frontend:</strong> React 18 + Vite + Tailwind CSS + Web Audio API</li>
+                        <li><strong>Audio:</strong> ffmpeg for mix-point analysis and server-side crossfade; Navidrome (Subsonic API) as the music catalogue</li>
+                        <li><strong>Deployment:</strong> Linux server with a systemd service</li>
+                    </ul>
+                `
+            },
+            proj7: {
+                title: "Comunio Mundial 2026",
+                short: "Prediction league for the FIFA World Cup 2026: live leaderboard, automatic scoring and results synced from a sports API every 5 minutes.",
+                desc: `
+                    <h4>Prediction League for the FIFA World Cup 2026</h4>
+                    <p>A full prediction pool where a group of friends forecasts every match of the tournament. Results arrive automatically, points are recalculated on the spot and the leaderboard updates live on everyone's screen without a refresh.</p>
+
+                    <h4>Key Features</h4>
+                    <ul>
+                        <li><strong>Match predictions:</strong> scoreline forecast per match, locked automatically 15 minutes before kick-off by a database trigger.</li>
+                        <li><strong>Tournament bet:</strong> champion, runner-up and third place, worth 30 / 20 / 15 points.</li>
+                        <li><strong>Scoring:</strong> +3 for the right result, +1 per exact goal tally — a maximum of 5 per match.</li>
+                        <li><strong>Four-level tie-break:</strong> total points → perfect scores → correct 1-X-2 → individual goals hit, all derived from the stored points without extra columns.</li>
+                        <li><strong>Automatic sync:</strong> a Netlify Scheduled Function polls TheSportsDB every 5 minutes, maps team names to FIFA codes and recalculates everyone's totals.</li>
+                        <li><strong>Live updates:</strong> Supabase Realtime pushes results and standings to every open client, debounced so a sync burst doesn't thrash the table.</li>
+                        <li><strong>Admin panel:</strong> manual results by stage and group, plus sync status and unmapped-team diagnostics.</li>
+                    </ul>
+
+                    <h4>Technologies</h4>
+                    <ul>
+                        <li><strong>Frontend:</strong> Next.js 16 (App Router, Server Components) + React 19 + TypeScript strict + Tailwind CSS v4</li>
+                        <li><strong>Backend:</strong> Supabase — PostgreSQL, Auth (magic link), Row Level Security, triggers and Realtime</li>
+                        <li><strong>Automation:</strong> Netlify Scheduled Function against TheSportsDB API</li>
+                        <li><strong>Deployment:</strong> Netlify with session-refreshing middleware</li>
+                    </ul>
+                `
             }
         },
         stats: {
@@ -251,7 +366,8 @@ const translations = {
                 msg_ph: "Your Message",
                 submit: "Send Message"
             },
-            success: "Message sent! I'll get back to you soon.",
+            success: "Message accepted by the email service. Thank you for contacting me.",
+            rate_limit: "Too many attempts. Please try again in an hour.",
             error: "Failed to send. Please try again later.",
             errors: {
                 name_required: "Please enter your name.",
@@ -425,6 +541,9 @@ const translations = {
             cta: "Ver Detalles →",
             tag_ai: "Agente IA",
             tag_tool: "Herramienta",
+            tag_web: "Web App",
+            live: "En línea",
+            visit: "Ver la web",
             proj1: {
                 title: "Agente de Facturas Claude",
                 short: "Agente IA que procesa facturas PDF con OCR, extrae datos estructurados y genera reportes Excel automáticamente.",
@@ -441,7 +560,7 @@ const translations = {
 
                     <h4>Resultados Clave</h4>
                     <ul>
-                        <li>Tiempo de procesamiento reducido de ~30 min/factura a menos de 10 segundos.</li>
+                        <li>Datos de facturas estructurados y exportados a un informe Excel.</li>
                         <li>Esquemas Pydantic garantizan validación estricta antes de generar el output.</li>
                         <li>Arquitectura modular — cada etapa es un módulo independiente y testeable.</li>
                     </ul>
@@ -493,6 +612,118 @@ const translations = {
                         <li><strong>Integraciones:</strong> Strava OAuth API</li>
                     </ul>
                 `
+            },
+            proj4: {
+                title: "Clavaría S.A.B.",
+                short: "Plataforma de gestión integral para una asociación cultural: portal público más un panel interno con RBAC para padrón, tesorería, actos e inventario.",
+                desc: `
+                    <h4>Web App de Gestión Integral para una Asociación Festera</h4>
+                    <p>Plataforma completa para la Clavaría de San Antonio de Benagéber. Combina un <strong>portal público</strong> (programa de fiestas, noticias, galería, lotería) con un <strong>panel interno</strong> donde la Junta gestiona el padrón de socios, la tesorería, el inventario y las actas, todo bajo control de acceso por roles.</p>
+
+                    <h4>Características Principales</h4>
+                    <ul>
+                        <li><strong>RBAC con 8 roles:</strong> clavario mayor, tesorero, secretario, lotero, logística, pirotecnia, vocal y clavario — cada uno escribe solo en su área.</li>
+                        <li><strong>Permisos configurables:</strong> una tabla rol × sección alimenta las propias políticas RLS de Postgres, de modo que los accesos se editan desde la web, no desde SQL.</li>
+                        <li><strong>Tesorería:</strong> ingresos y gastos por fiesta y categoría, con desglose de presupuesto por acto y gráficas hechas solo con CSS.</li>
+                        <li><strong>Gestión de actos:</strong> checklist de preparación, proveedores, material, documentos y duplicado del acto para el año siguiente.</li>
+                        <li><strong>Alta de socios:</strong> solicitud pública → aprobación de la Junta → una Edge Function crea el usuario en Auth y envía la invitación por email.</li>
+                        <li><strong>Almacenamiento:</strong> avatares, galería y un bucket privado para las actas, servidas con URLs firmadas de 5 minutos.</li>
+                    </ul>
+
+                    <h4>Tecnologías</h4>
+                    <ul>
+                        <li><strong>Frontend:</strong> Next.js 16 (App Router, export estático) + React 19 + Tailwind CSS v4</li>
+                        <li><strong>Sistema de diseño:</strong> Material 3 construido a mano con tokens día/noche</li>
+                        <li><strong>Backend:</strong> Supabase — PostgreSQL, Auth, Row Level Security y Edge Functions en Deno</li>
+                        <li><strong>Despliegue:</strong> Netlify (export estático, sin runtime de servidor — RLS es la única guarda real)</li>
+                    </ul>
+                `
+            },
+            proj5: {
+                title: "Falla Turia",
+                short: "Web app oficial de una falla de Valencia: noticias, agenda, galería, lotería y panel de administración por roles, en castellano y valenciano.",
+                desc: `
+                    <h4>Web App Oficial de la Falla Turia — Plaça de l'Ajuntament</h4>
+                    <p>Plataforma web para los miembros de la comisión fallera: noticias, calendario de actos, galería de fotos, representantes oficiales y el sorteo de lotería de Navidad, con un panel de administración completo y roles diferenciados.</p>
+
+                    <h4>Características Principales</h4>
+                    <ul>
+                        <li><strong>Área de miembros:</strong> noticias con carrusel multi-foto, agenda dinámica con histórico, galería, representantes y buzón de sugerencias.</li>
+                        <li><strong>Bilingüe:</strong> interfaz completa en castellano y valenciano mediante un contexto de idioma.</li>
+                        <li><strong>Panel de administración:</strong> gestión de contenido y usuarios con cuatro roles (Admin, Editor, Author, Subscriber) aplicados por RLS.</li>
+                        <li><strong>Autenticación completa:</strong> Supabase Auth con registro, recuperación de contraseña por email y rutas protegidas.</li>
+                        <li><strong>Integración n8n:</strong> un webhook sincroniza automáticamente cada nuevo registro.</li>
+                        <li><strong>Diseño temático:</strong> fondo animado de fuego acorde con la identidad de la falla.</li>
+                    </ul>
+
+                    <h4>Tecnologías</h4>
+                    <ul>
+                        <li><strong>Frontend:</strong> React 18 + TypeScript + Vite + React Router + Tailwind CSS</li>
+                        <li><strong>Backend:</strong> Supabase — PostgreSQL, Auth, Storage, Row Level Security y Edge Functions</li>
+                        <li><strong>Automatización:</strong> webhook de n8n para sincronizar altas</li>
+                        <li><strong>Despliegue:</strong> Netlify con funciones serverless y routing SPA</li>
+                    </ul>
+                `
+            },
+            proj6: {
+                title: "TuriaDJ",
+                short: "Jukebox democrático para eventos en directo: el público vota la cola y un motor de audio en tiempo real la emite con mezclas de 3 segundos sin silencios.",
+                desc: `
+                    <h4>Jukebox Democrático con Motor de Audio en Tiempo Real</h4>
+                    <p>Jukebox web para los eventos de la Falla Turia. El público busca canciones en la biblioteca, las añade a la cola y las vota; el DJ mantiene el control desde un panel de administración, y cualquier móvil de la sala puede escuchar la misma emisión en directo.</p>
+
+                    <h4>Características Principales</h4>
+                    <ul>
+                        <li><strong>Cola votada:</strong> todos añaden y votan canciones (límite de 2 cada 4 minutos), con Socket.IO difundiendo la cola a todos los clientes al instante.</li>
+                        <li><strong>Motor de emisión:</strong> un servidor propio emite MP3 a ritmo de reproducción para todos los oyentes, alineado a frame para que ningún empalme parta una trama.</li>
+                        <li><strong>Crossfade automático:</strong> el servidor analiza cómo termina cada canción (seca, con silencio de cola o con fundido) mediante ventanas RMS de ffmpeg y calcula dónde debe entrar la siguiente — siempre 3 segundos de solape.</li>
+                        <li><strong>AutoDJ:</strong> mantiene la música cuando la cola se vacía, pre-eligiendo y precargando la siguiente canción unos 90 s antes.</li>
+                        <li><strong>Robustez de sesión:</strong> heartbeat, watchdog y resincronización completa para que un evento de toda la noche sobreviva a móviles en segundo plano y sockets caídos.</li>
+                        <li><strong>Autenticación:</strong> JWT con roles admin/usuario, más acceso opcional con Google verificado en servidor por ID token.</li>
+                    </ul>
+
+                    <h4>Retos Técnicos Resueltos</h4>
+                    <ul>
+                        <li>Los tags ID3v2 consumían <strong>2,8 s de emisión por canción</strong> — saltarlos eliminó todos los silencios entre temas (9 → 0 ventanas de hambre, medido A/B).</li>
+                        <li>Dos elementos <code>&lt;audio&gt;</code> alternos conectados a un único AnalyserNode de Web Audio para el crossfader del cliente.</li>
+                        <li><code>bcrypt</code> nativo sustituyó al de JS puro tras comprobar que 60 logins simultáneos bloqueaban el hilo de emisión 4,75 s — el retraso máximo bajó a 2 ms.</li>
+                    </ul>
+
+                    <h4>Tecnologías</h4>
+                    <ul>
+                        <li><strong>Backend:</strong> Node.js 22 + Express + Socket.IO + better-sqlite3</li>
+                        <li><strong>Frontend:</strong> React 18 + Vite + Tailwind CSS + Web Audio API</li>
+                        <li><strong>Audio:</strong> ffmpeg para el análisis del punto de mezcla y el crossfade de servidor; Navidrome (API Subsonic) como catálogo musical</li>
+                        <li><strong>Despliegue:</strong> servidor Linux con servicio systemd</li>
+                    </ul>
+                `
+            },
+            proj7: {
+                title: "Comunio Mundial 2026",
+                short: "Porra de predicciones para el Mundial 2026: clasificación en vivo, puntuación automática y resultados sincronizados desde una API deportiva cada 5 minutos.",
+                desc: `
+                    <h4>Porra de Predicciones para el Mundial FIFA 2026</h4>
+                    <p>Porra completa donde un grupo de amigos pronostica todos los partidos del torneo. Los resultados llegan solos, los puntos se recalculan al instante y la clasificación se actualiza en vivo en la pantalla de todos sin recargar.</p>
+
+                    <h4>Características Principales</h4>
+                    <ul>
+                        <li><strong>Predicción por partido:</strong> pronóstico del marcador, bloqueado automáticamente 15 minutos antes del saque inicial mediante un trigger de base de datos.</li>
+                        <li><strong>Apuesta de torneo:</strong> campeón, subcampeón y tercer clasificado, que valen 30 / 20 / 15 puntos.</li>
+                        <li><strong>Puntuación:</strong> +3 por acertar el signo, +1 por cada marcador exacto — máximo 5 por partido.</li>
+                        <li><strong>Desempate a cuatro niveles:</strong> puntos totales → plenos → aciertos 1-X-2 → goles individuales acertados, todo derivado de los puntos ya guardados sin columnas extra.</li>
+                        <li><strong>Sincronización automática:</strong> una Scheduled Function de Netlify consulta TheSportsDB cada 5 minutos, mapea nombres de equipo a códigos FIFA y recalcula los totales de todos.</li>
+                        <li><strong>Actualización en vivo:</strong> Supabase Realtime empuja resultados y clasificación a todos los clientes abiertos, con debounce para que una ráfaga de sync no machaque la tabla.</li>
+                        <li><strong>Panel de administración:</strong> resultados manuales por fase y grupo, más estado del sync y diagnóstico de equipos sin mapear.</li>
+                    </ul>
+
+                    <h4>Tecnologías</h4>
+                    <ul>
+                        <li><strong>Frontend:</strong> Next.js 16 (App Router, Server Components) + React 19 + TypeScript strict + Tailwind CSS v4</li>
+                        <li><strong>Backend:</strong> Supabase — PostgreSQL, Auth (magic link), Row Level Security, triggers y Realtime</li>
+                        <li><strong>Automatización:</strong> Scheduled Function de Netlify contra la API de TheSportsDB</li>
+                        <li><strong>Despliegue:</strong> Netlify con middleware que refresca la sesión</li>
+                    </ul>
+                `
             }
         },
         stats: {
@@ -515,7 +746,8 @@ const translations = {
                 msg_ph: "Tu Mensaje",
                 submit: "Enviar Mensaje"
             },
-            success: "¡Mensaje enviado! Me pondré en contacto pronto.",
+            success: "Mensaje aceptado por el servicio de correo. Gracias por contactar.",
+            rate_limit: "Demasiados intentos. Vuelve a intentarlo dentro de una hora.",
             error: "Error al enviar. Por favor, inténtalo de nuevo.",
             errors: {
                 name_required: "Por favor, introduce tu nombre.",
@@ -529,6 +761,34 @@ const translations = {
         }
     }
 };
+
+
+Object.assign(translations.en.hero, {
+    badge: "Technical service · Iberia",
+    subtitle: "Technical leadership, data and applied AI",
+    description: "I supervise technical service at <strong>Johnson & Johnson Vision</strong> in Iberia and develop analytics and automation solutions to support operations management.",
+    cta_resume: "View CV"
+});
+Object.assign(translations.es.hero, {
+    badge: "Servicio técnico · Iberia",
+    subtitle: "Liderazgo técnico, datos e IA aplicada",
+    description: "Superviso el servicio técnico de <strong>Johnson & Johnson Vision</strong> en Iberia y desarrollo soluciones de análisis y automatización para mejorar la gestión de operaciones.",
+    cta_resume: "Ver CV"
+});
+Object.assign(translations.en.about, {
+    p1: "I coordinate technical service teams in Spain and Portugal, covering installations, maintenance, updates and service escalations for ophthalmic equipment.",
+    p2: "Alongside my service role, I build dashboards and automation tools. I use AI assistance to develop code and continue learning SQL, Python and Microsoft Fabric.",
+    skill1: "Team coordination in Spain and Portugal", skill2: "Installation and maintenance planning", skill3: "Support for ophthalmic systems", skill4: "Service workflows and automation", skill5: "Dashboards and data integration"
+});
+Object.assign(translations.es.about, {
+    p1: "Coordino equipos de servicio técnico en España y Portugal: instalaciones, mantenimiento, actualizaciones y escalaciones de equipos oftalmológicos.",
+    p2: "Además de mi función de servicio, desarrollo dashboards y herramientas de automatización. Utilizo apoyo de IA para programar y sigo aprendiendo SQL, Python y Microsoft Fabric.",
+    skill1: "Coordinación de equipos en España y Portugal", skill2: "Planificación de instalaciones y mantenimiento", skill3: "Soporte de sistemas oftalmológicos", skill4: "Procesos de servicio y automatización", skill5: "Dashboards e integración de datos"
+});
+Object.assign(translations.en.data, {preview: "Concept diagram · No client data"});
+Object.assign(translations.es.data, {preview: "Diagrama conceptual · Sin datos de clientes"});
+Object.assign(translations.en.projects, {title: "Selected Projects", subtitle: "Tools for service management, document automation and personal projects.", professional: "Professional tools", personal: "Personal projects", more: "More projects"});
+Object.assign(translations.es.projects, {title: "Proyectos destacados", subtitle: "Herramientas para gestión de servicio, automatización documental y proyectos personales.", professional: "Herramientas profesionales", personal: "Proyectos personales", more: "Más proyectos"});
 
 document.addEventListener('DOMContentLoaded', () => {
     // -------------------
@@ -606,11 +866,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.querySelector('.hamburger');
     const nav = document.querySelector('.nav');
     const navLinks = document.querySelectorAll('.nav__link');
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.focus();
+        }
+    });
 
     if (hamburger) {
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             nav.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', String(nav.classList.contains('active')));
         });
     }
 
@@ -618,6 +886,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', () => {
             hamburger.classList.remove('active');
             nav.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
         });
     });
 
@@ -640,6 +909,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateLanguage(lang) {
+        document.documentElement.lang = lang;
+        if (translations[lang].meta) {
+            document.title = translations[lang].meta.title;
+            document.querySelectorAll('meta[name="description"], meta[property="og:description"], meta[name="twitter:description"]').forEach(el => el.content = translations[lang].meta.description);
+            document.querySelectorAll('meta[property="og:title"], meta[name="twitter:title"]').forEach(el => el.content = translations[lang].meta.title);
+        }
+        document.querySelectorAll('.project-card[data-project]').forEach(card => {
+            card.setAttribute('aria-label', translations[lang].projects[card.dataset.project].title);
+        });
         // Update regular text content
         const elements = document.querySelectorAll('[data-i18n]');
         elements.forEach(el => {
@@ -685,7 +963,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const allClickableItems = document.querySelectorAll('.dashboard-item, .project-card[data-project]');
 
+    // Distintivo "en línea" en las tarjetas que tienen web pública (data-url)
+    document.querySelectorAll('.project-card[data-url] .project-card__tags').forEach(tagRow => {
+        const badge = document.createElement('span');
+        badge.className = 'project-tag project-tag--live';
+        badge.setAttribute('data-i18n', 'projects.live');
+        badge.textContent = getNestedTranslation(translations[currentLang], 'projects.live') || 'Live';
+        tagRow.appendChild(badge);
+    });
+
+    let modalTrigger = null;
+    function closeProjectModal() {
+        modal.classList.remove('active');
+        document.querySelector('main').inert = false;
+        document.querySelector('header').inert = false;
+        document.querySelector('footer').inert = false;
+        document.body.style.overflow = '';
+        if (modalTrigger) modalTrigger.focus();
+    }
     function openProjectModal(item) {
+        modalTrigger = item;
         const projectId = item.getAttribute('data-project');
         const toolsAttr = item.getAttribute('data-tools');
         const tools = toolsAttr ? toolsAttr.split(',') : [];
@@ -702,10 +999,30 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modalImage) {
             const img = item.querySelector('img');
             if (img) {
-                modalImage.src = img.src;
+                modalImage.src = item.dataset.diagram || img.src;
+                modalImage.alt = item.dataset.diagram
+                    ? `${projectData.title} — ${lang === 'es' ? 'diagrama conceptual' : 'concept diagram'}`
+                    : img.classList.contains('project-cover')
+                    ? `${projectData.title} — ${lang === 'es' ? 'ilustración conceptual generada con IA' : 'AI-generated concept illustration'}`
+                    : (img.alt || 'Project Thumbnail');
+                // Los logos se muestran enteros; las capturas de dashboard, recortadas y con blur
+                modalImage.classList.toggle('modal-image--logo', img.classList.contains('project-card__thumb'));
                 modalImage.style.display = 'block';
             } else {
                 modalImage.style.display = 'none';
+            }
+        }
+
+        // Enlace a la web en producción — solo para los proyectos que tienen data-url
+        const modalLink = document.getElementById('modal-link');
+        if (modalLink) {
+            const url = item.getAttribute('data-url');
+            if (url) {
+                modalLink.href = url;
+                modalLink.hidden = false;
+            } else {
+                modalLink.removeAttribute('href');
+                modalLink.hidden = true;
             }
         }
 
@@ -718,10 +1035,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         modal.classList.add('active');
-        setTimeout(() => {
-            const cb = modal.querySelector('.modal-close');
-            if (cb) cb.focus();
-        }, 50);
+        document.querySelector('main').inert = true;
+        document.querySelector('header').inert = true;
+        document.querySelector('footer').inert = true;
+        document.body.style.overflow = 'hidden';
+        const cb = modal.querySelector('.modal-close');
+        if (cb) cb.focus();
     }
 
     if (modal && allClickableItems.length > 0) {
@@ -738,14 +1057,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Close Modal via Button
         if (closeBtn) {
             closeBtn.addEventListener('click', () => {
-                modal.classList.remove('active');
+                closeProjectModal();
             });
         }
 
         // Close on background click
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
-                modal.classList.remove('active');
+                closeProjectModal();
             }
         });
     }
@@ -788,24 +1107,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.textContent;
-            submitBtn.textContent = '⏳ Sending…';
+            submitBtn.textContent = lang === 'es' ? 'Enviando…' : 'Sending…';
             submitBtn.disabled = true;
 
-            fetch('https://n8n.i-automate.es/webhook/9903d916-f574-47a3-8a29-1c35acd8fdb2', {
+            fetch(contactForm.action, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     name: nameInput.value.trim(),
                     email: emailInput.value.trim(),
-                    message: msgInput.value.trim()
+                    message: msgInput.value.trim(),
+                    website: document.getElementById('website').value
                 })
             })
-                .then(response => {
-                    if (response.ok) {
+                .then(async response => {
+                    const result = await response.json();
+                    if (response.ok && result.ok === true && result.code === 'sent') {
                         showToast(t.success, 'success');
                         contactForm.reset();
                     } else {
-                        showToast(t.error, 'error');
+                        showToast(response.status === 429 ? t.rate_limit : t.error, 'error');
                     }
                 })
                 .catch(() => showToast(t.error, 'error'))
@@ -849,7 +1170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const savedTheme = localStorage.getItem('site-theme') || 'dark';
+    const savedTheme = localStorage.getItem('site-theme') || 'light';
     applyTheme(savedTheme);
 
     if (themeToggle) {
@@ -904,6 +1225,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!entry.isIntersecting) return;
                 const el = entry.target;
                 const target = parseInt(el.getAttribute('data-target'), 10);
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    el.textContent = target;
+                    obs.unobserve(el);
+                    return;
+                }
                 const duration = 1500;
                 const start = performance.now();
                 function update(now) {
@@ -971,13 +1297,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // -------------------
     const modalEl = document.getElementById('project-modal');
     if (modalEl) {
-        modalEl.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', (e) => {
             if (!modalEl.classList.contains('active')) return;
-            const focusable = modalEl.querySelectorAll('button, [href], input, [tabindex]:not([tabindex="-1"])');
+            const focusable = Array.from(modalEl.querySelectorAll('button, [href], input, [tabindex]:not([tabindex="-1"])')).filter(el => el.getClientRects().length > 0);
             const first = focusable[0];
             const last  = focusable[focusable.length - 1];
             if (e.key === 'Tab') {
-                if (e.shiftKey && document.activeElement === first) {
+                if (!modalEl.contains(document.activeElement)) {
+                    e.preventDefault();
+                    (e.shiftKey ? last : first).focus();
+                } else if (e.shiftKey && document.activeElement === first) {
                     e.preventDefault();
                     last.focus();
                 } else if (!e.shiftKey && document.activeElement === last) {
@@ -985,7 +1314,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     first.focus();
                 }
             }
-            if (e.key === 'Escape') modalEl.classList.remove('active');
+            if (e.key === 'Escape') closeProjectModal();
         });
 
     }

@@ -1,0 +1,13 @@
+contact-config.php
+*.local.php
+vendor/
+
+# El repo ES la raiz web del NAS: nada que no sirva la pagina.
+.aurevanta/
+.claude/launch.json
+assets/images/data-art/
+assets/images/toolbox/
+assets/images/profile-transparent.png
+assets/images/profile-silhouette-mask.svg
+assets/images/dashboard-3.svg
+assets/images/project-art/bizplan-*.webp

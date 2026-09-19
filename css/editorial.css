@@ -1,0 +1,243 @@
+/* Editorial business analysis portfolio. Scoped to preserve other local projects. */
+.editorial {
+ --bg-body:#17221f; --bg-surface:#22312b; --bg-surface-hover:#2b3d34;
+ --text-primary:#f5f3eb; --text-secondary:#c3cdc6; --primary-color:#b5ddc1;
+ --text-accent:var(--primary-color); --border:#4a6154; --border-hover:#b5ddc1;
+ --primary-gradient:linear-gradient(135deg,#235d47,#174331);
+ background:var(--bg-body); color:var(--text-primary);
+}
+html.light-theme .editorial { --bg-body:#f7f6f0; --bg-surface:#ffffff; --bg-surface-hover:#edf2ec; --text-primary:#202923; --text-secondary:#536157; --primary-color:#235d47; --border:#ccd6cc; --border-hover:#235d47; background:var(--bg-body); color:var(--text-primary); }
+.editorial .container {width:calc(100% - 64px);max-width:1160px;}
+.editorial main > section {padding:80px 0;scroll-margin-top:32px;}
+.editorial h1,.editorial h2,.editorial h3 {color:var(--text-primary);letter-spacing:-.04em;}
+.editorial p,.editorial dd {font-size:16px;line-height:1.75;}
+.editorial .section__title {font-size:clamp(30px,3.4vw,44px);line-height:1.15;margin-bottom:24px;text-align:left;}
+.editorial .section__title::after {display:none;}
+.editorial .section__subtitle__text {max-width:720px;margin:0 0 36px;color:var(--text-secondary);text-align:left;}
+.editorial .small-label {font:12px Inter,sans-serif;letter-spacing:.1em;color:var(--primary-color);margin-bottom:18px;}
+.editorial .header {background:var(--bg-body);border-color:var(--border);}
+.editorial .nav__list {gap:20px;}
+.editorial .nav__link {font-size:12px;}
+.editorial .hero {padding:145px 0 80px;overflow:visible;}
+.editorial .hero__container {grid-template-columns:1.6fr 1fr;gap:56px;align-items:end;}
+.editorial .hero__eyebrow {font:11px/1.7 Inter,sans-serif;letter-spacing:.08em;color:var(--primary-color);margin-bottom:24px;display:block;}
+.editorial .hero-name {font-size:18px;color:var(--text-secondary);margin-bottom:18px;}
+.editorial .hero__statement {font-size:clamp(38px,4.4vw,62px);line-height:1.08;font-weight:500;max-width:650px;}
+.editorial .hero__description {font-size:18px;line-height:1.75;max-width:580px;margin:28px 0;}
+.editorial .hero__actions {display:flex;gap:12px;flex-wrap:wrap;}
+.editorial .hero-role {font-size:13px;margin-top:22px;color:var(--text-secondary);}
+.editorial-portrait {margin:0;min-width:0;}
+.editorial-portrait figcaption {font-size:12px;padding-top:14px;color:var(--text-secondary);border-top:1px solid var(--border);margin-top:16px;}
+.editorial .btn {font-size:14px;min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:10px;letter-spacing:0;}
+.editorial .btn--primary {background:var(--primary-color);color:var(--bg-body);border:1px solid var(--primary-color);box-shadow:none;}
+.editorial .btn--primary:hover {background:var(--primary-color);filter:brightness(1.08);transform:translateY(-1px);}
+.editorial .btn--outline {border:1px solid var(--border-hover);color:var(--primary-color);background:transparent;}
+.editorial #data-passion,.editorial #about,.editorial #projects {border-top:1px solid var(--border);}
+.case-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;}
+.editorial .case-card {display:flex;flex-direction:column;border:1px solid var(--border);background:var(--bg-surface);border-radius:5px;overflow:hidden;min-width:0;}
+.case-heading {padding:24px;min-height:138px;}
+.case-number {font-size:12px;color:var(--primary-color);display:block;margin-bottom:14px;}
+.case-heading h3 {font-size:23px;line-height:1.25;font-weight:500;}
+.case-card > img {width:100%;height:auto;aspect-ratio:800/450;object-fit:contain;}
+.editorial .case-caption {font-size:11px;line-height:1.5;padding:10px 24px;color:var(--text-secondary);margin:0;border-bottom:1px solid var(--border);}
+.case-body {padding:24px;display:flex;flex-direction:column;flex:1;}
+.editorial .case-question {font-size:17px;font-weight:500;line-height:1.5;margin:0 0 22px;}
+.case-body dt {font-size:12px;font-weight:600;color:var(--primary-color);margin-bottom:6px;}
+.editorial .case-body dd {font-size:15px;color:var(--text-secondary);margin:0 0 20px;line-height:1.65;}
+.case-body .tool-tags {margin-top:auto;padding-top:8px;}
+.editorial .project-card__cta {font-size:14px;color:var(--primary-color);padding-top:20px;}
+.editorial .tool-tags {display:flex;gap:7px;flex-wrap:wrap;list-style:none;}
+.editorial .tool-tags li {font-size:12px;color:var(--text-primary);border:1px solid var(--border);padding:5px 9px;background:var(--bg-body);}
+.editorial .capabilities {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;border:0;margin-top:36px;}
+.editorial .capability {padding:28px;border:1px solid var(--border);background:var(--bg-surface);border-radius:5px;display:flex;flex-direction:column;min-width:0;}
+.editorial .capability__number {color:var(--primary-color);padding:0;font-size:13px;margin-bottom:30px;}
+.editorial .capability h3 {font-size:23px;line-height:1.3;padding:0;margin:0 0 18px;}
+.editorial .capability p {font-size:16px;padding:0;margin:0 0 24px;color:var(--text-secondary);}
+.editorial .capability .tool-tags {padding:0;margin-top:auto;}
+.editorial .method-note {border-left:3px solid var(--primary-color);padding:8px 0 8px 24px;margin-top:36px;max-width:850px;color:var(--text-secondary);}
+.editorial .about__content {display:grid;grid-template-columns:3fr 2fr;gap:64px;}
+.editorial .about__text p {font-size:17px;line-height:1.8;}
+.editorial .bio-statement {font-size:30px;}
+.editorial .about__skills {grid-column:auto;display:flex;align-content:start;gap:10px;}
+.editorial .about__skills .skill-bar {flex-basis:100%;background:var(--bg-surface);padding:14px;}
+.editorial .about__skills .skill-bar__name {font-size:14px;}
+.editorial .bio-links a {font-size:14px;min-height:44px;}
+.editorial .timeline__content {background:var(--bg-surface);padding:24px 28px;}
+.editorial .timeline__content::after {display:none;}
+.editorial .timeline__description {font-size:16px;}
+.editorial .experience-intro {font-size:16px;}
+.editorial .projects-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;}
+.editorial .project-card__visual {height:180px;}
+.editorial .project-card__body {padding:24px;}
+.editorial .project-card__desc {font-size:16px;line-height:1.7;}
+.editorial .project-card__title {font-size:24px;}
+.editorial .project-card {box-shadow:none;transition:border-color .2s,transform .2s;}
+.editorial .project-card:hover {transform:translateY(-3px);border-color:var(--border-hover);box-shadow:none;}
+.editorial .more-projects {margin-top:28px;}
+.editorial .more-projects summary {padding:16px 0;min-height:48px;color:var(--primary-color);cursor:pointer;font-size:16px;}
+.editorial .more-projects .projects-grid {margin-top:24px;}
+.editorial .contact__container {gap:60px;}
+.editorial .contact__link {font-size:15px;overflow-wrap:anywhere;}
+.editorial .contact__form {background:var(--bg-surface);border:1px solid var(--border);padding:28px;border-radius:5px;}
+.editorial input,.editorial textarea {background:var(--bg-body);color:var(--text-primary);border-color:var(--border);font-size:16px;}
+.editorial input::placeholder,.editorial textarea::placeholder {color:var(--text-secondary);opacity:1;}
+.editorial .footer {background:var(--bg-body);border-top:1px solid var(--border);}
+.editorial .modal-content {background:var(--bg-surface);color:var(--text-primary);border-color:var(--border);}
+.editorial .modal-description,.editorial .modal-description p,.editorial .modal-description li {color:var(--text-secondary);font-size:16px;}
+.editorial .modal-description h4,.editorial .modal-title,.editorial .modal-close {color:var(--text-primary);}
+.editorial .modal-tag {color:var(--text-primary);background:var(--bg-body);border-color:var(--border);}
+.editorial .modal-image {filter:none;max-height:280px;object-fit:contain;background:#18241f;}
+.editorial .modal-close {min-width:44px;min-height:44px;}
+.editorial :focus-visible {outline:3px solid var(--primary-color);outline-offset:5px;}
+.editorial .pointer-halo,.editorial .pointer-comet,.editorial .custom-cursor,.editorial .cursor-dot,.editorial .cursor-outline {display:none!important;}
+@media(max-width:1000px) { .editorial .hero__container {gap:28px;} .editorial .nav__list {gap:12px;} .case-grid {gap:16px;} .case-heading,.case-body {padding:18px;} .editorial .capabilities {gap:16px;} .editorial .capability {padding:20px;} }
+@media(max-width:768px) {
+ .editorial .container {width:calc(100% - 40px);}
+ .editorial main > section {padding:48px 0;}
+ .editorial .hero {padding:112px 0 48px;}
+ .editorial .hero__container,.editorial .about__content {grid-template-columns:1fr;gap:32px;}
+ .editorial .hero__statement {font-size:clamp(36px,7.5vw,52px);}
+ .editorial .hero__description {font-size:17px;}
+ .editorial-portrait {max-width:440px;width:100%;}
+  .case-grid,.editorial .capabilities,.editorial .projects-grid {grid-template-columns:1fr;gap:20px;}
+ .case-heading {min-height:0;padding:24px;}
+ .case-body {padding:24px;}
+ .editorial .nav.active {background:var(--bg-body);}
+ .editorial .timeline__content {padding:22px;}
+ .editorial .contact__container {grid-template-columns:1fr;gap:28px;}
+ .editorial .contact__form {padding:22px;}
+ .editorial .about__skills {grid-column:auto;}
+}
+@media(prefers-reduced-motion:reduce) {html {scroll-behavior:auto;} .editorial *,.editorial *::before,.editorial *::after {animation:none!important;transition:none!important;} }
+/* CV shares the editorial palette and remains printable. */
+.cv-editorial .cv-main {background:var(--bg-surface);border:1px solid var(--border);box-shadow:none;border-radius:5px;color:var(--text-primary);}
+.cv-editorial h1,.cv-editorial h2,.cv-editorial h3,.cv-editorial h4 {font-family:Inter,sans-serif;color:var(--text-primary);}
+.cv-editorial .cv-intro h2,.cv-editorial .job-company {color:var(--primary-color);}
+.cv-editorial p,.cv-editorial li,.cv-editorial .cv-contact-item,.cv-editorial .job-date {color:var(--text-secondary);}
+.cv-editorial .skill-pill {background:var(--bg-body);color:var(--text-primary);border-color:var(--border);}
+.cv-editorial .cv-header,.cv-editorial .cv-section {border-color:var(--border);}
+.cv-editorial .back-link a {color:var(--primary-color)!important;}
+.cv-editorial .cv-section h3::after {background:var(--primary-color);}
+@media(max-width:768px) {.cv-editorial .cv-main {margin:80px 16px 24px;padding:24px;} .cv-editorial .download-btn-container {position:static;margin-bottom:24px;} .cv-editorial .cv-header {display:flex;flex-direction:column;} }
+@media print {.cv-editorial {background:white;color:#202923;} .cv-editorial .cv-main {border:0;margin:0;padding:0;background:white;color:#202923;} .cv-editorial p,.cv-editorial li,.cv-editorial h1,.cv-editorial h2,.cv-editorial h3,.cv-editorial h4,.cv-editorial .job-date,.cv-editorial .job-company,.cv-editorial .cv-contact-item {color:#202923;} .cv-editorial .skill-pill {color:#202923;background:white;border-color:#999;} .cv-editorial .back-link,.cv-editorial .download-btn-container {display:none;} }
+
+.editorial .modal-backdrop {visibility:hidden;}
+.editorial .modal-backdrop.active {visibility:visible;}
+.editorial .modal-tools-title {color:var(--text-primary);}
+.editorial .modal-close {background:var(--bg-surface);border:1px solid var(--border);border-radius:50%;z-index:2;line-height:1;}
+/* 27. Hero staggered entry, stats band and section reveal. */
+.editorial .hero__eyebrow   {animation:heroEntry .7s ease both .05s;}
+.editorial .hero-name       {animation:heroEntry .7s ease both .15s;}
+.editorial .hero__statement {animation:heroEntry .7s ease both .25s;}
+.editorial .hero__description {animation:heroEntry .7s ease both .40s;}
+.editorial .hero__actions   {animation:heroEntry .7s ease both .50s;}
+.editorial .editorial-portrait {animation:heroEntry .8s ease both .30s;}
+html.light-theme .editorial .hero__description {color:var(--text-secondary);}
+@media (min-width:600px) and (max-width:768px) {.editorial .case-card > img {max-height:260px;} }
+.cv-editorial main > .cv-section {padding:0;margin:32px 0;}
+.cv-editorial .cv-role-title {color:var(--text-primary);}
+.cv-editorial .cv-company,.cv-editorial .cv-desc li::before {color:var(--primary-color);}
+.cv-editorial .cv-date {color:var(--text-secondary);}
+.cv-editorial .cv-avatar {border-color:var(--primary-color);box-shadow:none;}
+.cv-editorial .cv-avatar-container {background:none;box-shadow:none;}
+@media(max-width:640px) {.cv-editorial .cv-role-header {flex-direction:column;gap:6px;} .cv-editorial .cv-intro h1 {font-size:30px;} }
+@media print {.cv-editorial .cv-role-title,.cv-editorial .cv-date,.cv-editorial .cv-company {color:#202923;} .cv-editorial .cv-item {break-inside:avoid;} }
+
+/* A hidden dialog is absent from layout and keyboard navigation. */
+.editorial .modal-backdrop {display:none;transition:none;}
+.editorial .modal-backdrop.active {display:flex;}
+.editorial .modal-content {transition:none;transform:none;}
+
+/* Locally extracted portrait with real transparency and natural hair edges. */
+.editorial-portrait {max-width:320px;margin-left:auto;}
+.editorial-portrait img {
+    width:100%;height:auto;max-height:400px;aspect-ratio:1059/1320;
+    object-fit:contain;border-radius:0;background:transparent;display:block;
+}
+.editorial-portrait figcaption {border-top:0;margin-top:8px;text-align:center;}
+@media(max-width:768px) {.editorial-portrait {max-width:280px;margin:0 auto;} .editorial-portrait img {max-height:340px;} }
+
+/* Interactive data field. Decorative layers never intercept page controls. */
+.editorial {isolation:isolate;}
+.data-atmosphere {position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;--field-x:72%;--field-y:35%;}
+.data-atmosphere::before {content:"";position:absolute;inset:0;background:radial-gradient(ellipse at var(--field-x) var(--field-y),rgba(110,171,139,.12),transparent 48%),radial-gradient(ellipse at 8% 80%,rgba(119,154,164,.07),transparent 48%);}
+.data-atmosphere::after {content:"";position:absolute;inset:0;background-image:radial-gradient(var(--primary-color) .65px,transparent .85px);background-size:30px 30px;opacity:.10;mask-image:linear-gradient(90deg,transparent 8%,#000 75%);}
+.data-atmosphere canvas {width:100%;height:100%;display:block;}
+.editorial .mouse-aura {position:fixed;top:0;left:0;width:26px;height:26px;border:1px solid var(--primary-color);border-radius:50%;pointer-events:none;z-index:2100;opacity:0;transition:width .18s,height .18s,opacity .18s,background .18s;margin:-13px 0 0 -13px;}
+.editorial .mouse-aura.is-visible {opacity:.55;}
+.editorial .mouse-aura.is-interactive {width:40px;height:40px;margin:-20px 0 0 -20px;background:rgba(112,171,139,.10);}
+.editorial .effects-toggle {display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 14px;border:1px solid var(--border);border-radius:4px;background:var(--bg-body);color:var(--text-secondary);font:12px Inter,sans-serif;cursor:pointer;}
+.effects-toggle::before {content:"";width:6px;height:6px;border-radius:50%;background:var(--primary-color);}
+.effects-toggle[aria-pressed="true"]::before {background:var(--text-secondary);}
+.editorial .effects-toggle:disabled {cursor:default;opacity:.7;}
+@media(hover:none),(pointer:coarse) {.editorial .mouse-aura {display:none;}}
+@media(prefers-reduced-motion:reduce) {.editorial .mouse-aura {display:none;} .data-atmosphere::before {background:radial-gradient(ellipse at 72% 35%,rgba(110,171,139,.07),transparent 48%);}}
+
+@media(max-width:768px) {.editorial .mouse-aura {display:none;} }
+
+/* Stats band: flat theme colour, since --primary-gradient is unreadable on the dark surface. */
+.editorial .stats {border-bottom:0;}
+.editorial .stat-item {border-radius:5px;background:var(--bg-surface);border:1px solid var(--border);backdrop-filter:none;padding:26px 18px;transition:border-color .2s,transform .2s;}
+.editorial .stat-item:hover {border-color:var(--border-hover);transform:translateY(-3px);}
+/* Beats `html.light-theme .stat-number` (0,2,1), which still carries the old blue/purple gradient. */
+html .editorial .stat-number,html .editorial .stat-suffix {background:none;background-clip:border-box;-webkit-background-clip:border-box;-webkit-text-fill-color:currentColor;color:var(--primary-color);font-family:Inter,sans-serif;letter-spacing:-.04em;}
+.editorial .stat-number {font-size:clamp(34px,3.6vw,46px);}
+.editorial .stat-suffix {font-size:clamp(22px,2.2vw,28px);}
+.editorial .stat-label {font-size:12px;letter-spacing:.08em;color:var(--text-secondary);margin:0;}
+@media(max-width:860px) {.editorial .stats__grid {grid-template-columns:repeat(2,1fr);gap:16px;}}
+
+/* Sections carrying reveal-stagger cascade their cards instead of fading as one block. */
+.editorial .reveal-stagger {opacity:1;transform:none;}
+.editorial .reveal-stagger .case-card,
+.editorial .reveal-stagger .capability,
+.editorial .reveal-stagger .stat-item,
+.editorial .reveal-stagger > .container > .projects-grid > .project-card {opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s cubic-bezier(.25,1,.5,1);}
+.editorial .reveal-stagger.is-visible .case-card,
+.editorial .reveal-stagger.is-visible .capability,
+.editorial .reveal-stagger.is-visible .stat-item,
+.editorial .reveal-stagger.is-visible > .container > .projects-grid > .project-card {opacity:1;transform:none;}
+.editorial .reveal-stagger.is-visible .case-grid > :nth-child(2),
+.editorial .reveal-stagger.is-visible .capabilities > :nth-child(2),
+.editorial .reveal-stagger.is-visible .stats__grid > :nth-child(2),
+.editorial .reveal-stagger.is-visible .projects-grid > :nth-child(2) {transition-delay:.10s;}
+.editorial .reveal-stagger.is-visible .case-grid > :nth-child(3),
+.editorial .reveal-stagger.is-visible .capabilities > :nth-child(3),
+.editorial .reveal-stagger.is-visible .stats__grid > :nth-child(3) {transition-delay:.20s;}
+.editorial .reveal-stagger.is-visible .stats__grid > :nth-child(4) {transition-delay:.30s;}
+
+/* Cards read as interactive: the flat 3px lift was hard to notice. */
+.editorial .case-card {transition:border-color .25s,transform .25s,box-shadow .25s;}
+.editorial .case-card:hover,.editorial .case-card:focus-visible {transform:translateY(-4px);border-color:var(--border-hover);}
+.editorial .project-card:hover {transform:translateY(-4px);}
+
+/* Reduced motion: nothing may stay stuck at opacity 0 once the transitions are stripped. */
+@media(prefers-reduced-motion:reduce) {
+ .editorial .reveal-stagger .case-card,
+ .editorial .reveal-stagger .capability,
+ .editorial .reveal-stagger .stat-item,
+ .editorial .reveal-stagger > .container > .projects-grid > .project-card {opacity:1;transform:none;}
+ .editorial .reveal-section {opacity:1;transform:none;}
+}
+
+/* Case diagrams ship their own dark panel, so the contain-fit letterbox matches it. */
+.editorial .case-card > img {background:#18241f;}
+
+/* Skill bars: tier label plus a track. Flat --primary-color, because --primary-gradient
+   is dark green and would disappear on the dark surface. */
+.editorial .skill-bar__level {margin-left:auto;font:600 11px Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--primary-color);white-space:nowrap;}
+.editorial .skill-bar__track {height:6px;margin-top:11px;background:var(--border);border-radius:100px;overflow:hidden;}
+.editorial .skill-bar__fill {background:var(--primary-color);}
+
+/* 28. Timeline: the analytical work of each role, beside the operational description. */
+.editorial .timeline__date {grid-row:1 / -1;}
+.editorial .timeline__data {grid-column:2;margin:0;padding:2px 48px 0 16px;border-left:2px solid var(--primary-color);font-size:15px;line-height:1.75;color:var(--text-secondary);}
+.editorial .timeline__data-label {display:block;font:600 11px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--primary-color);margin-bottom:6px;}
+.editorial .timeline__content .tool-tags {grid-column:2;margin:0;}
+@media(max-width:768px) {
+ .editorial .timeline__data,.editorial .timeline__content .tool-tags {grid-column:auto;}
+ .editorial .timeline__data {padding-right:0;}
+}
+
+/* 29. A UI capture is anchored top-left: cropping the centre loses the KPI row. */
+.editorial .project-cover--ui {object-fit:cover;object-position:top left;background:#0f172a;}
+.editorial .modal-image {max-height:420px;}

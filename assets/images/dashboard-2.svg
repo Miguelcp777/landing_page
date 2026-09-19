@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Contract profitability: share of install base under contract, and revenue against cost for each contract type with the resulting margin. Synthetic data.">
+<style>
+  .p{fill:#18241f}
+  .card{fill:#22312b;stroke:#3a5145;stroke-width:1.5}
+  .t{font-family:Inter,system-ui,"Segoe UI",Arial,sans-serif;fill:#eef4ef}
+  .t2{font-family:Inter,system-ui,"Segoe UI",Arial,sans-serif;fill:#9fb3a6}
+  .num{font-family:Inter,system-ui,"Segoe UI",Arial,sans-serif;fill:#b5ddc1;font-weight:600}
+  .track{fill:none;stroke:#3a5145;stroke-width:26}
+  .ring{fill:none;stroke:#7fc59b;stroke-width:26;stroke-linecap:round}
+  .rowbg{fill:#2b3d34} .rowA{fill:#7fc59b} .rowB{fill:#3f6b55}
+
+  .fade{opacity:0;animation:fade .5s ease-out forwards}
+  .f0{animation-delay:.05s} .f1{animation-delay:.25s} .f2{animation-delay:.4s}
+  .ring{stroke-dasharray:534;stroke-dashoffset:534;animation:draw 1.2s cubic-bezier(.25,1,.5,1) .4s forwards}
+  .rw{transform-box:fill-box;transform-origin:0 50%;transform:scaleX(0);animation:wide .55s cubic-bezier(.25,1,.5,1) forwards}
+  .vlab{opacity:0;animation:fade .4s ease-out forwards}
+  @keyframes fade{to{opacity:1}}
+  @keyframes draw{to{stroke-dashoffset:150}}
+  @keyframes wide{to{transform:scaleX(1)}}
+  @media (prefers-reduced-motion:reduce){
+    .fade,.vlab{opacity:1;animation:none}
+    .ring{stroke-dashoffset:150;animation:none}
+    .rw{transform:none;animation:none}
+  }
+</style>
+<rect class="p" width="800" height="450"/>
+<text class="t2 fade f0" x="48" y="46" font-size="15" letter-spacing="2.4">03 / CONTRACT PROFITABILITY</text>
+<text class="t fade f0" x="48" y="80" font-size="26" font-weight="600" letter-spacing="-.5">Which contracts actually pay for themselves</text>
+
+<g class="fade f1"><rect class="card" x="48" y="104" width="266" height="302" rx="6"/>
+<text class="t2" x="72" y="136" font-size="15" letter-spacing="1.4">UNDER CONTRACT</text>
+<circle class="track" cx="181" cy="256" r="80"/>
+<circle class="ring" cx="181" cy="256" r="80" transform="rotate(-90 181 256)"/>
+<text class="t" x="181" y="252" font-size="40" font-weight="600" text-anchor="middle">72%</text>
+<text class="t2" x="181" y="278" font-size="15" text-anchor="middle">2,203 of 3,060</text>
+<text class="t2" x="72" y="376" font-size="15">Average sales price</text>
+<text class="num" x="290" y="376" font-size="19" text-anchor="end">$4,180</text></g>
+
+<g class="fade f2"><rect class="card" x="338" y="104" width="414" height="302" rx="6"/>
+<text class="t2" x="362" y="136" font-size="15" letter-spacing="1.4">REVENUE VS COST BY CONTRACT TYPE</text>
+
+<text class="t2" x="362" y="176" font-size="16">Full service</text>
+<text class="num" x="728" y="176" font-size="16" text-anchor="end">+38% margin</text>
+<rect class="rowbg" x="362" y="188" width="366" height="13" rx="6"/>
+<g class="rw" style="animation-delay:.6s"><rect class="rowA" x="362" y="188" width="300" height="13" rx="6"/></g>
+<rect class="rowbg" x="362" y="208" width="366" height="13" rx="6"/>
+<g class="rw" style="animation-delay:.7s"><rect class="rowB" x="362" y="208" width="186" height="13" rx="6"/></g>
+<g class="num" font-size="15"><text class="vlab" style="animation-delay:1.1s" x="670" y="199">$2.4M</text>
+<text class="vlab" style="animation-delay:1.2s" x="556" y="219" fill="#9fb3a6">$1.5M</text></g>
+
+<text class="t2" x="362" y="258" font-size="16">Preventive only</text>
+<text class="num" x="728" y="258" font-size="16" text-anchor="end">+21% margin</text>
+<rect class="rowbg" x="362" y="270" width="366" height="13" rx="6"/>
+<g class="rw" style="animation-delay:.8s"><rect class="rowA" x="362" y="270" width="208" height="13" rx="6"/></g>
+<rect class="rowbg" x="362" y="290" width="366" height="13" rx="6"/>
+<g class="rw" style="animation-delay:.9s"><rect class="rowB" x="362" y="290" width="164" height="13" rx="6"/></g>
+<g class="num" font-size="15"><text class="vlab" style="animation-delay:1.3s" x="578" y="281">$1.6M</text>
+<text class="vlab" style="animation-delay:1.4s" x="534" y="301" fill="#9fb3a6">$1.3M</text></g>
+
+<text class="t2" x="362" y="340" font-size="16">Time and materials</text>
+<text class="num" x="728" y="340" font-size="16" text-anchor="end" fill="#d4a373">+6% margin</text>
+<rect class="rowbg" x="362" y="352" width="366" height="13" rx="6"/>
+<g class="rw" style="animation-delay:1.0s"><rect class="rowA" x="362" y="352" width="118" height="13" rx="6"/></g>
+<rect class="rowbg" x="362" y="372" width="366" height="13" rx="6"/>
+<g class="rw" style="animation-delay:1.1s"><rect class="rowB" x="362" y="372" width="111" height="13" rx="6"/></g>
+<g class="num" font-size="15"><text class="vlab" style="animation-delay:1.5s" x="488" y="363">$0.9M</text>
+<text class="vlab" style="animation-delay:1.6s" x="481" y="383" fill="#9fb3a6">$0.85M</text></g>
+</g>
+<g class="fade" style="animation-delay:1.7s">
+<rect x="566" y="420" width="13" height="13" class="rowA"/><text class="t2" x="588" y="432" font-size="15">Revenue</text>
+<rect x="666" y="420" width="13" height="13" class="rowB"/><text class="t2" x="688" y="432" font-size="15">Cost</text></g>
+<text class="t2" x="48" y="432" font-size="14" letter-spacing=".8">SYNTHETIC DATA · STRUCTURE OF THE REAL DASHBOARD</text>
+</svg>
