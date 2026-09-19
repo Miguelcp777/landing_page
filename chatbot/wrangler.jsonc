@@ -1,0 +1,34 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "miguelcastillo-chat",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-19",
+  "observability": { "enabled": true, "head_sampling_rate": 1 },
+
+  // No workers.dev URL. The Worker is reachable only through the site's own
+  // domain, which keeps the endpoint same-origin and off the public internet
+  // under a second, unprotected hostname.
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "www.miguelcastillo.es/api/chat", "zone_name": "miguelcastillo.es" },
+    { "pattern": "miguelcastillo.es/api/chat", "zone_name": "miguelcastillo.es" }
+  ],
+
+  "vars": {
+    "ALLOWED_ORIGINS": "https://www.miguelcastillo.es,https://miguelcastillo.es",
+    // Sonnet is comfortably enough to answer from a fixed profile. Swapping this
+    // string to claude-opus-5 is the whole upgrade path.
+    "MODEL": "claude-sonnet-5"
+  },
+
+  // Rate-limit counters. Create with:
+  //   npx wrangler kv namespace create CHAT_RL
+  // then paste the id it prints here.
+  "kv_namespaces": [{ "binding": "CHAT_RL", "id": "PENDIENTE_PEGAR_EL_ID" }],
+
+  // Validated at deploy time, so a missing key fails the deploy instead of
+  // failing silently on the first visitor.
+  "secrets": {
+    "required": ["ANTHROPIC_API_KEY"]
+  }
+}

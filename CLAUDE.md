@@ -22,9 +22,10 @@ css/styles.css      — Base heredada (secciones numeradas 1-26)
 css/editorial.css   — Capa editorial, la que manda (secciones 27-29). Carga después
 js/script.js        — Base: i18n, reveal, contadores, skill bars, modales
 js/portfolio.js     — Traducciones editoriales y el campo de datos animado. Carga después
+js/chat.js          — Panel de chat. Apagado salvo que <body> lleve data-chat="on"
+chatbot/            — Worker de Cloudflare que atiende /api/chat. Ver chatbot/README.md
 assets/images/      — profile-400/800.webp (retrato), dashboard-1/2/4.svg (diagramas),
                       project-art/*.webp (portadas de proyecto)
-formulario_landing_page.json — Workflow n8n del antiguo formulario. Legacy, ya no se usa
 ```
 
 ## Orden de carga y cascada
@@ -75,6 +76,31 @@ de clientes, contratos o del empleador. Al añadir un visual nuevo:
   Para habilitarlo, Miguel lanza `ssh-copy-id` contra el NAS.
 - **Nota Docker:** versión 20.10.3 — incompatible con imágenes modernas (error `invalid tar header`).
   Actualizar el paquete Docker desde DSM antes de hacer `docker pull` de imágenes nuevas.
+
+## Chatbot
+Panel de chat en la landing. **Se apaga y se enciende con un atributo:** `data-chat="on"`
+en `<body>` de `index.html`. Hoy está en `off` a propósito, porque sin el Worker desplegado
+cada mensaje fallaría y un widget visiblemente roto es peor que no tenerlo.
+
+- **Frontend:** `js/chat.js` + sección 34 de `editorial.css`. Vanilla, sin build, como todo
+  lo demás. Idioma EN/ES siguiendo el atributo `lang` del `<html>`.
+- **Backend:** `chatbot/`, un Worker de Cloudflare montado en una **ruta del propio dominio**
+  (`/api/chat`), no en `workers.dev`. Así el navegador llama al mismo origen del que cargó
+  la página: sin CORS, sin segundo hostname y con el sitio estático intacto en el NAS.
+- **Depende del dominio en Cloudflare.** Hasta que la zona exista no hay dónde enganchar
+  la ruta. Ver la sección del apex.
+
+`chatbot/` **se sirve públicamente**, como todo el repo. Es deliberado: no hay nada secreto
+(la clave vive en Workers Secrets) y el código propio legible suma en una página cuya mayor
+carencia es justo esa. `node_modules/`, `.wrangler/` y `.dev.vars` sí están en `.gitignore`.
+
+El conocimiento del bot está entero en `chatbot/src/profile.ts`: sin RAG, sin base de datos.
+Lleva también los límites — nada de cifras inventadas, nada de datos del empleador, nada de
+preguntas discriminatorias en selección, y la lista de cosas que Miguel aún no ha decidido
+(salario, preaviso, movilidad, idiomas, formación), que deriva por email en vez de adivinar.
+
+**Antes de encenderlo:** poner un límite de gasto mensual en la consola de Anthropic. Los
+topes del código acotan el daño; el límite de cuenta lo cierra. Detalle en `chatbot/README.md`.
 
 ## Qué NO escribir en este fichero
 El repo **es** la raíz web: `CLAUDE.md`, `README.md` y `.gitignore` se sirven en internet
@@ -130,6 +156,10 @@ git diff --ignore-cr-at-eol --stat origin/master -- <ficheros>
   con datos sintéticos en Tableau Public y enlazarlos.
 - **Dominio sin `www` — EN CURSO.** Plan elegido: mover el DNS a Cloudflare. Procedimiento
   completo en la sección siguiente; el diagnóstico ya está hecho y verificado dos veces.
+- **Chatbot, fases 2 y 3:** voz. La entrada por voz sale gratis con la Web Speech API del
+  navegador. La salida con voz clonada **no cabe en un Worker** (sin GPU y con límite de CPU):
+  o un servicio GPU de pago por uso, o pregenerar los audios de las preguntas más probables y
+  servirlos estáticos. Si habla con su voz, **etiquetarlo como IA de forma visible**.
 - **Sección de noticias (#news):** n8n cron diario → RSS feeds (TechCrunch AI, Healthcare IT News,
   MobiHealthNews) → `<web-root>/news.json` → frontend fetch y render de cards.
   Pendiente de: actualizar Docker en NAS para poder hacer pull de n8n actualizado.

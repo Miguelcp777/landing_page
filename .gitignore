@@ -16,3 +16,9 @@ assets/images/project-art/bizplan-*.webp
 # y estos llevan IPs, usuario SSH y rutas del NAS.
 AGENTS.md
 deploy/
+
+# Worker del chat. El codigo fuente si se publica -- es codigo propio y suma
+# como evidencia -- pero las dependencias y los secretos locales no.
+chatbot/node_modules/
+chatbot/.wrangler/
+chatbot/.dev.vars

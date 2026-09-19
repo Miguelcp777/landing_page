@@ -1,0 +1,8 @@
+# Copia este fichero a .dev.vars para `wrangler dev`. Nunca se commitea:
+# .gitignore lo excluye, y el repo es la raiz web publica.
+#
+# OJO: `wrangler dev` llama a la API de Anthropic de verdad y gasta dinero real.
+ANTHROPIC_API_KEY="sk-ant-..."
+
+# Opcional. Solo si activas Turnstile.
+# TURNSTILE_SECRET="0x..."
