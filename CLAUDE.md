@@ -115,8 +115,33 @@ git diff --ignore-cr-at-eol --stat origin/master -- <ficheros>
 - **Evidencia verificable:** es la carencia mayor de la página. Cero enlaces a GitHub, repos
   o dashboards públicos. Lo que más movería la aguja es reconstruir los dashboards de Tableau
   con datos sintéticos en Tableau Public y enlazarlos.
-- **Resumen del CV:** `cv.html` todavía abre con "Technical Service Supervisor for Iberia…",
-  que contradice el posicionamiento de la landing.
+- **Dominio sin `www` — APLAZADO a propósito.** `miguelcastillo.es` a secas sirve una página
+  de aparcamiento de Hostinger por HTTP y falla el handshake TLS por HTTPS; solo funciona `www`.
+  Miguel decidió resolverlo **cuando la landing esté terminada**. Diagnóstico en la sección
+  siguiente — no re-diagnosticar desde cero.
 - **Sección de noticias (#news):** n8n cron diario → RSS feeds (TechCrunch AI, Healthcare IT News,
   MobiHealthNews) → `/volume1/web/news.json` → frontend fetch y render de cards.
   Pendiente de: actualizar Docker en NAS para poder hacer pull de n8n actualizado.
+
+## Dominio sin `www` — diagnóstico hecho, arreglo aplazado
+Medido el 2026-09-20. **Son dos fallos, no uno.**
+```
+http://miguelcastillo.es       200  "Parked Domain name on Hostinger"  (2.57.91.91)
+https://miguelcastillo.es      fallo de handshake TLS
+http://www.miguelcastillo.es   200, sin redirigir a HTTPS
+https://www.miguelcastillo.es  200, la web  (88.17.119.190 vía nasmiguel.ddns.net)
+```
+1. **DNS:** el apex apunta a Hostinger, no al NAS. DNS gestionado en Hostinger (`ns1/ns2.dns-parking.com`).
+2. **Certificado:** el del NAS tiene SAN solo `www.miguelcastillo.es`; el por defecto es
+   `nasmiguel.ddns.net`. Ninguno cubre el apex.
+
+**Orden obligatorio: DNS primero, certificado después.** Let's Encrypt valida por el puerto 80
+y no puede emitir para el apex hasta que este resuelva al NAS.
+
+**Obstáculo:** la IP de casa es dinámica (de ahí el DDNS) y el apex no admite CNAME por estándar.
+Opción recomendada: mover el DNS a Cloudflare (gratis) por su *CNAME flattening*, que hace que el
+apex siga al DDNS solo, y de paso oculta la IP doméstica, hoy pública. El dominio sigue registrado
+en Hostinger. Alternativa pobre: registro A fijo, que se rompe al cambiar la IP.
+
+Para el mismo momento: añadir el 301 de HTTP a HTTPS (hoy no existe) y meter
+`<link rel="canonical">` y `og:url` en el `<head>`, que nunca se pusieron.
