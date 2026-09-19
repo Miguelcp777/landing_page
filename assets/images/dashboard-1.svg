@@ -22,7 +22,9 @@
     .bar{transform:none;animation:none}
     .line{stroke-dashoffset:0;animation:none}
   }
+  .num,.ob{filter:url(#ob)}
 </style>
+<defs><filter id="ob" x="-25%" y="-25%" width="150%" height="150%"><feGaussianBlur stdDeviation="3.6"/></filter></defs>
 <rect class="p" width="800" height="450"/>
 <text class="t2 fade f0" x="48" y="46" font-size="15" letter-spacing="2.4">02 / COST PER SYSTEM</text>
 <text class="t fade f0" x="48" y="80" font-size="26" font-weight="600" letter-spacing="-.5">Where service cost actually sits</text>
@@ -60,5 +62,5 @@
 <text class="vlab" style="animation-delay:1.55s" x="476" y="390">2025</text>
 <text class="vlab" style="animation-delay:1.6s" x="636" y="390">2026</text>
 </g>
-<text class="t2" x="48" y="436" font-size="14" letter-spacing=".8">SYNTHETIC DATA · STRUCTURE OF THE REAL DASHBOARD</text>
+<text class="t2" x="48" y="436" font-size="14" letter-spacing=".8">SYNTHETIC DATA · FIGURES OBSCURED</text>
 </svg>
