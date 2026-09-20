@@ -28,8 +28,15 @@ Vanilla JavaScript, consistent with the no-build constraint.
 ## Domain invariants
 
 - **INV-WIDGET-001** — Model output is written with `textContent`, never `innerHTML`.
-- **INV-WIDGET-002** — A failed reply is not written into the history, so a retry
-  does not resend a broken turn.
+- **INV-WIDGET-002** — A failed turn leaves **no trace in the sent history**: the
+  unanswered question is dropped along with the missing reply. Keeping the question
+  would put two user turns in a row, which the server rejects for broken
+  alternation, and every later message in that session would fail. The visible
+  bubble stays; only what gets sent shrinks.
+- **INV-WIDGET-007** — A history loaded from `sessionStorage` is repaired before
+  use: entries must alternate from `user`, and a trailing unanswered question is
+  dropped. A session saved by an older build, or interrupted mid-turn, would
+  otherwise be permanently unusable.
 - **INV-WIDGET-003** — The input is re-enabled on every exit path, including errors.
 - **INV-WIDGET-004** — Copy exists in both languages and follows `<html lang>`.
 - **INV-WIDGET-005** — Ships disabled. See INV-PAGES-003.
@@ -80,6 +87,9 @@ No automated tests. Verified manually in a browser.
 | First-person copy in both languages | VERIFIED | browser read of all five strings plus starters | pass |
 | AI label rendered and visible | VERIFIED | computed `display` of `.chat__note` is not `none` | pass |
 | Textarea not clipped | VERIFIED | `scrollHeight` 44 against a 46px box after the placeholder fix | pass |
+| Multi-turn conversation keeps context | VERIFIED | three-turn history against production; the reply used the earlier turn and corrected its premise | pass |
+| A failed turn does not poison the session | VERIFIED | two consecutive failures against a missing endpoint; history stayed empty | pass |
+| A poisoned stored history is repaired | VERIFIED | planted a lone user entry, reloaded, zero bubbles drawn | pass |
 | Happy path, end to end | VERIFIED | production `POST /api/chat` returned a streamed first-person answer @ `6967f66c7613f74112eb88932cc08e0e19d6e21d` | pass |
 
 ## Change history

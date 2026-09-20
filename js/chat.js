@@ -75,9 +75,29 @@
     var busy = false;
     var els = {};
 
+    /**
+     * The server requires strict user/assistant alternation starting with user, and
+     * rejects anything else. Keep the stored history to that shape: a session saved
+     * by an older build, or interrupted mid-turn, can hold a trailing question with
+     * no answer, and sending it would fail every time with no way out.
+     */
+    function repair(list) {
+        if (!Array.isArray(list)) return [];
+        var out = [];
+        for (var i = 0; i < list.length; i++) {
+            var m = list[i];
+            if (!m || typeof m.content !== 'string' || !m.content.trim()) break;
+            if (m.role !== (out.length % 2 === 0 ? 'user' : 'assistant')) break;
+            out.push({ role: m.role, content: m.content });
+        }
+        // A trailing question with no answer is what breaks the next send.
+        if (out.length && out[out.length - 1].role === 'user') out.pop();
+        return out;
+    }
+
     try {
         var saved = sessionStorage.getItem(STORE);
-        if (saved) history = JSON.parse(saved) || [];
+        if (saved) history = repair(JSON.parse(saved));
     } catch (_) {}
 
     function persist() {
@@ -208,7 +228,15 @@
         stream(out).catch(function () {
             out.classList.remove('is-streaming');
             out.textContent = t().errors.generic;
-        }).then(function () {
+            return false;
+        }).then(function (ok) {
+            // Drop the unanswered question. Leaving it would put two user turns in a
+            // row, which the server rejects, and every later message would fail with
+            // no way back. The bubble stays on screen; only the sent history shrinks.
+            if (!ok) {
+                history.pop();
+                persist();
+            }
             setBusy(false);
             els.input.focus();
         });
@@ -276,6 +304,7 @@
         history.push({ role: 'assistant', content: answer });
         if (history.length > MAX_TURNS) history = history.slice(-MAX_TURNS);
         persist();
+        return true;
     }
 
     /* -------------------------------------------------------------- panel */
