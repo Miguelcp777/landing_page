@@ -1,6 +1,6 @@
 {
-  "revision": "c1d060181e8aa316fc75d38f00fdbd79543d3d11",
-  "task_spec": ".specanchor/tasks/TASK-006.spec.md",
+  "revision": "80b78e6cd893bd6d1349c12603d63e49215909e7",
+  "task_spec": ".specanchor/tasks/TASK-007.spec.md",
   "files": [
     {
       "path": "chatbot/src/profile.ts",
@@ -8,9 +8,9 @@
       "specs": [
         ".specanchor/modules/chat-worker.spec.md"
       ],
-      "rationale": "Knowledge-base text only. Adds the degree and an instruction not to inflate it. The module contract - HTTP interface, bindings, invariants, error codes - is untouched, and the spec's statements about the profile remain true.",
+      "rationale": "Knowledge-base text only, correcting a fact the owner restated. The module contract is untouched. The prohibition on degree-like phrasing is strengthened because the correct qualification is more, not less, exposed to being rendered as an engineering title in English.",
       "evidence": [
-        ".specanchor/tasks/TASK-006.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-007.spec.md#verification-evidence"
       ]
     }
   ],
