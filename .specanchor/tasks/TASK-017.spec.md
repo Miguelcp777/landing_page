@@ -109,12 +109,41 @@ still did not mount — that is the real result.
 A test that produces the expected answer for the wrong reason is worse than a
 failing one.
 
-## Open
+## Live, and verified on the real thing
 
-- **Pages is not enabled yet.** `gh` is not installed on this machine, so the switch
-  has to be thrown in the repository settings. Until then the mirror does not exist.
-- Once live, the mirror should be loaded once to confirm Pages serves it the same
-  way the subpath test did.
+The owner enabled Pages. `https://miguelcp777.github.io/landing_page/` returns 200
+from GitHub's servers, and the mirror behaves as the subpath test predicted:
+
+- **24 of 24** linked assets at 200, plus `cv.html` and `.nojekyll`. Zero broken
+  images when each is fetched rather than inspected.
+- Scripts run (`translations.en.studio.q0` present) and **`.chat` is absent** — the
+  host gate working on the real mirror, not a simulation of it.
+- Veil, atmosphere field, both query blocks and the dark band all render.
+- `canonical` still points at `https://www.miguelcastillo.es/`.
+- `/api/chat` returns 404, as designed.
+- Network log for the load: every request 200.
+
+## What the block looked like a few hours later
+
+The owner reported the site working again. It had not been fixed.
+
+From this machine at that moment, ten consecutive resolutions of
+`www.miguelcastillo.es` all returned `188.114.96.5`, and **ten of ten connections
+were refused**. One earlier request had succeeded because it landed on
+`172.67.171.27`, which is not blocked. So reachability depends on which address the
+resolver hands out, and the same domain works or fails from one lookup to the next.
+
+That also corrects something stated too strongly earlier: this was described as "11
+of Cloudflare's 15 ranges blocked". The measurement was one probe address per range,
+so the accurate statement is **11 of the 15 addresses probed**. `172.67.171.27`
+answers while `172.67.0.5` in the same `/13` does not, so the blocking is per
+address, not per range.
+
+At the time of writing, the apex still resolves to the blocked pair from here and
+still times out, while `www` sometimes does not. Intermittent is worse than down:
+it looks fixed.
+
+## Open
 - The mirror does not carry the chat, by design.
 - This mitigates the symptom, not the cause. If the blocks recur often, the real
   question is whether the primary should keep sitting behind a proxied Cloudflare
