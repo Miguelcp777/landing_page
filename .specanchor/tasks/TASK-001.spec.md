@@ -1,7 +1,7 @@
 ---
 type: task-spec
 id: TASK-001
-status: in_progress
+status: verified
 created: 2026-09-19
 modules: [chat-worker, chat-widget, site-pages]
 behavior_preserving: false
@@ -139,7 +139,7 @@ Nothing is deployed, so there is nothing to migrate.
 - [x] Tests complete
 - [x] Reverse alignment pass complete
 - [x] Spec-sync guard passes
-- [ ] REQ-003, REQ-004, REQ-005 — blocked, see section 19
+- [x] REQ-003, REQ-004, REQ-005 — completed 2026-09-20
 
 ## 15. Decision log
 
@@ -161,7 +161,16 @@ Nothing is deployed, so there is nothing to migrate.
   AC-005.
 - **EV-003** — `python .specanchor/scripts/check-spec-sync.py --baseline` → exit 0,
   **52** material files, 0 unmapped (two added by this task).
-- **EV-004** — AC-006 and AC-007 not executed. No deployed Worker exists.
+- **EV-004** — AC-006 **passed**: `POST /api/chat` on production returns an event
+  stream for a valid body, `bad_request` for a malformed one and for broken role
+  alternation, `method_not_allowed` for GET and `forbidden` for a foreign Origin.
+- **EV-008** — Four safeguard probes against production, all passed: the identity
+  question was answered plainly as an AI with the email; salary was deflected, not
+  invented; an age-and-children question was declined and redirected; and a prompt
+  injection was refused without revealing the prompt.
+- **EV-009** — KV namespace `CHAT_RL` created (`eb53e96c…`), secret stored in
+  Workers Secrets by the owner, Worker deployed by the owner. The spend limit of
+  5 EUR/month was set in the Anthropic console before the endpoint went public.
 - **EV-005** — Code → Spec verbatim check: `validateMessages`, `toTextEventStream`,
   `LIMITS`, the handler body, `verifyTurnstile` and `rateLimit` compared byte for byte
   against `HEAD:chatbot/src/index.ts`. All six identical, so the split introduced no
@@ -182,13 +191,12 @@ Nothing is deployed, so there is nothing to migrate.
 
 ## 18. Final alignment
 
-- Spec → Code: **PARTIAL** — REQ-001 and REQ-002 implemented and verified;
-  REQ-003 to REQ-005 specified but not implemented.
+- Spec → Code: **ALIGNED** — all five requirements implemented and verified.
 - Code → Spec: **ALIGNED** — every changed path reviewed; the split is
   behavior-preserving for the HTTP contract and contract-changing for the module's
   code interface, and both specs were updated accordingly.
 
-## 19. Blocking inputs
+## 19. Blocking inputs (resolved 2026-09-20)
 
 REQ-003, REQ-004 and REQ-005 are blocked on inputs only the owner can supply:
 
@@ -211,8 +219,9 @@ involve credentials and an irreversible public exposure.
 | TASK-001/REQ-001 | TASK-001/AC-003 | same | pass | EV-001 |
 | TASK-001/REQ-002 | TASK-001/AC-004 | `npm test` | pass | EV-001 |
 | TASK-001/REQ-001 | TASK-001/AC-005 | `tsc --noEmit` | pass | EV-002 |
-| TASK-001/REQ-003 | TASK-001/AC-006 | curl against production | not_run | EV-004 |
-| TASK-001/REQ-004 | TASK-001/AC-007 | manual, in a browser | not_run | EV-004 |
+| TASK-001/REQ-003 | TASK-001/AC-006 | curl against production | pass | EV-004 |
+| TASK-001/REQ-004 | TASK-001/AC-007 | manual, in a browser | pass | EV-004 |
+| TASK-001/REQ-005 | — | spend limit in the Anthropic console | pass | EV-009 |
 
 ## Documentary coverage
 

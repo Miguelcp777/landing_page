@@ -22,10 +22,8 @@
     "MODEL": "claude-haiku-4-5-20251001"
   },
 
-  // Rate-limit counters. Create with:
-  //   npx wrangler kv namespace create CHAT_RL
-  // then paste the id it prints here.
-  "kv_namespaces": [{ "binding": "CHAT_RL", "id": "PENDIENTE_PEGAR_EL_ID" }],
+  // Rate-limit counters. Namespace CHAT_RL, created 2026-09-20 (TASK-001/REQ-003).
+  "kv_namespaces": [{ "binding": "CHAT_RL", "id": "eb53e96c3e164597aa2bdf842dfaa750" }],
 
   // Validated at deploy time, so a missing key fails the deploy instead of
   // failing silently on the first visitor.

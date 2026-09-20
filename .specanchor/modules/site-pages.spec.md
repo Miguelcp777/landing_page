@@ -36,8 +36,9 @@ Static documents. `cv.html` is standalone and carries its own print stylesheet.
   translation tables. Crawlers that do not execute JavaScript read the markup.
 - **INV-PAGES-002** — One `<link rel="canonical">` per document, pointing at the
   `www` host.
-- **INV-PAGES-003** — `data-chat` stays `"off"` until the Worker is deployed. A chat
-  button that fails on every message is worse than no chat button.
+- **INV-PAGES-003** — `data-chat` is `"on"` since 2026-09-20, when the Worker went
+  live. It must go back to `"off"` in the same change as any Worker outage or
+  teardown: a chat button that fails on every message is worse than no chat button.
 - **INV-PAGES-004** — CSS and JS links share one `?v=` value. Divergence has silently
   shipped stale assets before.
 - **INV-PAGES-005** — `cv.html` fits on one printed A4 page.

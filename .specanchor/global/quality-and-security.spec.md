@@ -76,12 +76,14 @@ the chat textarea to half a line at 375px.
 | Server-side validation | OBSERVED | `chatbot/src/index.ts`, `validateMessages()` |
 | Global daily ceiling exists | OBSERVED | `chatbot/src/index.ts`, `LIMITS.globalPerDay` |
 | Chat error path behaves | VERIFIED | starter clicked against an absent endpoint; friendly message rendered, state cleared, failed reply not persisted |
-| Chat happy path | NOT_VERIFIED | requires a deployed Worker and a real API key; never executed |
+| Chat happy path | VERIFIED | production probe returned a real streamed answer @ `6967f66c7613f74112eb88932cc08e0e19d6e21d` |
+| Chat safeguards | VERIFIED | four probes: identity disclosure, salary deflection, discriminatory question, prompt injection |
 
 ## Unknowns
 
-- Whether the Worker behaves correctly against the live Anthropic API. (UNKNOWN) It
-  has never been run end to end.
+- The rate-limit and budget block branches have never fired in production.
+  (NOT_VERIFIED) Their decision logic is tested; the KV read/write path around them
+  runs on every request but has never returned a block.
 
 ## Change history
 

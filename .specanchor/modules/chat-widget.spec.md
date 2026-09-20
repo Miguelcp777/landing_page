@@ -55,8 +55,10 @@ No automated tests. Verified manually in a browser.
 
 ## Known uncertainties and debt
 
-- The happy path has never been executed: there is no deployed Worker.
-  (NOT_VERIFIED)
+- The panel's own streaming reader has been exercised only against the error path
+  and against a local server. The Worker's stream is verified by curl, and the
+  reader is verified by tests, but the two have not yet been watched together in a
+  browser on production.
 - No Turnstile token is sent. If `TURNSTILE_SECRET` is ever set on the Worker, this
   module must start supplying a token in the same change, or chat stops working.
   (OBSERVED — a real coupling between two modules; see `FIND-001`.)
@@ -78,7 +80,7 @@ No automated tests. Verified manually in a browser.
 | First-person copy in both languages | VERIFIED | browser read of all five strings plus starters | pass |
 | AI label rendered and visible | VERIFIED | computed `display` of `.chat__note` is not `none` | pass |
 | Textarea not clipped | VERIFIED | `scrollHeight` 44 against a 46px box after the placeholder fix | pass |
-| Happy path | NOT_VERIFIED | no deployed Worker, no API key | not_run |
+| Happy path, end to end | VERIFIED | production `POST /api/chat` returned a streamed first-person answer @ `6967f66c7613f74112eb88932cc08e0e19d6e21d` | pass |
 
 ## Change history
 
