@@ -1,69 +1,18 @@
 {
-  "revision": "7451736ce5fe81ecfbd7f2c40aeefcdfd8952bca",
-  "task_spec": ".specanchor/tasks/TASK-005.spec.md",
+  "revision": "c1d060181e8aa316fc75d38f00fdbd79543d3d11",
+  "task_spec": ".specanchor/tasks/TASK-006.spec.md",
   "files": [
     {
-      "path": "js/chat.js",
-      "kind": "contract",
-      "specs": [
-        ".specanchor/modules/chat-widget.spec.md"
-      ],
-      "rationale": "Changes what the widget sends after a failure and repairs a stored history on load. INV-WIDGET-002 described behaviour that turned out to break the session permanently, so the invariant changes with the code.",
-      "evidence": [
-        ".specanchor/tasks/TASK-005.spec.md#verification-evidence"
-      ]
-    },
-    {
-      "path": "index.html",
+      "path": "chatbot/src/profile.ts",
       "kind": "behavior_preserving",
       "specs": [
-        ".specanchor/modules/site-pages.spec.md"
+        ".specanchor/modules/chat-worker.spec.md"
       ],
-      "rationale": "Cache-busting ?v= bumped because js/chat.js changed, as INV-OPS-002 requires. Without it visitors keep the broken script.",
+      "rationale": "Knowledge-base text only. Adds the degree and an instruction not to inflate it. The module contract - HTTP interface, bindings, invariants, error codes - is untouched, and the spec's statements about the profile remain true.",
       "evidence": [
-        ".specanchor/tasks/TASK-005.spec.md#verification-evidence"
-      ]
-    },
-    {
-      "path": ".specanchor/modules/chat-widget.spec.md",
-      "kind": "correction",
-      "specs": [
-        ".specanchor/modules/chat-widget.spec.md"
-      ],
-      "rationale": "INV-WIDGET-002 was authorized and implemented as written, and the written behaviour was wrong: combined with the server's alternation rule it made any single failure permanent. Corrected, with INV-WIDGET-007 added for the repair on load.",
-      "evidence": [
-        ".specanchor/tasks/TASK-005.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-006.spec.md#verification-evidence"
       ]
     }
   ],
-  "traceability": [
-    {
-      "requirement": "TASK-005/REQ-001",
-      "acceptance": "TASK-005/AC-001",
-      "verification": "two failed sends in a browser, sessionStorage read after each",
-      "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-005.spec.md#verification-evidence"
-    },
-    {
-      "requirement": "TASK-005/REQ-002",
-      "acceptance": "TASK-005/AC-002",
-      "verification": "planted a poisoned history, reloaded, counted bubbles",
-      "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-005.spec.md#verification-evidence"
-    },
-    {
-      "requirement": "TASK-005/REQ-001",
-      "acceptance": "TASK-005/AC-003",
-      "verification": "three-turn conversation against production",
-      "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-005.spec.md#verification-evidence"
-    },
-    {
-      "requirement": "TASK-005/REQ-001",
-      "acceptance": "TASK-005/AC-004",
-      "verification": "node --check js/chat.js and grep of index.html",
-      "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-005.spec.md#verification-evidence"
-    }
-  ]
+  "traceability": []
 }
