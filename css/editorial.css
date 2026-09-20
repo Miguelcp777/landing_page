@@ -161,9 +161,20 @@ html.light-theme .editorial .hero__description {color:var(--text-secondary);}
 
 /* Interactive data field. Decorative layers never intercept page controls. */
 .editorial {isolation:isolate;}
-.data-atmosphere {position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;--field-x:72%;--field-y:35%;}
-.data-atmosphere::before {content:"";position:absolute;inset:0;background:radial-gradient(ellipse at var(--field-x) var(--field-y),rgba(110,171,139,.12),transparent 48%),radial-gradient(ellipse at 8% 80%,rgba(119,154,164,.07),transparent 48%);}
-.data-atmosphere::after {content:"";position:absolute;inset:0;background-image:radial-gradient(var(--primary-color) .65px,transparent .85px);background-size:30px 30px;opacity:.10;mask-image:linear-gradient(90deg,transparent 8%,#000 75%);}
+/* Anchored to the first screen rather than the viewport (TASK-012). As a fixed
+   layer it was a wallpaper: identical in every viewport, so scrolling never changed
+   it, and after TASK-011 made the lower bands opaque it kept repainting behind them
+   for the whole visit. Absolute means it scrolls away like anything else, and the
+   observer in portfolio.js stops the canvas once it has. */
+.data-atmosphere {position:absolute;top:0;left:0;width:100%;height:100vh;z-index:-1;pointer-events:none;overflow:hidden;--field-x:72%;--field-y:35%;}
+.data-atmosphere::before {content:"";position:absolute;inset:0;background:radial-gradient(ellipse at var(--field-x) var(--field-y),rgba(110,171,139,.17),transparent 52%),radial-gradient(ellipse at 8% 78%,rgba(119,154,164,.09),transparent 50%);}
+/* 0.65px dots at .10 opacity were invisible. Now visible, masked off the left where
+   the headline sits and faded out at the foot so the grid resolves into the band
+   below instead of being sliced off by it. */
+.data-atmosphere::after {content:"";position:absolute;inset:0;background-image:radial-gradient(var(--primary-color) 1.15px,transparent 1.45px);background-size:32px 32px;opacity:.18;
+  -webkit-mask-image:linear-gradient(90deg,transparent 6%,#000 60%),linear-gradient(180deg,#000 55%,transparent 92%);
+  mask-image:linear-gradient(90deg,transparent 6%,#000 60%),linear-gradient(180deg,#000 55%,transparent 92%);
+  -webkit-mask-composite:source-in;mask-composite:intersect;}
 .data-atmosphere canvas {width:100%;height:100%;display:block;}
 .editorial .mouse-aura {position:fixed;top:0;left:0;width:26px;height:26px;border:1px solid var(--primary-color);border-radius:50%;pointer-events:none;z-index:2100;opacity:0;transition:width .18s,height .18s,opacity .18s,background .18s;margin:-13px 0 0 -13px;}
 .editorial .mouse-aura.is-visible {opacity:.55;}
@@ -448,3 +459,41 @@ html.light-theme .editorial #projects .project-tag {
    hover lift: a card that rises under the cursor and does nothing is a lie. */
 .editorial .capability,
 .editorial .timeline__content { box-shadow: var(--shadow-1); }
+
+/* 39. Typographic contrast, and covers that stop shouting.
+
+   D. The page was Inter at every size, which is legible and says nothing. A display
+   serif on the three lines that carry the argument -- the hero statement, the
+   section titles and the bio statement -- gives the layout a voice without touching
+   a word of the copy. Everything else stays Inter, including the numerals, which a
+   display serif would make harder to compare at a glance.
+
+   Instrument Serif has one weight, so this costs one font file on a connection the
+   page already opens for Inter. Its negative tracking has to be gentler than Inter's
+   -.04em: serifs need the room. */
+.editorial .hero__statement,
+.editorial .section__title,
+.editorial .bio-statement {
+    font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+    letter-spacing: -.015em;
+}
+/* Instrument Serif sits smaller on the line than Inter at the same size. */
+.editorial .hero__statement { font-size: clamp(46px,5.4vw,76px); line-height: 1.02; }
+.editorial .section__title { font-size: clamp(36px,4vw,54px); line-height: 1.08; }
+.editorial .bio-statement { font-size: 36px; line-height: 1.15; }
+/* The emphasised phrase was forced upright because Inter's italic added nothing.
+   A serif italic is the reason to have a serif. */
+.editorial .hero__statement em { font-style: italic; color: var(--primary-color); }
+
+/* E. The AI illustrations are the most saturated thing on the page and the least
+   relevant work on it. The dark band already stopped them reading as garish; holding
+   them back at rest and releasing them on hover puts the emphasis where the visitor
+   put their attention instead of where the colour is.
+
+   The planner cover is excluded: it is a chart, not an illustration, and its palette
+   is the page's own. */
+.editorial .project-cover:not(.project-cover--chart) { filter: saturate(.72) contrast(1.03); }
+.editorial .project-card:hover .project-cover:not(.project-cover--chart),
+.editorial .project-card:focus-within .project-cover:not(.project-cover--chart) { filter: none; }
+.editorial .project-cover { transition: transform .55s cubic-bezier(.2,.7,.2,1), filter .45s ease; }

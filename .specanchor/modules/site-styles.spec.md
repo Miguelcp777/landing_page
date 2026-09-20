@@ -23,7 +23,12 @@ overrides it.
 
 Theme custom properties on `:root`, redefined for the light theme:
 `--bg-body`, `--bg-surface`, `--text-primary`, `--text-secondary`, `--primary-color`,
-`--border`, `--font-heading`, `--font-body`.
+`--border`, `--font-heading`, `--font-body`, `--band-sand`, `--shadow-1`, `--shadow-2`.
+
+Two families, both from Google Fonts in a single request: **Inter** for everything,
+and **Instrument Serif** for the hero statement, the section titles and the bio
+statement only. Numerals stay Inter on purpose -- a display serif makes figures
+harder to compare, which is the wrong signal on this page.
 
 Structural class names consumed by `site-behavior`: `.reveal-section`,
 `.reveal-stagger`, `.stat-number`, `.skill-bar__fill`, `.visually-hidden`.
@@ -35,7 +40,7 @@ Structural class names consumed by `site-behavior`: `.reveal-section`,
 - **INV-STYLE-002** — Colours come from the theme variables, never hard-coded, so the
   light/dark toggle keeps working.
 - **INV-STYLE-003** — Section numbering is continuous across both files. The next
-  free number is **39**, in `editorial.css`.
+  free number is **40**, in `editorial.css`.
 - **INV-STYLE-004** — A section that wants a different tone redefines the **tokens**,
   not the colours. Section 38 gives `#projects` its dark band by overriding
   `--bg-body`, `--text-primary` and the rest on the section itself; because custom
@@ -102,3 +107,6 @@ Both files are served uncompiled and unminified, cache-busted by the shared `?v=
 - 2026-09-19 — Created during SDD bootstrap.
 - 2026-09-20 — TASK-011: section 38, the tonal score and the shadow scale.
   `INV-STYLE-004` added; nine literal colours converted to tokens.
+- 2026-09-20 — TASK-012: section 39. The atmosphere field is anchored to the
+  first screen instead of the viewport, Instrument Serif carries the display
+  type, and illustrated covers are desaturated at rest.

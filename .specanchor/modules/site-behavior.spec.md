@@ -70,3 +70,9 @@ runs first whatever order the scripts loaded in.
 ## Change history
 
 - 2026-09-19 — Created during SDD bootstrap.
+- 2026-09-20 — TASK-012: the data-atmosphere loop now stops when the field
+  leaves the viewport, and pointer coordinates are taken from the field's own
+  box rather than the viewport. Previously the canvas repainted at 25fps for
+  the whole visit, including behind opaque sections. `onScreen` defaults to
+  true so a host that never delivers the observation degrades to the old
+  behaviour rather than to a dead field.

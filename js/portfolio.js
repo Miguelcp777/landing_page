@@ -168,7 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
     try { paused = localStorage.getItem('site-effects') === 'paused'; } catch (_) {}
     let width = 0, height = 0, frame = 0, lastPaint = 0;
     let pointer = {x:-1000, y:-1000}, ring = {x:0,y:0}, ringFrame = 0;
-    const enabled = () => !paused && !reduced.matches && fine.matches && width > 768 && !document.hidden;
+    let onScreen = true;
+    const enabled = () => !paused && !reduced.matches && fine.matches && width > 768 && !document.hidden && onScreen;
     function updateLabel() {
         const es = document.documentElement.lang === 'es';
         toggle.textContent = reduced.matches ? (es ? 'Movimiento reducido' : 'Reduced motion') : paused ? (es ? 'Activar efectos' : 'Enable effects') : (es ? 'Pausar efectos' : 'Pause effects');
@@ -235,7 +236,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if(!enabled() || event.pointerType!=='mouse') return;
         if(event.target.closest('input,textarea,select,[contenteditable="true"]')) {aura.classList.remove('is-visible');return;}
         if(!aura.classList.contains('is-visible')) ring={x:event.clientX,y:event.clientY};
-        pointer={x:event.clientX,y:event.clientY};
+        const box=field.getBoundingClientRect();
+        pointer={x:event.clientX-box.left,y:event.clientY-box.top};
         field.style.setProperty('--field-x',`${100*pointer.x/width}%`);
         field.style.setProperty('--field-y',`${100*pointer.y/height}%`);
         aura.classList.add('is-visible');
@@ -244,6 +246,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }, {passive:true});
     document.documentElement.addEventListener('pointerleave',()=>{aura.classList.remove('is-visible');pointer={x:-1000,y:-1000};cancelAnimationFrame(ringFrame);ringFrame=0;});
     toggle.addEventListener('click',()=>{paused=!paused;try{localStorage.setItem('site-effects',paused?'paused':'on');}catch(_){}sync();});
+    if('IntersectionObserver' in window) {
+        new IntersectionObserver(entries => {
+            onScreen = entries[0].isIntersecting;
+            sync();
+        }, {rootMargin:'120px'}).observe(field);
+    }
     addEventListener('resize',resize,{passive:true});
     document.addEventListener('visibilitychange',sync);
     reduced.addEventListener('change',sync);fine.addEventListener('change',sync);

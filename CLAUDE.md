@@ -60,7 +60,9 @@ a los primeros. Dos trampas reales que ya han mordido:
 `styles.css` usa comentarios numerados del 1 al 26. `editorial.css` continúa a
 partir de la 27. La última es la **38 — partitura tonal y elevación**, que da a cada
 sección su banda redefiniendo los *tokens*, no los colores (ver `INV-STYLE-004`).
-**La próxima sección disponible es la 39, en `editorial.css`.**
+La **39 — contraste tipografico y portadas** anade Instrument Serif para los tres
+titulares que sostienen el argumento y apaga las ilustraciones en reposo.
+**La próxima sección disponible es la 40, en `editorial.css`.**
 
 ## JavaScript — Patrones clave
 - **i18n:** objeto `translations` con claves `en` y `es`. Atributos `data-i18n` en HTML.

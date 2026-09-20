@@ -1,28 +1,27 @@
 {
-  "revision": "9b3f158068a21eda39f69058ed62391b5cc01e8e",
-  "task_spec": ".specanchor/tasks/TASK-011.spec.md",
+  "revision": "27909fa03712434447eeeb8d08e469d275f391ff",
+  "task_spec": ".specanchor/tasks/TASK-012.spec.md",
   "files": [
     {
       "path": "css/editorial.css",
       "kind": "behavior_preserving",
       "specs": [
-        ".specanchor/modules/site-styles.spec.md",
-        ".specanchor/modules/chat-widget.spec.md"
+        ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Adds section 38: the tonal score and the shadow scale. Each banded section redefines the theme tokens on itself rather than setting colours, so the whole subtree follows. Also fixes the chat launcher and Send button, which set color:#fff over var(--primary-color) and rendered at contrast 1.49 on the dark theme's mint. Follow-up: .chat__msg--user carried the same bug and was found only by re-auditing with the panel open.",
+      "rationale": "Move B retunes .data-atmosphere from fixed to absolute at the top of the document, one viewport tall, and makes the dot grid visible (1.15px at .18, was 0.65px at .10). Section 39 adds move D, Instrument Serif on the three display lines with an italic on the hero emphasis, and move E, desaturation of the illustrated covers at rest with full colour on hover. The chart cover is excluded.",
       "evidence": [
-        ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
       ]
     },
     {
-      "path": "css/styles.css",
+      "path": "js/portfolio.js",
       "kind": "behavior_preserving",
       "specs": [
-        ".specanchor/modules/site-styles.spec.md"
+        ".specanchor/modules/site-behavior.spec.md"
       ],
-      "rationale": "Nine legacy rules under html.light-theme hardcoded #0F172A and #475569 from the superseded blue theme. A literal cannot follow a section that overrides the tokens, so project titles rendered at contrast 1.31 on the new dark band. All nine converted to var(--text-primary) / var(--text-secondary), which INV-STYLE-002 already required. Resolved values are unchanged outside a band.",
+      "rationale": "enabled() gains an onScreen term fed by an IntersectionObserver, so the canvas loop stops once the field scrolls away instead of repainting at 25fps for the whole visit. Pointer coordinates move from viewport-relative to field-relative, which the absolute positioning requires. onScreen defaults to true so a host that never delivers the observation degrades to the previous behaviour.",
       "evidence": [
-        ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
       ]
     },
     {
@@ -31,9 +30,9 @@
       "specs": [
         ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "Cache-busting version only, bumped to 20260920-bands across 12 links. No markup change: the bands are applied by section id, so the tonal score needed no new classes.",
+      "rationale": "Instrument Serif joins the existing Google Fonts request, so no new origin or preconnect, and the cache-busting version is bumped.",
       "evidence": [
-        ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
       ]
     },
     {
@@ -42,20 +41,20 @@
       "specs": [
         ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "Cache-busting version only, 3 links. The CV shares styles.css, so it has to pick up the token conversion.",
+      "rationale": "Same font request and cache-bust. The CV shares both stylesheets.",
       "evidence": [
-        ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
       ]
     },
     {
       "path": "CLAUDE.md",
-      "kind": "documentation",
+      "kind": "requirement",
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "The next free CSS section number was stale at 30 and is now 39, with a pointer to INV-STYLE-004 so the next person writing a band redefines tokens instead of colours.",
+      "rationale": "Next free CSS section number moves to 40 and section 39 is described.",
       "evidence": [
-        ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
       ]
     },
     {
@@ -64,80 +63,76 @@
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "INV-STYLE-004 records the band mechanism. The literal-colour trap is recorded beside the specificity one, because INV-STYLE-002 had forbidden it since bootstrap and nothing enforced it.",
+      "rationale": "Records the second font family and which elements may use it, the new band and shadow tokens in the public surface, and section 39.",
       "evidence": [
-        ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
       ]
     },
     {
-      "path": ".specanchor/modules/chat-widget.spec.md",
-      "kind": "correction",
+      "path": ".specanchor/modules/site-behavior.spec.md",
+      "kind": "requirement",
       "specs": [
-        ".specanchor/modules/chat-widget.spec.md"
+        ".specanchor/modules/site-behavior.spec.md"
       ],
-      "rationale": "Records the dark-theme contrast fix on the launcher and the Send button. The bug shipped with TASK-001 and was found by the audit run here.",
+      "rationale": "Records the atmosphere loop's new lifecycle and the fail-open default.",
       "evidence": [
-        ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
       ]
     },
     {
-      "path": ".specanchor/tasks/TASK-011.spec.md",
-      "kind": "documentation",
-      "specs": [
-        ".specanchor/modules/site-styles.spec.md"
-      ],
-      "rationale": "The task itself.",
-      "evidence": [
-        ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
-      ]
-    },
-    {
-      "path": ".specanchor/findings/FIND-002-dead-background-system.md",
-      "kind": "documentation",
+      "path": ".specanchor/tasks/TASK-012.spec.md",
+      "kind": "requirement",
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Out-of-scope discovery: .neural-atmosphere is a complete second background system that no page references and no script injects. Recorded rather than deleted, because removing a block of CSS does not belong in a task whose diff should read as what changed visually.",
+      "rationale": "The task itself, including the one requirement that could not be verified here.",
       "evidence": [
-        ".specanchor/findings/FIND-002-dead-background-system.md"
+        ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
       ]
     }
   ],
   "traceability": [
     {
-      "requirement": "TASK-011/REQ-001",
-      "acceptance": "TASK-011/AC-001",
-      "verification": "computed background-color of the eight sections, light theme",
+      "requirement": "TASK-012/REQ-001",
+      "acceptance": "TASK-012/AC-001",
+      "verification": "measured the field's viewport rect at scroll 0 and 4200; bottom moved 768 -> -3432",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-011/REQ-002",
-      "acceptance": "TASK-011/AC-001",
-      "verification": "computed background-color of the eight sections, dark theme; the banded section is lighter than the body",
+      "requirement": "TASK-012/REQ-003",
+      "acceptance": "TASK-012/AC-002",
+      "verification": "computed dot size and opacity, confirmed in captures at both widths",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-011/REQ-003",
-      "acceptance": "TASK-011/AC-001",
-      "verification": "computed box-shadow per card class; no hover rule on the non-interactive ones",
+      "requirement": "TASK-012/REQ-004",
+      "acceptance": "TASK-012/AC-002",
+      "verification": "computed font-family, style and size on the four targets; both faces report loaded",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-011/REQ-004",
-      "acceptance": "TASK-011/AC-002",
-      "verification": "contrast audit over 213 rendered text nodes in each theme against the nearest painted background",
+      "requirement": "TASK-012/REQ-005",
+      "acceptance": "TASK-012/AC-003",
+      "verification": "overflow scan at 1440x900 and 375x812, including scrollWidth vs clientWidth on the display elements",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-011/REQ-005",
-      "acceptance": "TASK-011/AC-002",
-      "verification": "scripted conversion asserting one match per selector and nine changed lines",
+      "requirement": "TASK-012/REQ-006",
+      "acceptance": "TASK-012/AC-004",
+      "verification": "computed filter at rest and the hover rule read from the CSSOM; chart cover excluded",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
+    },
+    {
+      "requirement": "TASK-012/REQ-007",
+      "acceptance": "TASK-012/AC-005",
+      "verification": "contrast audit, 212 nodes per theme with the chat panel open, dark measured on a clean load",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
     }
   ]
 }
