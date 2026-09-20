@@ -22,9 +22,9 @@ export const LIMITS = {
   maxCharsPerMessage: 1500,
   maxCharsTotal: 12000,
   maxTokensOut: 700,
-  perIpPerDay: 15,
-  globalPerDay: 150, // caps any single day at ~7.5% of the month
-  globalPerMonth: 2000, // the real budget control
+  perIpPerDay: 50, // an engaged recruiter should not hit a wall mid-conversation
+  globalPerDay: 250, // caps any single day at ~12.5% of the month
+  globalPerMonth: 2000, // the real budget control, unchanged
 };
 
 export type GateReason = "month_exhausted" | "busy_today" | "rate_limited";
