@@ -1,6 +1,6 @@
 {
-  "revision": "7e81a10d43a979431cad4c154a152e58432ebc44",
-  "task_spec": ".specanchor/tasks/TASK-016.spec.md",
+  "revision": "03c55126ce8667639fdcd80ed20938891964d6c9",
+  "task_spec": ".specanchor/tasks/TASK-017.spec.md",
   "files": [
     {
       "path": "index.html",
@@ -8,53 +8,53 @@
       "specs": [
         ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "Adds figure.bio-query to #about between the closing biographical line and the CV/LinkedIn links. The owner's own query, corrected to FROM \"Miguel Castillo\": unquoted it parses as table Miguel aliased Castillo, silently. Cache-bust bumped.",
+      "rationale": "Three root-absolute icon links made relative so they resolve from a GitHub Pages project subpath as well as from the domain root. They were the only absolute references on the page.",
       "evidence": [
-        ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
-      ]
-    },
-    {
-      "path": "css/editorial.css",
-      "kind": "behavior_preserving",
-      "specs": [
-        ".specanchor/modules/site-styles.spec.md"
-      ],
-      "rationale": "Section 42's selectors widened to :is(.method-query, .bio-query) so one treatment serves both blocks. Section 43 carries only the spacing that differs, plus min-width:0 on .about__text — without it the pre widened its own grid track and the column was clipped silently on a phone.",
-      "evidence": [
-        ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-017.spec.md#verification-evidence"
       ]
     },
     {
       "path": "cv.html",
-      "kind": "behavior_preserving",
+      "kind": "contract",
       "specs": [
         ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "Cache-busting version only.",
+      "rationale": "Same three links.",
       "evidence": [
-        ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-017.spec.md#verification-evidence"
+      ]
+    },
+    {
+      "path": ".nojekyll",
+      "kind": "contract",
+      "specs": [
+        ".specanchor/modules/site-meta.spec.md"
+      ],
+      "rationale": "GitHub Pages runs Jekyll by default and can drop files it does not expect. Nothing here needs it.",
+      "evidence": [
+        ".specanchor/tasks/TASK-017.spec.md#verification-evidence"
+      ]
+    },
+    {
+      "path": "js/chat.js",
+      "kind": "contract",
+      "specs": [
+        ".specanchor/modules/chat-widget.spec.md"
+      ],
+      "rationale": "The widget now checks location.hostname against CHAT_HOSTS. /api/chat is a Worker route on the real domain only, so on the mirror every message would 404 and a visibly broken widget is worse than none.",
+      "evidence": [
+        ".specanchor/tasks/TASK-017.spec.md#verification-evidence"
       ]
     },
     {
       "path": "CLAUDE.md",
       "kind": "requirement",
       "specs": [
-        ".specanchor/modules/site-styles.spec.md"
+        ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "Next free section is 44.",
+      "rationale": "Records the mirror, why it exists, and the three rules that keep it working — no absolute paths, keep .nojekyll, no CNAME file.",
       "evidence": [
-        ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
-      ]
-    },
-    {
-      "path": ".specanchor/modules/site-styles.spec.md",
-      "kind": "requirement",
-      "specs": [
-        ".specanchor/modules/site-styles.spec.md"
-      ],
-      "rationale": "Section 43 recorded, and INV-STYLE-006 makes the grid-track trap a contract rather than a scar.",
-      "evidence": [
-        ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-017.spec.md#verification-evidence"
       ]
     },
     {
@@ -63,58 +63,84 @@
       "specs": [
         ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "Records the new block, its position and the parsing correction.",
+      "rationale": "Records subpath-serveability as a property of the pages.",
       "evidence": [
-        ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-017.spec.md#verification-evidence"
       ]
     },
     {
-      "path": ".specanchor/tasks/TASK-016.spec.md",
+      "path": ".specanchor/modules/chat-widget.spec.md",
+      "kind": "requirement",
+      "specs": [
+        ".specanchor/modules/chat-widget.spec.md"
+      ],
+      "rationale": "Records the host gate and its reasoning.",
+      "evidence": [
+        ".specanchor/tasks/TASK-017.spec.md#verification-evidence"
+      ]
+    },
+    {
+      "path": ".specanchor/tasks/TASK-017.spec.md",
       "kind": "requirement",
       "specs": [
         ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "The task, including the mobile bug it introduced and the fix.",
+      "rationale": "The task, including the invalid first test and why it was invalid.",
       "evidence": [
-        ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-017.spec.md#verification-evidence"
+      ]
+    },
+    {
+      "path": ".specanchor/module-map.json",
+      "kind": "requirement",
+      "specs": [
+        ".specanchor/modules/site-meta.spec.md"
+      ],
+      "rationale": "Maps .nojekyll to site-meta, beside robots.txt: both are hosting-behaviour control files rather than content.",
+      "evidence": [
+        ".specanchor/tasks/TASK-017.spec.md#verification-evidence"
+      ]
+    },
+    {
+      "path": ".specanchor/modules/site-meta.spec.md",
+      "kind": "requirement",
+      "specs": [
+        ".specanchor/modules/site-meta.spec.md"
+      ],
+      "rationale": "Records .nojekyll and warns that removing it breaks the mirror.",
+      "evidence": [
+        ".specanchor/tasks/TASK-017.spec.md#verification-evidence"
       ]
     }
   ],
   "traceability": [
     {
-      "requirement": "TASK-016/REQ-001",
-      "acceptance": "TASK-016/REQ-001",
-      "verification": "sqlglot parse of the served HTML; table='Miguel Castillo', alias=''",
+      "requirement": "TASK-017/REQ-001",
+      "acceptance": "TASK-017/REQ-001",
+      "verification": "fetched all 19 asset URLs from a real subpath served over a directory junction",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-017.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-016/REQ-002",
-      "acceptance": "TASK-016/REQ-002",
-      "verification": "siblings are bio-synthesis and bio-links",
+      "requirement": "TASK-017/REQ-002",
+      "acceptance": "TASK-017/REQ-002",
+      "verification": "loaded from 127.0.0.2, outside CHAT_HOSTS and still a secure context; scripts ran, .chat absent",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-017.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-016/REQ-003",
-      "acceptance": "TASK-016/REQ-003",
-      "verification": "shared :is() selector matches both blocks",
+      "requirement": "TASK-017/REQ-003",
+      "acceptance": "TASK-017/REQ-003",
+      "verification": "veil, atmosphere, effects toggle, tonal bands and both queries checked from the subpath",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-017.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-016/REQ-004",
-      "acceptance": "TASK-016/REQ-004",
-      "verification": "overflow scan at 1024 and 375 discounting scroll containers; zero genuine overflow after the min-width fix",
+      "requirement": "TASK-017/REQ-004",
+      "acceptance": "TASK-017/REQ-004",
+      "verification": "relative icon paths resolve identically from a document root",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
-    },
-    {
-      "requirement": "TASK-016/REQ-005",
-      "acceptance": "TASK-016/REQ-005",
-      "verification": "contrast audit, 218 nodes",
-      "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-017.spec.md#verification-evidence"
     }
   ]
 }

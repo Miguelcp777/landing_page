@@ -96,3 +96,8 @@ No automated tests. Verified manually in a browser.
 
 - 2026-09-19 — Created during SDD bootstrap.
 - 2026-09-20 — TASK-011: the launcher and the Send button used `color:#fff` over `var(--primary-color)`. Correct on the light theme's dark green, contrast **1.49** on the dark theme's mint. Both now use `var(--bg-body)`, matching `.btn--primary`.
+- 2026-09-20 — TASK-017: the widget checks `location.hostname` against
+  `CHAT_HOSTS` and does not mount elsewhere. `/api/chat` is a Worker route on
+  the real domain only, so on the GitHub Pages mirror, a fork or a file:// copy
+  every message would 404 — the same reason the panel shipped switched off
+  before the Worker existed.

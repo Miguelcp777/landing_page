@@ -148,6 +148,24 @@ El repo **es** la raíz web: `CLAUDE.md`, `README.md` y `.gitignore` se sirven e
 hostnames DDNS, usuarios SSH ni rutas absolutas del NAS. Esos datos viven en la memoria
 local de Claude. Lo ideal es además bloquearlos en Nginx — ver la sección de despliegue.
 
+## Espejo en GitHub Pages
+El sitio se sirve también desde `https://miguelcp777.github.io/landing_page/`, como
+**respaldo** para cuando las IPs de Cloudflare están bloqueadas desde España (pasó el
+2026-09-20: 11 de los 15 rangos de Cloudflare sin ruta desde la fija y desde el móvil,
+la web accesible desde fuera). Detalle en `.specanchor/tasks/TASK-017.spec.md`.
+
+Tres reglas que lo mantienen funcionando, y que es fácil romper sin darse cuenta:
+- **Nada de rutas absolutas.** Pages sirve desde `/landing_page/`, así que `/algo`
+  apunta fuera del sitio. Todo relativo: `favicon.ico`, no `/favicon.ico`.
+- **`.nojekyll` en la raíz.** No borrarlo.
+- **El chat no va en el espejo**, a propósito: `/api/chat` es una ruta del Worker y
+  solo existe en el dominio real. `js/chat.js` comprueba `location.hostname` contra
+  `CHAT_HOSTS` y no se monta fuera de ahí.
+
+El `<link rel="canonical">` sigue apuntando a `www.miguelcastillo.es`: es lo correcto
+en un espejo, evita que compita en los buscadores. **No añadir un fichero `CNAME`**,
+que haría que Pages reclamara el dominio.
+
 ## Deployment
 El web root del NAS es un clon de este repo y **no se sincroniza solo**. Hacer push no basta.
 ```bash

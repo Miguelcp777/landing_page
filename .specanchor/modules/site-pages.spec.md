@@ -106,3 +106,8 @@ No automated tests. Print layout and section integrity are verified manually.
   to `FROM "Miguel Castillo"` — unquoted, the two words parse as table `Miguel`
   aliased `Castillo`, with no error raised. Not translated: identifiers and the
   string literal stay English in both languages, as they would in a repository.
+- 2026-09-20 — TASK-017: the pages are now serveable from a subpath, so the
+  repository can mirror to GitHub Pages when Cloudflare's IP ranges are blocked
+  from Spain. Three root-absolute icon links made relative; they were the only
+  absolute references in the site. `.nojekyll` added. Canonical unchanged and
+  no `CNAME` file, both deliberate.

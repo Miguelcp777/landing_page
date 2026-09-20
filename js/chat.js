@@ -324,11 +324,17 @@
         els.launcher.focus();
     }
 
+    // The Worker lives on a route of the real domain. Anywhere else -- the GitHub
+    // Pages mirror, a file:// copy, someone's fork -- /api/chat does not exist and
+    // every message would fail.
+    var CHAT_HOSTS = ['www.miguelcastillo.es', 'miguelcastillo.es', 'localhost', '127.0.0.1'];
+
     function init() {
         // Off until the Worker is deployed: without /api/chat every message would
         // fail, and a visibly broken widget is worse than no widget. Turn it on
         // with data-chat="on" on <body>.
         if (document.body.getAttribute('data-chat') !== 'on') return;
+        if (CHAT_HOSTS.indexOf(location.hostname) === -1) return;
 
         build();
         applyLanguage();

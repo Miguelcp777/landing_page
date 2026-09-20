@@ -55,3 +55,6 @@ Synology's `@eaDir/`.
 ## Change history
 
 - 2026-09-19 — Created during SDD bootstrap.
+- 2026-09-20 — TASK-017: `.nojekyll` added. GitHub Pages runs Jekyll by
+  default, which processes the tree and can drop files it does not expect.
+  The site needs none of it. Do not remove the file: the mirror depends on it.
