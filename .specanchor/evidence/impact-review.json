@@ -1,5 +1,5 @@
 {
-  "revision": "27909fa03712434447eeeb8d08e469d275f391ff",
+  "revision": "e752fb6fed67bc838bce73b1a2b39b067c829fd8",
   "task_spec": ".specanchor/tasks/TASK-012.spec.md",
   "files": [
     {
@@ -8,20 +8,10 @@
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Move B retunes .data-atmosphere from fixed to absolute at the top of the document, one viewport tall, and makes the dot grid visible (1.15px at .18, was 0.65px at .10). Section 39 adds move D, Instrument Serif on the three display lines with an italic on the hero emphasis, and move E, desaturation of the illustrated covers at rest with full colour on hover. The chart cover is excluded.",
+      "rationale": "Move D removed from section 39: the Instrument Serif family, the sizes raised to compensate for it and the italic on the hero emphasis. The display type returns to Inter at its original sizes. Moves B and E stay. A comment records why the serif is absent, so the next person to have the idea finds the answer first.",
       "evidence": [
-        ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
-      ]
-    },
-    {
-      "path": "js/portfolio.js",
-      "kind": "behavior_preserving",
-      "specs": [
-        ".specanchor/modules/site-behavior.spec.md"
-      ],
-      "rationale": "enabled() gains an onScreen term fed by an IntersectionObserver, so the canvas loop stops once the field scrolls away instead of repainting at 25fps for the whole visit. Pointer coordinates move from viewport-relative to field-relative, which the absolute positioning requires. onScreen defaults to true so a host that never delivers the observation degrades to the previous behaviour.",
-      "evidence": [
-        ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-012.spec.md#d-was-reverted",
+        ".specanchor/decisions/ADR-0002-one-typeface.md"
       ]
     },
     {
@@ -30,9 +20,9 @@
       "specs": [
         ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "Instrument Serif joins the existing Google Fonts request, so no new origin or preconnect, and the cache-busting version is bumped.",
+      "rationale": "The Google Fonts request drops back to Inter alone, and the cache-busting version is bumped.",
       "evidence": [
-        ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-012.spec.md#d-was-reverted"
       ]
     },
     {
@@ -41,9 +31,9 @@
       "specs": [
         ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "Same font request and cache-bust. The CV shares both stylesheets.",
+      "rationale": "Same font request and cache-bust.",
       "evidence": [
-        ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-012.spec.md#d-was-reverted"
       ]
     },
     {
@@ -52,42 +42,42 @@
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Next free CSS section number moves to 40 and section 39 is described.",
+      "rationale": "Section 39 is now covers only, and the one-typeface rule is stated where someone editing CSS will read it.",
       "evidence": [
-        ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
+        ".specanchor/decisions/ADR-0002-one-typeface.md"
       ]
     },
     {
       "path": ".specanchor/modules/site-styles.spec.md",
-      "kind": "requirement",
+      "kind": "correction",
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Records the second font family and which elements may use it, the new band and shadow tokens in the public surface, and section 39.",
+      "rationale": "The public surface said two families. It is one again, pointing at ADR-0002 for the reasoning and the conditions a future proposal has to meet.",
       "evidence": [
-        ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
-      ]
-    },
-    {
-      "path": ".specanchor/modules/site-behavior.spec.md",
-      "kind": "requirement",
-      "specs": [
-        ".specanchor/modules/site-behavior.spec.md"
-      ],
-      "rationale": "Records the atmosphere loop's new lifecycle and the fail-open default.",
-      "evidence": [
-        ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
+        ".specanchor/decisions/ADR-0002-one-typeface.md"
       ]
     },
     {
       "path": ".specanchor/tasks/TASK-012.spec.md",
+      "kind": "correction",
+      "specs": [
+        ".specanchor/modules/site-styles.spec.md"
+      ],
+      "rationale": "Records that REQ-004 was withdrawn rather than failed: it was implemented and verified, and the requirement itself was wrong. B and E re-verified after the revert.",
+      "evidence": [
+        ".specanchor/tasks/TASK-012.spec.md#d-was-reverted"
+      ]
+    },
+    {
+      "path": ".specanchor/decisions/ADR-0002-one-typeface.md",
       "kind": "requirement",
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "The task itself, including the one requirement that could not be verified here.",
+      "rationale": "Durable decision: one typeface, hierarchy from size and weight. Records the stroke-contrast reasoning and the two conditions any future second family must meet, because this idea will recur.",
       "evidence": [
-        ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
+        ".specanchor/decisions/ADR-0002-one-typeface.md"
       ]
     }
   ],
@@ -95,44 +85,30 @@
     {
       "requirement": "TASK-012/REQ-001",
       "acceptance": "TASK-012/AC-001",
-      "verification": "measured the field's viewport rect at scroll 0 and 4200; bottom moved 768 -> -3432",
+      "verification": "field still reports position:absolute after the revert",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-012.spec.md#d-was-reverted"
     },
     {
       "requirement": "TASK-012/REQ-003",
       "acceptance": "TASK-012/AC-002",
-      "verification": "computed dot size and opacity, confirmed in captures at both widths",
+      "verification": "dot grid still at opacity .18",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
-    },
-    {
-      "requirement": "TASK-012/REQ-004",
-      "acceptance": "TASK-012/AC-002",
-      "verification": "computed font-family, style and size on the four targets; both faces report loaded",
-      "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
-    },
-    {
-      "requirement": "TASK-012/REQ-005",
-      "acceptance": "TASK-012/AC-003",
-      "verification": "overflow scan at 1440x900 and 375x812, including scrollWidth vs clientWidth on the display elements",
-      "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-012.spec.md#d-was-reverted"
     },
     {
       "requirement": "TASK-012/REQ-006",
       "acceptance": "TASK-012/AC-004",
-      "verification": "computed filter at rest and the hover rule read from the CSSOM; chart cover excluded",
+      "verification": "cover filter still saturate(0.72) contrast(1.03)",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-012.spec.md#d-was-reverted"
     },
     {
       "requirement": "TASK-012/REQ-007",
       "acceptance": "TASK-012/AC-005",
-      "verification": "contrast audit, 212 nodes per theme with the chat panel open, dark measured on a clean load",
+      "verification": "contrast re-audited after the revert, 212 nodes per theme, chat open, dark on a clean load",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-012.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-012.spec.md#d-was-reverted"
     }
   ]
 }

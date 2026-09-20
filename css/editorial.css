@@ -460,33 +460,17 @@ html.light-theme .editorial #projects .project-tag {
 .editorial .capability,
 .editorial .timeline__content { box-shadow: var(--shadow-1); }
 
-/* 39. Typographic contrast, and covers that stop shouting.
+/* 39. Covers that stop shouting.
 
-   D. The page was Inter at every size, which is legible and says nothing. A display
-   serif on the three lines that carry the argument -- the hero statement, the
-   section titles and the bio statement -- gives the layout a voice without touching
-   a word of the copy. Everything else stays Inter, including the numerals, which a
-   display serif would make harder to compare at a glance.
+   This section also carried move D, a display serif on the three lines that make the
+   argument. It was reverted on the owner's call after seeing it against the page:
+   Instrument Serif is a display face with very high stroke contrast and Inter is a
+   grotesque with almost none, so the two took turns rather than talking to each
+   other. The page keeps its typographic contrast where it had it, in size and
+   weight. Anything that reintroduces a second family has to be judged against Inter
+   body copy, not on its own.
 
-   Instrument Serif has one weight, so this costs one font file on a connection the
-   page already opens for Inter. Its negative tracking has to be gentler than Inter's
-   -.04em: serifs need the room. */
-.editorial .hero__statement,
-.editorial .section__title,
-.editorial .bio-statement {
-    font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif;
-    font-weight: 400;
-    letter-spacing: -.015em;
-}
-/* Instrument Serif sits smaller on the line than Inter at the same size. */
-.editorial .hero__statement { font-size: clamp(46px,5.4vw,76px); line-height: 1.02; }
-.editorial .section__title { font-size: clamp(36px,4vw,54px); line-height: 1.08; }
-.editorial .bio-statement { font-size: 36px; line-height: 1.15; }
-/* The emphasised phrase was forced upright because Inter's italic added nothing.
-   A serif italic is the reason to have a serif. */
-.editorial .hero__statement em { font-style: italic; color: var(--primary-color); }
-
-/* E. The AI illustrations are the most saturated thing on the page and the least
+   E. The AI illustrations are the most saturated thing on the page and the least
    relevant work on it. The dark band already stopped them reading as garish; holding
    them back at rest and releasing them on hover puts the emphasis where the visitor
    put their attention instead of where the colour is.

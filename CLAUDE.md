@@ -60,9 +60,13 @@ a los primeros. Dos trampas reales que ya han mordido:
 `styles.css` usa comentarios numerados del 1 al 26. `editorial.css` continúa a
 partir de la 27. La última es la **38 — partitura tonal y elevación**, que da a cada
 sección su banda redefiniendo los *tokens*, no los colores (ver `INV-STYLE-004`).
-La **39 — contraste tipografico y portadas** anade Instrument Serif para los tres
-titulares que sostienen el argumento y apaga las ilustraciones en reposo.
+La **39 — portadas** apaga las ilustraciones de IA en reposo y les devuelve el color
+al pasar por encima.
 **La próxima sección disponible es la 40, en `editorial.css`.**
+
+**Una sola tipografía: Inter.** La jerarquía sale del tamaño, el peso y el espacio.
+Se probó una segunda familia y se revirtió — `ADR-0002` dice por qué y qué tendría
+que cumplir otra propuesta.
 
 ## JavaScript — Patrones clave
 - **i18n:** objeto `translations` con claves `en` y `es`. Atributos `data-i18n` en HTML.

@@ -113,7 +113,7 @@ one animation lifecycle. No API, data, permission or architectural contract move
 | TASK-012/REQ-001 | TASK-012/AC-001 | measured the field's rect at scroll 0 and 4200 | pass | EV-001 |
 | TASK-012/REQ-002 | — | code review only | **not verified** | EV-002 |
 | TASK-012/REQ-003 | — | computed dot size and opacity, plus a screenshot | pass | EV-003 |
-| TASK-012/REQ-004 | TASK-012/AC-002 | computed styles on all four targets | pass | EV-004 |
+| TASK-012/REQ-004 | TASK-012/AC-002 | computed styles on all four targets | passed, then **reverted** | EV-004, EV-008 |
 | TASK-012/REQ-005 | TASK-012/AC-003 | overflow scan at 1440×900 and 375×812 | pass | EV-005 |
 | TASK-012/REQ-006 | TASK-012/AC-004 | computed filter, and the hover rule read from the CSSOM | pass | EV-006 |
 | TASK-012/REQ-007 | TASK-012/AC-005 | contrast audit, both themes | pass — 212 nodes, 0 failures each | EV-007 |
@@ -142,6 +142,28 @@ one animation lifecycle. No API, data, permission or architectural contract move
   of each role planted first. The dark theme was measured on a **clean load**, not by
   clicking the toggle, because the toggle route returns stale computed styles in this
   pane (recorded in TASK-011).
+
+## D was reverted
+
+The owner rejected the serif on sight — *"demasiado diferente al resto"* — and he was
+right for a specific reason: Instrument Serif is a display face with very high stroke
+contrast, Inter is a grotesque with almost none, so the two took turns instead of
+pairing. Four alternatives were rendered with the real headline on the real paper
+colour, each with Inter body copy directly beneath, since the defect lived in the
+jump between the two rather than in the headline. He chose the no-serif control.
+
+**REQ-004 is withdrawn, not failed.** It was implemented and verified; the
+requirement itself was the wrong one. The reasoning and the conditions under which a
+second family could be proposed again are in `ADR-0002`.
+
+B and E are untouched by the revert and were re-verified after it.
+
+- **EV-008** — after the revert: all four targets resolve to Inter at their original
+  sizes, the hero emphasis is upright again, zero Instrument Serif faces report
+  loaded, and the font request is back to one family. B still reports
+  `position: absolute` with the grid at `.18`; E still reports
+  `saturate(0.72) contrast(1.03)`. Contrast re-audited at 212 nodes per theme, zero
+  failures in each, chat panel open.
 
 ## Open
 

@@ -25,10 +25,9 @@ Theme custom properties on `:root`, redefined for the light theme:
 `--bg-body`, `--bg-surface`, `--text-primary`, `--text-secondary`, `--primary-color`,
 `--border`, `--font-heading`, `--font-body`, `--band-sand`, `--shadow-1`, `--shadow-2`.
 
-Two families, both from Google Fonts in a single request: **Inter** for everything,
-and **Instrument Serif** for the hero statement, the section titles and the bio
-statement only. Numerals stay Inter on purpose -- a display serif makes figures
-harder to compare, which is the wrong signal on this page.
+**One family: Inter**, from Google Fonts. Hierarchy comes from size, weight, colour
+and space. A second family was tried in TASK-012 and reverted; `ADR-0002` records
+why, and the two conditions any future proposal has to meet.
 
 Structural class names consumed by `site-behavior`: `.reveal-section`,
 `.reveal-stagger`, `.stat-number`, `.skill-bar__fill`, `.visually-hidden`.
@@ -110,3 +109,5 @@ Both files are served uncompiled and unminified, cache-busted by the shared `?v=
 - 2026-09-20 — TASK-012: section 39. The atmosphere field is anchored to the
   first screen instead of the viewport, Instrument Serif carries the display
   type, and illustrated covers are desaturated at rest.
+- 2026-09-20 — TASK-012 follow-up: move D reverted on the owner's call. The
+  page is one typeface again; see `ADR-0002`.
