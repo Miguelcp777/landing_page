@@ -335,3 +335,31 @@ html .editorial .stat-number,html .editorial .stat-suffix {background:none;backg
   .chat__launcher {transition:none;}
   .chat__launcher:hover {transform:none;}
 }
+
+/* 35. Source-code links on the project cards. The card itself is role="button"
+   and opens the modal, so the link sits above it with its own click handling;
+   see the guard in portfolio.js. Without that, clicking Code would also open
+   the modal behind the new tab. */
+.editorial .project-card__code {position:absolute;top:12px;right:12px;z-index:3;
+  display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;
+  background:rgba(8,12,22,.72);color:#fff;font-size:.74rem;font-weight:600;
+  text-decoration:none;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.14);
+  opacity:0;transform:translateY(-4px);transition:opacity .18s ease,transform .18s ease;}
+.editorial .project-card {position:relative;}
+.editorial .project-card:hover .project-card__code,
+.editorial .project-card__code:focus-visible {opacity:1;transform:none;}
+.editorial .project-card__code:hover {background:var(--primary-color);border-color:var(--primary-color);}
+.editorial .project-card__code svg {width:13px;height:13px;fill:currentColor;}
+
+/* Touch has no hover, so the link would never appear. Show it permanently. */
+@media (hover:none) {
+  .editorial .project-card__code {opacity:1;transform:none;}
+}
+
+/* 36. GitHub mark in the contact list, matching the LinkedIn one. */
+.editorial .contact__link svg.icon--gh {fill:var(--text-primary);}
+
+/* 37. The planner cover is a chart, not a UI capture, so it must never be
+   cropped: losing the title or the baseline makes it unreadable. Contained
+   inside the card's crop box, with the card surface showing through. */
+.editorial .project-cover--chart {object-fit:contain;object-position:center;background:#f2f4ef;}

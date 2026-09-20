@@ -35,7 +35,7 @@ Structural class names consumed by `site-behavior`: `.reveal-section`,
 - **INV-STYLE-002** — Colours come from the theme variables, never hard-coded, so the
   light/dark toggle keeps working.
 - **INV-STYLE-003** — Section numbering is continuous across both files. The next
-  free number is **35**, in `editorial.css`.
+  free number is **38**, in `editorial.css`.
 
 ## Traps, already paid for
 

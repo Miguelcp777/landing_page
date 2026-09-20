@@ -88,9 +88,14 @@ and the apex is intended to 301 to it.
 
 ## Unknowns
 
-- No verifiable external evidence is linked: there is no public repository, Tableau
-  Public dashboard or equivalent a reader can open. (OBSERVED) This is the largest
-  known gap in the product.
+- Partly closed under TASK-010: four project cards now link their public
+  repository, and `#contact` links the GitHub profile. **No Tableau Public
+  dashboard exists**, so the three analytical cases — the work closest to the role
+  being applied for — still have nothing a reader can open. That remains the
+  largest gap.
+- Three cards still have no link: the invoice agent and the association platform
+  have no public repository, and `falla_Turia` has one that ships `node_modules`
+  and could not be audited, so it is deliberately not linked.
 
 ## Change history
 

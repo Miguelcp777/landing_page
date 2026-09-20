@@ -49,6 +49,24 @@ Static documents. `cv.html` is standalone and carries its own print stylesheet.
 
 `site-styles`, `site-behavior`, `chat-widget`, `site-assets`.
 
+## Project cards and their repositories
+
+A card links its source with `.project-card__code`. The card itself is
+`role="button"` and opens a modal, so the link needs the capture-phase guard in
+`portfolio.js` — without it a click opens the repository **and** the modal behind
+it.
+
+| Card | Repository |
+|---|---|
+| proj2 Contract Revenue Planner | `contract-revenue-planner` |
+| proj3 Entrenador Maratón | `Entrenador_Maraton_Valencia` |
+| proj6 TuriaDJ | `TuriaDJ` |
+| proj7 Comunio Mundial 2026 | `comunio_mundial_2026` |
+
+**Do not link a repository that has not been audited.** proj5 has a public
+repository and is deliberately unlinked: it ships `node_modules` and could not be
+cloned for review.
+
 ## Known uncertainties and debt
 
 - The JSON-LD `jobTitle` in `index.html` says only "Supervisor of Technical Service",

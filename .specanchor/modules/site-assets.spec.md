@@ -29,9 +29,14 @@ art, icons and the vCard QR.
 
 ## Domain invariants
 
-- **INV-ASSET-001** — Every figure in a diagram is synthetic and blurred, and the
-  caption declaring it stays. This is the confidentiality rule from
-  `product-behavior.spec.md` applied at the file level.
+- **INV-ASSET-001** — Every figure in a diagram is synthetic, and the caption says
+  what the reader is looking at. Blurred for the dashboard captures; the planner
+  cover is a drawing with its figures shown, and its caption says "illustration"
+  rather than borrowing the blurred-capture wording. A caption that misdescribes
+  the image is a small, pointless lie on a page about trustworthiness.
+- **INV-ASSET-005** — **No capture of employer software.** The dashboard diagrams
+  are drawn from scratch. `bpbuilder-*.webp`, captures of an internal tool's UI,
+  were removed under TASK-010 when that tool was taken private.
 - **INV-ASSET-002** — An SVG must parse. A well-formed-looking file can still be
   invalid, and the server will happily return 200 for it.
 - **INV-ASSET-003** — Replacing an asset in place requires bumping the `?v=` string,

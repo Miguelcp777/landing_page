@@ -1,58 +1,201 @@
 {
-  "revision": "0e55bb4a5ba147028cffae78402acb5df80f71d7",
-  "task_spec": ".specanchor/tasks/TASK-009.spec.md",
+  "revision": "39e03d7ec2344f2558486d88944f396a90ca0de0",
+  "task_spec": ".specanchor/tasks/TASK-010.spec.md",
   "files": [
     {
-      "path": "chatbot/src/validate.ts",
+      "path": "index.html",
       "kind": "contract",
       "specs": [
-        ".specanchor/modules/chat-worker.spec.md"
+        ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "Changes what the public endpoint allows: per-IP 15 to 50 at the owner's request, and the daily ceiling 150 to 250 so the tested relationship perIpPerDay*5 <= globalPerDay still holds without weakening the assertion. The monthly cap, which is what the budget depends on, is unchanged.",
+      "rationale": "Four source links added to project cards, the proj2 card replaced with the clean-room rebuild, GitHub added to contact, the employer UI capture swapped for a drawn cover, and the cache-busting version bumped.",
       "evidence": [
-        ".specanchor/tasks/TASK-009.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
       ]
     },
     {
-      "path": ".specanchor/modules/chat-worker.spec.md",
+      "path": "js/script.js",
+      "kind": "contract",
+      "specs": [
+        ".specanchor/modules/site-behavior.spec.md"
+      ],
+      "rationale": "The proj2 modal content is rewritten in both languages to describe the rebuild. No employer reference survives in either block.",
+      "evidence": [
+        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+      ]
+    },
+    {
+      "path": "js/portfolio.js",
+      "kind": "contract",
+      "specs": [
+        ".specanchor/modules/site-behavior.spec.md"
+      ],
+      "rationale": "Adds the capture-phase guard that stops a Code click reaching the card's modal handler, and the studio.chartCaption key in both languages.",
+      "evidence": [
+        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+      ]
+    },
+    {
+      "path": "css/editorial.css",
+      "kind": "behavior_preserving",
+      "specs": [
+        ".specanchor/modules/site-styles.spec.md"
+      ],
+      "rationale": "Sections 35 to 37: the code-link pill, the GitHub mark, and object-fit contain for the chart cover. Presentation only.",
+      "evidence": [
+        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+      ]
+    },
+    {
+      "path": "assets/images/project-art/revenue-planner.svg",
+      "kind": "contract",
+      "specs": [
+        ".specanchor/modules/site-assets.spec.md"
+      ],
+      "rationale": "New cover, drawn rather than captured, at 1200x470 to match the card crop box. Replaces a screenshot of employer software.",
+      "evidence": [
+        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+      ]
+    },
+    {
+      "path": "assets/images/project-art/bpbuilder-640.webp",
+      "kind": "contract",
+      "specs": [
+        ".specanchor/modules/site-assets.spec.md"
+      ],
+      "rationale": "Removed: a capture of an employer-internal tool's UI, now covered by INV-ASSET-005.",
+      "evidence": [
+        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+      ]
+    },
+    {
+      "path": "assets/images/project-art/bpbuilder-1200.webp",
+      "kind": "contract",
+      "specs": [
+        ".specanchor/modules/site-assets.spec.md"
+      ],
+      "rationale": "Removed: a capture of an employer-internal tool's UI, now covered by INV-ASSET-005.",
+      "evidence": [
+        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+      ]
+    },
+    {
+      "path": "assets/images/project-art/bpbuilder-1800.webp",
+      "kind": "contract",
+      "specs": [
+        ".specanchor/modules/site-assets.spec.md"
+      ],
+      "rationale": "Removed: a capture of an employer-internal tool's UI, now covered by INV-ASSET-005.",
+      "evidence": [
+        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+      ]
+    },
+    {
+      "path": ".specanchor/modules/site-pages.spec.md",
       "kind": "requirement",
       "specs": [
-        ".specanchor/modules/chat-worker.spec.md"
+        ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "Records the new limits, and upgrades the per-IP block branch from NOT_VERIFIED to VERIFIED after it fired in production during probing. Narrows the remaining gap to the daily and monthly ceilings.",
+      "rationale": "Records which card links which repository, and the rule that an unaudited repository is not linked.",
       "evidence": [
-        ".specanchor/tasks/TASK-009.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+      ]
+    },
+    {
+      "path": ".specanchor/modules/site-assets.spec.md",
+      "kind": "requirement",
+      "specs": [
+        ".specanchor/modules/site-assets.spec.md"
+      ],
+      "rationale": "Adds INV-ASSET-005 forbidding captures of employer software, and qualifies INV-ASSET-001 so a caption must describe what the image actually is.",
+      "evidence": [
+        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+      ]
+    },
+    {
+      "path": ".specanchor/modules/site-behavior.spec.md",
+      "kind": "requirement",
+      "specs": [
+        ".specanchor/modules/site-behavior.spec.md"
+      ],
+      "rationale": "Documents the capture-phase guard as part of the module's behaviour.",
+      "evidence": [
+        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+      ]
+    },
+    {
+      "path": ".specanchor/modules/site-styles.spec.md",
+      "kind": "requirement",
+      "specs": [
+        ".specanchor/modules/site-styles.spec.md"
+      ],
+      "rationale": "Next free CSS section number moves from 35 to 38.",
+      "evidence": [
+        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+      ]
+    },
+    {
+      "path": ".specanchor/global/product-behavior.spec.md",
+      "kind": "correction",
+      "specs": [
+        ".specanchor/global/product-behavior.spec.md"
+      ],
+      "rationale": "The spec said no verifiable external evidence is linked. That was true when written at the bootstrap revision and is now partly false. Corrected, and narrowed to what genuinely remains missing: no Tableau Public dashboard for the three analytical cases.",
+      "evidence": [
+        ".specanchor/tasks/TASK-010.spec.md#7-evidence",
+        ".specanchor/bootstrap-report.md"
       ]
     }
   ],
   "traceability": [
     {
-      "requirement": "TASK-009/REQ-001",
-      "acceptance": "TASK-009/AC-003",
-      "verification": "grep of chatbot/src/validate.ts",
+      "requirement": "TASK-010/REQ-001",
+      "acceptance": "TASK-010/AC-001",
+      "verification": "browser read of the four code links and their attributes",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-009.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-010.spec.md#7-evidence"
     },
     {
-      "requirement": "TASK-009/REQ-002",
-      "acceptance": "TASK-009/AC-001",
-      "verification": "cd chatbot && npm test, relationship assertions unmodified",
+      "requirement": "TASK-010/REQ-002",
+      "acceptance": "TASK-010/AC-002",
+      "verification": "dispatched a bubbling click, checked the modal stayed closed",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-009.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-010.spec.md#7-evidence"
     },
     {
-      "requirement": "TASK-009/REQ-002",
-      "acceptance": "TASK-009/AC-002",
-      "verification": "cd chatbot && ./node_modules/.bin/tsc --noEmit",
+      "requirement": "TASK-010/REQ-004",
+      "acceptance": "TASK-010/AC-003",
+      "verification": "grep for bpbuilder across tracked files",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-009.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-010.spec.md#7-evidence"
     },
     {
-      "requirement": "TASK-009/REQ-003",
-      "acceptance": "TASK-009/AC-003",
-      "verification": "grep confirming globalPerMonth is still 2000",
+      "requirement": "TASK-010/REQ-003",
+      "acceptance": "TASK-010/AC-004",
+      "verification": "pattern scan of both proj2 translation blocks",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-009.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+    },
+    {
+      "requirement": "TASK-010/REQ-006",
+      "acceptance": "TASK-010/AC-005",
+      "verification": "browser read of the cover plus computed object-fit",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+    },
+    {
+      "requirement": "TASK-010/REQ-006",
+      "acceptance": "TASK-010/AC-006",
+      "verification": "EN/ES key parity scan of portfolio.js",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+    },
+    {
+      "requirement": "TASK-010/REQ-005",
+      "acceptance": "TASK-010/AC-007",
+      "verification": "node --check on both scripts, console on a freshly created tab",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-010.spec.md#7-evidence"
     }
   ]
 }

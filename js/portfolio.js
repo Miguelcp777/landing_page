@@ -28,6 +28,10 @@ translations.en.studio = {
 translations.es.studio.conceptArt = 'Ilustración IA';
 translations.es.studio.syntheticUi = 'Interfaz real · Cifras difuminadas';
 translations.en.studio.syntheticUi = 'Live interface · Figures obscured';
+// The planner cover is a drawing, not a capture, and its figures are shown
+// rather than blurred. Saying otherwise would be a small, pointless lie.
+translations.es.studio.chartCaption = 'Ilustración · cifras sintéticas';
+translations.en.studio.chartCaption = 'Illustration · synthetic figures';
 translations.en.studio.conceptArt = 'AI illustration';
 Object.assign(translations.es.studio, { orbitMode: 'Órbita', neuralMode: 'Red neuronal' });
 Object.assign(translations.en.studio, { orbitMode: 'Orbit', neuralMode: 'Neural network' });
@@ -246,3 +250,20 @@ document.addEventListener('DOMContentLoaded', () => {
     new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['class','lang']});
     resize();
 });
+
+/* The project cards are role="button" and open a modal on click. The source-code
+   link sits inside one, so without this a click would open the repo in a new tab
+   *and* the modal behind it. Capture phase, so it runs before the card's own
+   handler whatever order the scripts loaded in. */
+document.addEventListener('click', function (event) {
+    var code = event.target.closest && event.target.closest('.project-card__code');
+    if (code) event.stopPropagation();
+}, true);
+
+/* Same for the keyboard: the card responds to Enter, and so should the link,
+   but only the link. */
+document.addEventListener('keydown', function (event) {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    var code = event.target.closest && event.target.closest('.project-card__code');
+    if (code) event.stopPropagation();
+}, true);

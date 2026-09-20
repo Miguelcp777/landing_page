@@ -46,6 +46,10 @@ skill bars, project modals, theme toggle and the animated data field.
 
 No error surface. Failures are silent, which is part of why INV-BEHAV-001 matters.
 
+`portfolio.js` also carries a capture-phase guard that stops a click on
+`.project-card__code` from reaching the card's own handler. Capture phase, so it
+runs first whatever order the scripts loaded in.
+
 ## Known uncertainties and debt
 
 - The `translations` object is large and duplicated across two files with an
