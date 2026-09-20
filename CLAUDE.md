@@ -65,7 +65,9 @@ al pasar por encima.
 La **40 — velo de código** revela SQL y Python alrededor del cursor.
 La **41 — radiografía del retrato** abre un hueco en la foto al pasar el ratón.
 La **42 — la nota de método como consulta** añade el SQL bajo el texto en Capacidades.
-**La próxima sección disponible es la 43, en `editorial.css`.**
+La **43 — la consulta de Sobre mí** es el autorretrato en SQL, con el mismo
+tratamiento visual que la 42.
+**La próxima sección disponible es la 44, en `editorial.css`.**
 
 Si añades SQL visible a la página, **valídalo con un parser antes de subirlo**
 (`sqlglot`, dialecto postgres). Un SQL roto en la web de un analista hace más daño

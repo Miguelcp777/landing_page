@@ -570,7 +570,7 @@ html.light-theme .editorial #projects .project-tag {
    lit up in four hues would be the third, fourth and fifth colours arriving through
    the back door. Comments carry the meaning here, so comments are the only thing
    set apart. */
-.editorial .method-query {
+.editorial :is(.method-query, .bio-query) {
     margin: 26px 0 0;
     max-width: 850px;
     border: 1px solid var(--border);
@@ -579,7 +579,7 @@ html.light-theme .editorial #projects .project-tag {
     box-shadow: var(--shadow-1);
     overflow: hidden;
 }
-.editorial .method-query pre {
+.editorial :is(.method-query, .bio-query) pre {
     margin: 0;
     padding: 22px 24px;
     overflow-x: auto;           /* long lines scroll here, never the page */
@@ -587,7 +587,7 @@ html.light-theme .editorial #projects .project-tag {
     color: var(--text-primary);
     tab-size: 4;
 }
-.editorial .method-query code { font: inherit; background: none; padding: 0; }
+.editorial :is(.method-query, .bio-query) code { font: inherit; background: none; padding: 0; }
 .editorial .method-query .q-c { color: var(--text-secondary); }
 .editorial .method-query figcaption {
     padding: 11px 24px;
@@ -598,6 +598,23 @@ html.light-theme .editorial #projects .project-tag {
     background: var(--bg-body);
 }
 @media (max-width: 768px) {
-    .editorial .method-query pre { padding: 18px; font-size: 12px; }
+    .editorial :is(.method-query, .bio-query) pre { padding: 18px; font-size: 12px; }
     .editorial .method-query figcaption { padding: 10px 18px; }
 }
+
+/* 43. The self-portrait query, in About.
+
+   Same treatment as the method query in section 42 -- one code-block look on the
+   page, not two -- with only the spacing differing, because this one closes a column
+   of prose rather than following a note.
+
+   No caption and no translation. The identifiers and the string literal stay English
+   in both languages, exactly as they would in a repository; translating the inside of
+   a code block would be the tell that it is decoration rather than code. */
+.editorial .bio-query { margin: 28px 0 4px; max-width: 100%; min-width: 0; }
+.editorial .bio-query pre { padding: 20px 22px; font-size: 12.5px; line-height: 1.7; }
+/* A grid item defaults to min-width:auto, so a <pre> full of unbreakable lines
+   widens its own track -- and because the body clips horizontally, the column is
+   silently cut off on a phone instead of showing a scrollbar. The track has to be
+   allowed to shrink below its content before overflow-x on the block can do its job. */
+.editorial .about__text { min-width: 0; }

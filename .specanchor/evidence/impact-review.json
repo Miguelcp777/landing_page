@@ -1,6 +1,6 @@
 {
-  "revision": "7ee8cf81148e8765086b8a9061ea6646a8cdccfc",
-  "task_spec": ".specanchor/tasks/TASK-015.spec.md",
+  "revision": "7e81a10d43a979431cad4c154a152e58432ebc44",
+  "task_spec": ".specanchor/tasks/TASK-016.spec.md",
   "files": [
     {
       "path": "index.html",
@@ -8,20 +8,9 @@
       "specs": [
         ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "Adds figure.method-query to #toolbox after the method note: the same claim written as valid PostgreSQL, with the method's steps as comments above each clause. The prose is preserved for non-technical readers. Cache-bust bumped.",
+      "rationale": "Adds figure.bio-query to #about between the closing biographical line and the CV/LinkedIn links. The owner's own query, corrected to FROM \"Miguel Castillo\": unquoted it parses as table Miguel aliased Castillo, silently. Cache-bust bumped.",
       "evidence": [
-        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
-      ]
-    },
-    {
-      "path": "js/portfolio.js",
-      "kind": "contract",
-      "specs": [
-        ".specanchor/modules/site-behavior.spec.md"
-      ],
-      "rationale": "Six translation keys for the query's comments in both languages. The SQL itself is not translated, as it would not be in a repository.",
-      "evidence": [
-        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
       ]
     },
     {
@@ -30,9 +19,9 @@
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Section 42 styles the block: surface, border, the existing shadow scale, monospace, overflow-x auto so long lines scroll in the block and never the page. No syntax colouring, per ADR-0002.",
+      "rationale": "Section 42's selectors widened to :is(.method-query, .bio-query) so one treatment serves both blocks. Section 43 carries only the spacing that differs, plus min-width:0 on .about__text — without it the pre widened its own grid track and the column was clipped silently on a phone.",
       "evidence": [
-        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
       ]
     },
     {
@@ -43,7 +32,7 @@
       ],
       "rationale": "Cache-busting version only.",
       "evidence": [
-        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
       ]
     },
     {
@@ -52,9 +41,9 @@
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Next free section is 43, and a new rule: validate any SQL shown on the page with a parser before publishing it.",
+      "rationale": "Next free section is 44.",
       "evidence": [
-        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
       ]
     },
     {
@@ -63,9 +52,9 @@
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Section 42 recorded, with the reason it carries no syntax highlighting.",
+      "rationale": "Section 43 recorded, and INV-STYLE-006 makes the grid-track trap a contract rather than a scar.",
       "evidence": [
-        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
       ]
     },
     {
@@ -74,69 +63,58 @@
       "specs": [
         ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "Records the new block in #toolbox and its partial-translation contract.",
+      "rationale": "Records the new block, its position and the parsing correction.",
       "evidence": [
-        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
       ]
     },
     {
-      "path": ".specanchor/tasks/TASK-015.spec.md",
+      "path": ".specanchor/tasks/TASK-016.spec.md",
       "kind": "requirement",
       "specs": [
         ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "The task, including why the first draft was rejected.",
+      "rationale": "The task, including the mobile bug it introduced and the fix.",
       "evidence": [
-        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
-      ]
-    },
-    {
-      "path": ".specanchor/modules/site-behavior.spec.md",
-      "kind": "requirement",
-      "specs": [
-        ".specanchor/modules/site-behavior.spec.md"
-      ],
-      "rationale": "Records the six comment keys and why they are per-span: the i18n pass writes textContent, so one key for the whole block would destroy the SQL around the comments.",
-      "evidence": [
-        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
       ]
     }
   ],
   "traceability": [
     {
-      "requirement": "TASK-015/REQ-001",
-      "acceptance": "TASK-015/REQ-001",
-      "verification": "sqlglot parse in the postgres dialect plus a GROUP BY completeness check",
+      "requirement": "TASK-016/REQ-001",
+      "acceptance": "TASK-016/REQ-001",
+      "verification": "sqlglot parse of the served HTML; table='Miguel Castillo', alias=''",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-015/REQ-002",
-      "acceptance": "TASK-015/REQ-002",
-      "verification": "previousElementSibling is .method-note",
+      "requirement": "TASK-016/REQ-002",
+      "acceptance": "TASK-016/REQ-002",
+      "verification": "siblings are bio-synthesis and bio-links",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-015/REQ-003",
-      "acceptance": "TASK-015/REQ-003",
-      "verification": "zero one-sided keys across translations.en.studio and translations.es.studio",
+      "requirement": "TASK-016/REQ-003",
+      "acceptance": "TASK-016/REQ-003",
+      "verification": "shared :is() selector matches both blocks",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-015/REQ-004",
-      "acceptance": "TASK-015/REQ-004",
-      "verification": "computed overflow-x auto; block and page scroll widths measured",
+      "requirement": "TASK-016/REQ-004",
+      "acceptance": "TASK-016/REQ-004",
+      "verification": "overflow scan at 1024 and 375 discounting scroll containers; zero genuine overflow after the min-width fix",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-015/REQ-005",
-      "acceptance": "TASK-015/REQ-005",
-      "verification": "contrast audit, 220 nodes, plus the block's own 14.97 and 6.53",
+      "requirement": "TASK-016/REQ-005",
+      "acceptance": "TASK-016/REQ-005",
+      "verification": "contrast audit, 218 nodes",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-016.spec.md#verification-evidence"
     }
   ]
 }

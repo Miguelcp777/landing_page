@@ -101,3 +101,8 @@ No automated tests. Print layout and section integrity are verified manually.
   method note. Only its comments are translated (`studio.q0`-`q4`,
   `studio.qCaption`); the SQL is identical in both languages. The query is
   valid PostgreSQL, checked with a parser — see the task for why that matters.
+- 2026-09-20 — TASK-016: `#about` gains a `figure.bio-query` between the closing
+  biographical line and the CV/LinkedIn links. Written by the owner, corrected
+  to `FROM "Miguel Castillo"` — unquoted, the two words parse as table `Miguel`
+  aliased `Castillo`, with no error raised. Not translated: identifiers and the
+  string literal stay English in both languages, as they would in a repository.

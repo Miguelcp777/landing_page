@@ -39,7 +39,12 @@ Structural class names consumed by `site-behavior`: `.reveal-section`,
 - **INV-STYLE-002** — Colours come from the theme variables, never hard-coded, so the
   light/dark toggle keeps working.
 - **INV-STYLE-003** — Section numbering is continuous across both files. The next
-  free number is **43**, in `editorial.css`.
+  free number is **44**, in `editorial.css`.
+- **INV-STYLE-006** — A `<pre>` inside a grid or flex track needs `min-width: 0` on
+  that track. Items default to `min-width: auto`, so unbreakable lines widen the
+  track itself and `overflow-x` on the block never gets a chance. Because `body`
+  clips horizontally, the failure is silent: no scrollbar, just a column cut off on
+  a phone. Cost half of TASK-016 to find.
 - **INV-STYLE-005** — Nothing decorative may sit above the text. The code veil
   (section 40) is `z-index: 1` with `pointer-events: none`, and every section's
   content is lifted to `z-index: 2`, so the layer is *structurally* unable to cover
@@ -125,3 +130,6 @@ Both files are served uncompiled and unminified, cache-busted by the shared `?v=
 - 2026-09-20 — TASK-015: section 42, the method note restated as a query.
   Deliberately unhighlighted: `ADR-0002` caps the palette at one accent, and a
   four-hue syntax theme would be three more colours arriving through the back door.
+- 2026-09-20 — TASK-016: section 43, the self-portrait query in About. Section
+  42's selectors widened to `:is(.method-query, .bio-query)` so the two code
+  blocks cannot drift apart. `INV-STYLE-006` added.
