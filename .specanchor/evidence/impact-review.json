@@ -1,6 +1,6 @@
 {
-  "revision": "e752fb6fed67bc838bce73b1a2b39b067c829fd8",
-  "task_spec": ".specanchor/tasks/TASK-012.spec.md",
+  "revision": "150ba0c253e47bb290fa38bff4e250393b885871",
+  "task_spec": ".specanchor/tasks/TASK-013.spec.md",
   "files": [
     {
       "path": "css/editorial.css",
@@ -8,10 +8,20 @@
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Move D removed from section 39: the Instrument Serif family, the sizes raised to compensate for it and the italic on the hero emphasis. The display type returns to Inter at its original sizes. Moves B and E stay. A comment records why the serif is absent, so the next person to have the idea finds the answer first.",
+      "rationale": "Section 40: the code veil. z-index 1 with pointer-events none, section containers lifted to z-index 2, so the layer cannot cover text or take a click. Ink comes from a variable the script sets per band, after mix-blend-mode: overlay proved invisible against a near-white ground.",
       "evidence": [
-        ".specanchor/tasks/TASK-012.spec.md#d-was-reverted",
-        ".specanchor/decisions/ADR-0002-one-typeface.md"
+        ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
+      ]
+    },
+    {
+      "path": "js/portfolio.js",
+      "kind": "behavior_preserving",
+      "specs": [
+        ".specanchor/modules/site-behavior.spec.md"
+      ],
+      "rationale": "Builds the veil from eight invented SQL and Python snippets, moves its mask with the pointer through the existing rAF-throttled handler, and picks the ink from the --primary-color of the band under the cursor. Also splits the effects gate: interactive() for visitor-facing effects everywhere, enabled() adding the canvas's on-screen condition. That split fixes a TASK-012 regression that killed the cursor ring below the hero.",
+      "evidence": [
+        ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
       ]
     },
     {
@@ -20,9 +30,9 @@
       "specs": [
         ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "The Google Fonts request drops back to Inter alone, and the cache-busting version is bumped.",
+      "rationale": "Cache-busting version only. The veil is built by script, so no markup changed.",
       "evidence": [
-        ".specanchor/tasks/TASK-012.spec.md#d-was-reverted"
+        ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
       ]
     },
     {
@@ -31,9 +41,9 @@
       "specs": [
         ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "Same font request and cache-bust.",
+      "rationale": "Cache-busting version only.",
       "evidence": [
-        ".specanchor/tasks/TASK-012.spec.md#d-was-reverted"
+        ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
       ]
     },
     {
@@ -42,73 +52,80 @@
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Section 39 is now covers only, and the one-typeface rule is stated where someone editing CSS will read it.",
+      "rationale": "Next free section is 41, and the no-decoration-above-text rule plus the invented-code rule are stated where someone editing CSS will read them.",
       "evidence": [
-        ".specanchor/decisions/ADR-0002-one-typeface.md"
+        ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
       ]
     },
     {
       "path": ".specanchor/modules/site-styles.spec.md",
-      "kind": "correction",
-      "specs": [
-        ".specanchor/modules/site-styles.spec.md"
-      ],
-      "rationale": "The public surface said two families. It is one again, pointing at ADR-0002 for the reasoning and the conditions a future proposal has to meet.",
-      "evidence": [
-        ".specanchor/decisions/ADR-0002-one-typeface.md"
-      ]
-    },
-    {
-      "path": ".specanchor/tasks/TASK-012.spec.md",
-      "kind": "correction",
-      "specs": [
-        ".specanchor/modules/site-styles.spec.md"
-      ],
-      "rationale": "Records that REQ-004 was withdrawn rather than failed: it was implemented and verified, and the requirement itself was wrong. B and E re-verified after the revert.",
-      "evidence": [
-        ".specanchor/tasks/TASK-012.spec.md#d-was-reverted"
-      ]
-    },
-    {
-      "path": ".specanchor/decisions/ADR-0002-one-typeface.md",
       "kind": "requirement",
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Durable decision: one typeface, hierarchy from size and weight. Records the stroke-contrast reasoning and the two conditions any future second family must meet, because this idea will recur.",
+      "rationale": "INV-STYLE-005 makes the stacking guarantee a contract rather than an implementation detail, so a future overlay has to prove it the same way.",
       "evidence": [
-        ".specanchor/decisions/ADR-0002-one-typeface.md"
+        ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
+      ]
+    },
+    {
+      "path": ".specanchor/modules/site-behavior.spec.md",
+      "kind": "correction",
+      "specs": [
+        ".specanchor/modules/site-behavior.spec.md"
+      ],
+      "rationale": "Records the split gate and the TASK-012 regression it corrects.",
+      "evidence": [
+        ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
+      ]
+    },
+    {
+      "path": ".specanchor/tasks/TASK-013.spec.md",
+      "kind": "requirement",
+      "specs": [
+        ".specanchor/modules/site-styles.spec.md"
+      ],
+      "rationale": "The task, including the two requirements with no executed evidence.",
+      "evidence": [
+        ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
       ]
     }
   ],
   "traceability": [
     {
-      "requirement": "TASK-012/REQ-001",
-      "acceptance": "TASK-012/AC-001",
-      "verification": "field still reports position:absolute after the revert",
+      "requirement": "TASK-013/REQ-001",
+      "acceptance": "TASK-013/REQ-001",
+      "verification": "veil lit at points in #hero and #projects and captured",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-012.spec.md#d-was-reverted"
+      "evidence": ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-012/REQ-003",
-      "acceptance": "TASK-012/AC-002",
-      "verification": "dot grid still at opacity .18",
+      "requirement": "TASK-013/REQ-002",
+      "acceptance": "TASK-013/REQ-002",
+      "verification": "computed z-index of veil and containers, pointer-events none, elementFromPoint returns the card",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-012.spec.md#d-was-reverted"
+      "evidence": ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-012/REQ-006",
-      "acceptance": "TASK-012/AC-004",
-      "verification": "cover filter still saturate(0.72) contrast(1.03)",
+      "requirement": "TASK-013/REQ-003",
+      "acceptance": "TASK-013/REQ-003",
+      "verification": "resolved ink over each band: #235d47 on hero, #b5ddc1 on projects",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-012.spec.md#d-was-reverted"
+      "evidence": ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-012/REQ-007",
-      "acceptance": "TASK-012/AC-005",
-      "verification": "contrast re-audited after the revert, 212 nodes per theme, chat open, dark on a clean load",
+      "requirement": "TASK-013/REQ-004",
+      "acceptance": "TASK-013/REQ-004",
+      "verification": "snippets written for this task with invented tables and columns",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-012.spec.md#d-was-reverted"
+      "evidence": ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
+    },
+    {
+      "requirement": "TASK-013/REQ-007",
+      "acceptance": "TASK-013/REQ-007",
+      "verification": "contrast audit with the chat open, veil descendants excluded",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
     }
   ]
 }

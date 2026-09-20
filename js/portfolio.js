@@ -160,6 +160,114 @@ document.addEventListener('DOMContentLoaded', () => {
     aura.className = 'mouse-aura';
     aura.setAttribute('aria-hidden', 'true');
     document.body.append(aura);
+
+    /* The code veil. Eight snippets of the analytical work the page claims, sitting
+       between each band's colour and its text: section content is lifted to z-index
+       2 in CSS, so the veil can never cover a word. Every table, column and figure
+       here is invented -- the confidentiality rule applies to decoration too. */
+    const SNIPPETS = [
+`-- one row per asset, latest record wins
+with ranked as (
+  select *, row_number() over (
+    partition by asset_id
+    order by loaded_at desc) as rn
+  from install_base_raw
+)
+select * from ranked where rn = 1;`,
+`merged = contracts.merge(
+    install_base, on="asset_id",
+    how="outer", indicator=True, validate="m:1")
+
+gaps = merged.loc[merged._merge != "both"]
+log.warning("%d assets disagree", len(gaps))`,
+`select platform, country, fiscal_year,
+       sum(labour + travel + parts) as cost,
+       count(distinct asset_id)     as systems,
+       sum(labour + travel + parts)
+         / nullif(count(distinct asset_id), 0)
+         as cost_per_system
+from service_orders
+group by 1, 2, 3
+having count(distinct asset_id) >= 5;`,
+`def parse_date(raw):
+    """Source systems never agree on a format."""
+    for fmt in ("%Y-%m-%d", "%d/%m/%Y", "%d.%m.%Y"):
+        try:
+            return datetime.strptime(raw.strip(), fmt)
+        except (ValueError, AttributeError):
+            continue
+    return None`,
+`select date_trunc('quarter', ends_on) as quarter,
+       count(*)          as contracts,
+       sum(annual_value) as exposure
+from contracts
+where ends_on between current_date
+      and current_date + interval '18 months'
+group by 1
+order by 1;`,
+`checks = {
+    "missing_cluster": df.cluster.isna().mean(),
+    "zero_value_priced":
+        (df.value.eq(0) & df.priced).mean(),
+    "duplicate_accounts":
+        df.account.str.casefold().duplicated().sum(),
+}
+assert checks["missing_cluster"] < 0.05, checks`,
+`select contract_type,
+       round(avg(annual_value), 2) as asp,
+       percentile_cont(0.5) within group (
+         order by annual_value) as median_value
+from contracts
+where status = 'active'
+group by contract_type
+order by asp desc;`,
+`select ib.cluster,
+       count(*) filter (
+         where c.asset_id is not null) as covered,
+       count(*)                        as total,
+       round(100.0 * count(*) filter (
+         where c.asset_id is not null)
+         / count(*), 1) as pct_covered
+from install_base ib
+left join contracts c using (asset_id)
+group by ib.cluster;`,
+    ];
+    const veil = document.createElement('div');
+    veil.className = 'code-veil';
+    veil.setAttribute('aria-hidden', 'true');
+    const veilGrid = document.createElement('div');
+    veilGrid.className = 'code-veil__grid';
+    /* Twice through, so a wide viewport has no empty cells. */
+    SNIPPETS.concat(SNIPPETS).forEach(code => {
+        const pre = document.createElement('pre');
+        pre.textContent = code;
+        veilGrid.append(pre);
+    });
+    veil.append(veilGrid);
+    document.body.prepend(veil);
+    let veilFrame = 0, veilAt = null;
+    /* The ink follows the band under the cursor. A fixed layer spans bands of
+       opposite lightness and no single colour reads on both, but only the band the
+       cursor is over is ever revealed, so one colour at a time is enough. */
+    let veilInk = new WeakMap();
+    function inkFor(band) {
+        if (!band) return null;
+        let ink = veilInk.get(band);
+        if (!ink) {
+            ink = getComputedStyle(band).getPropertyValue('--primary-color').trim();
+            if (ink) veilInk.set(band, ink);
+        }
+        return ink || null;
+    }
+    function paintVeil() {
+        veilFrame = 0;
+        if (!veilAt) return;
+        veil.style.setProperty('--vx', veilAt.x + 'px');
+        veil.style.setProperty('--vy', veilAt.y + 'px');
+        const under = document.elementFromPoint(veilAt.x, veilAt.y);
+        const ink = inkFor(under && under.closest('main > section, .footer'));
+        if (ink) veil.style.setProperty('--veil-ink', ink);
+    }
     const toggle = document.createElement('button');
     toggle.type = 'button';
     toggle.className = 'effects-toggle';
@@ -169,7 +277,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let width = 0, height = 0, frame = 0, lastPaint = 0;
     let pointer = {x:-1000, y:-1000}, ring = {x:0,y:0}, ringFrame = 0;
     let onScreen = true;
-    const enabled = () => !paused && !reduced.matches && fine.matches && width > 768 && !document.hidden && onScreen;
+    /* Two gates, not one. `interactive` is about the visitor: pointer effects run
+       wherever they are on the page. `enabled` adds the canvas's own condition, that
+       its field is still on screen. Folding the two together in TASK-012 killed the
+       cursor ring below the hero as a side effect. */
+    const interactive = () => !paused && !reduced.matches && fine.matches && width > 768 && !document.hidden;
+    const enabled = () => interactive() && onScreen;
     function updateLabel() {
         const es = document.documentElement.lang === 'es';
         toggle.textContent = reduced.matches ? (es ? 'Movimiento reducido' : 'Reduced motion') : paused ? (es ? 'Activar efectos' : 'Enable effects') : (es ? 'Pausar efectos' : 'Pause effects');
@@ -214,6 +327,10 @@ document.addEventListener('DOMContentLoaded', () => {
         cancelAnimationFrame(frame);frame=0;
         cancelAnimationFrame(ringFrame);ringFrame=0;
         aura.classList.remove('is-visible');
+        veil.classList.remove('is-lit');
+        veil.style.removeProperty('--veil-ink');
+        veilInk = new WeakMap();  /* the theme may have flipped; cached inks are stale */
+        veilAt = null;
         pointer={x:-1000,y:-1000};
         field.style.removeProperty('--field-x');field.style.removeProperty('--field-y');
         updateLabel();draw();
@@ -227,13 +344,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     function moveRing() {
         ringFrame=0;
-        if(!enabled()) return;
+        if(!interactive()) return;
         ring.x+=(pointer.x-ring.x)*.25;ring.y+=(pointer.y-ring.y)*.25;
         aura.style.transform=`translate3d(${ring.x}px,${ring.y}px,0)`;
         if(Math.abs(ring.x-pointer.x)+Math.abs(ring.y-pointer.y)>.5) ringFrame=requestAnimationFrame(moveRing);
     }
     document.addEventListener('pointermove', event => {
-        if(!enabled() || event.pointerType!=='mouse') return;
+        if(!interactive() || event.pointerType!=='mouse') return;
         if(event.target.closest('input,textarea,select,[contenteditable="true"]')) {aura.classList.remove('is-visible');return;}
         if(!aura.classList.contains('is-visible')) ring={x:event.clientX,y:event.clientY};
         const box=field.getBoundingClientRect();
@@ -242,9 +359,12 @@ document.addEventListener('DOMContentLoaded', () => {
         field.style.setProperty('--field-y',`${100*pointer.y/height}%`);
         aura.classList.add('is-visible');
         aura.classList.toggle('is-interactive',Boolean(event.target.closest('a,button,summary,[role="button"]')));
+        veilAt = {x: event.clientX, y: event.clientY};
+        veil.classList.add('is-lit');
+        if(!veilFrame) veilFrame = requestAnimationFrame(paintVeil);
         if(!ringFrame) ringFrame=requestAnimationFrame(moveRing);
     }, {passive:true});
-    document.documentElement.addEventListener('pointerleave',()=>{aura.classList.remove('is-visible');pointer={x:-1000,y:-1000};cancelAnimationFrame(ringFrame);ringFrame=0;});
+    document.documentElement.addEventListener('pointerleave',()=>{aura.classList.remove('is-visible');veil.classList.remove('is-lit');veilAt=null;pointer={x:-1000,y:-1000};cancelAnimationFrame(ringFrame);ringFrame=0;cancelAnimationFrame(veilFrame);veilFrame=0;});
     toggle.addEventListener('click',()=>{paused=!paused;try{localStorage.setItem('site-effects',paused?'paused':'on');}catch(_){}sync();});
     if('IntersectionObserver' in window) {
         new IntersectionObserver(entries => {

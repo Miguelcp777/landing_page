@@ -481,3 +481,58 @@ html.light-theme .editorial #projects .project-tag {
 .editorial .project-card:hover .project-cover:not(.project-cover--chart),
 .editorial .project-card:focus-within .project-cover:not(.project-cover--chart) { filter: none; }
 .editorial .project-cover { transition: transform .55s cubic-bezier(.2,.7,.2,1), filter .45s ease; }
+
+/* 40. The code veil: SQL and Python under the page, revealed around the cursor.
+
+   The layer sits BETWEEN each band's colour and its text. Section content is lifted
+   to z-index 2 below, the veil is 1, and a section's own background paints beneath
+   both -- so the code can appear anywhere on the page and still cannot cover a word.
+   That constraint is the whole design: this page argues that its author is careful,
+   and an effect that makes it harder to read would refute the argument.
+
+   One fixed layer has to cross bands of opposite lightness -- paper in most of the
+   page, near-black in the projects chapter -- and no single ink reads on both.
+   mix-blend-mode was the obvious answer and it failed: overlay against a near-white
+   ground washes out to nothing. So the ink is a variable instead, and the script
+   sets it from the --primary-color of whichever band the cursor is actually over.
+   Only that band matters, because the reveal is a 190px circle around the cursor. */
+.code-veil {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity .3s ease;
+    --vx: -9999px;
+    --vy: -9999px;
+    -webkit-mask-image: radial-gradient(circle 190px at var(--vx) var(--vy), #000 0%, rgba(0,0,0,.72) 42%, transparent 100%);
+    mask-image: radial-gradient(circle 190px at var(--vx) var(--vy), #000 0%, rgba(0,0,0,.72) 42%, transparent 100%);
+}
+.code-veil.is-lit { opacity: 1; }
+.code-veil__grid {
+    position: absolute;
+    inset: -30px -20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px 44px;
+    align-content: start;
+    color: var(--veil-ink, #235d47);
+    opacity: .55;
+}
+.code-veil pre {
+    margin: 0;
+    font: 11.5px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    white-space: pre;
+    overflow: hidden;
+}
+
+/* The lift that makes the veil safe. Scoped to section and footer containers, so the
+   header keeps its own stacking. */
+.editorial main > section > .container,
+.editorial .footer__container { position: relative; z-index: 2; }
+
+/* No cursor, no veil. Same conditions as the rest of the pointer effects. */
+@media (hover: none), (pointer: coarse) { .code-veil { display: none; } }
+@media (max-width: 768px) { .code-veil { display: none; } }
+@media (prefers-reduced-motion: reduce) { .code-veil { display: none; } }

@@ -62,7 +62,14 @@ partir de la 27. La última es la **38 — partitura tonal y elevación**, que d
 sección su banda redefiniendo los *tokens*, no los colores (ver `INV-STYLE-004`).
 La **39 — portadas** apaga las ilustraciones de IA en reposo y les devuelve el color
 al pasar por encima.
-**La próxima sección disponible es la 40, en `editorial.css`.**
+La **40 — velo de código** revela SQL y Python alrededor del cursor.
+**La próxima sección disponible es la 41, en `editorial.css`.**
+
+**Nada decorativo por encima del texto** (`INV-STYLE-005`): el velo va en `z-index:1`
+con `pointer-events:none` y el contenido de cada sección sube a `z-index:2`. Se
+demuestra con el orden de apilado, no bajando la opacidad hasta que parezca aceptable.
+Los fragmentos de código son inventados — la regla de confidencialidad también aplica a
+la decoración.
 
 **Una sola tipografía: Inter.** La jerarquía sale del tamaño, el peso y el espacio.
 Se probó una segunda familia y se revirtió — `ADR-0002` dice por qué y qué tendría

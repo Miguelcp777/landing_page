@@ -76,3 +76,8 @@ runs first whatever order the scripts loaded in.
   the whole visit, including behind opaque sections. `onScreen` defaults to
   true so a host that never delivers the observation degrades to the old
   behaviour rather than to a dead field.
+- 2026-09-20 — TASK-013: the code veil, and a split of the effects gate that
+  fixes a TASK-012 regression. `interactive()` is about the visitor and governs
+  the cursor ring and the veil everywhere; `enabled()` adds the atmosphere
+  canvas's own on-screen condition. Folding the two together had killed the
+  cursor ring below the hero.

@@ -39,7 +39,12 @@ Structural class names consumed by `site-behavior`: `.reveal-section`,
 - **INV-STYLE-002** — Colours come from the theme variables, never hard-coded, so the
   light/dark toggle keeps working.
 - **INV-STYLE-003** — Section numbering is continuous across both files. The next
-  free number is **40**, in `editorial.css`.
+  free number is **41**, in `editorial.css`.
+- **INV-STYLE-005** — Nothing decorative may sit above the text. The code veil
+  (section 40) is `z-index: 1` with `pointer-events: none`, and every section's
+  content is lifted to `z-index: 2`, so the layer is *structurally* unable to cover
+  a word or swallow a click. Any future overlay follows the same rule: prove it with
+  stacking order, not by tuning opacity until it looks acceptable.
 - **INV-STYLE-004** — A section that wants a different tone redefines the **tokens**,
   not the colours. Section 38 gives `#projects` its dark band by overriding
   `--bg-body`, `--text-primary` and the rest on the section itself; because custom
@@ -111,3 +116,6 @@ Both files are served uncompiled and unminified, cache-busted by the shared `?v=
   type, and illustrated covers are desaturated at rest.
 - 2026-09-20 — TASK-012 follow-up: move D reverted on the owner's call. The
   page is one typeface again; see `ADR-0002`.
+- 2026-09-20 — TASK-013: section 40, the code veil. `INV-STYLE-005` added.
+  `mix-blend-mode: overlay` was tried first and rendered nothing against a
+  near-white ground; the ink is set from the band under the cursor instead.
