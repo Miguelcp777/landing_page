@@ -1111,12 +1111,12 @@ html.light-theme .nav__link:hover {
 
 /* Timeline */
 html.light-theme .timeline__role {
-    color: #0F172A;
+    color: var(--text-primary);
 }
 html.light-theme .timeline__company,
 html.light-theme .timeline__description,
 html.light-theme .about__text p {
-    color: #475569;
+    color: var(--text-secondary);
 }
 
 /* Stat numbers gradient (keep visible on light) */
@@ -1130,12 +1130,12 @@ html.light-theme .stat-suffix {
 
 /* Stat labels */
 html.light-theme .stat-label {
-    color: #475569;
+    color: var(--text-secondary);
 }
 
 /* Tool cards */
 html.light-theme .tool-name {
-    color: #0F172A;
+    color: var(--text-primary);
 }
 html.light-theme .tool-card__front,
 html.light-theme .tool-card__back {
@@ -1145,17 +1145,17 @@ html.light-theme .tool-card__back {
 
 /* Contact links */
 html.light-theme .contact__link {
-    color: #334155;
+    color: var(--text-primary);
 }
 
 /* Footer */
 html.light-theme .footer {
-    color: #475569;
+    color: var(--text-secondary);
 }
 
 /* Section subtitle text */
 html.light-theme .section__subtitle__text {
-    color: #475569;
+    color: var(--text-secondary);
 }
 
 /* Dashboard overlay */
@@ -1165,10 +1165,10 @@ html.light-theme .dashboard-overlay {
 
 /* Project card desc */
 html.light-theme .project-card__desc {
-    color: #475569;
+    color: var(--text-secondary);
 }
 html.light-theme .project-card__title {
-    color: #0F172A;
+    color: var(--text-primary);
 }
 
 /* Tags de proyecto: los tonos pastel no contrastan sobre fondo claro */

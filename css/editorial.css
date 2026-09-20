@@ -277,7 +277,7 @@ html .editorial .stat-number,html .editorial .stat-suffix {background:none;backg
 .chat {position:fixed;right:24px;bottom:24px;z-index:900;font-family:var(--font-body);}
 
 .chat__launcher {display:inline-flex;align-items:center;gap:10px;padding:13px 20px;border:none;
-  border-radius:999px;background:var(--primary-color);color:#fff;font-size:.9rem;font-weight:600;
+  border-radius:999px;background:var(--primary-color);color:var(--bg-body);font-size:.9rem;font-weight:600;
   cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.28);transition:transform .2s ease,box-shadow .2s ease;}
 .chat__launcher:hover {transform:translateY(-2px);box-shadow:0 14px 36px rgba(0,0,0,.34);}
 .chat__launcher svg {width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;
@@ -320,7 +320,7 @@ html .editorial .stat-number,html .editorial .stat-suffix {background:none;backg
 .chat__input:focus {outline:none;border-color:var(--primary-color);}
 .chat__input:disabled {opacity:.55;}
 .chat__send {flex-shrink:0;padding:10px 16px;border:none;border-radius:10px;background:var(--primary-color);
-  color:#fff;font-family:inherit;font-size:.82rem;font-weight:600;cursor:pointer;}
+  color:var(--bg-body);font-family:inherit;font-size:.82rem;font-weight:600;cursor:pointer;}
 .chat__send:disabled {opacity:.5;cursor:default;}
 
 /* The launcher label costs too much width on a phone; the icon carries it alone. */
@@ -363,3 +363,88 @@ html .editorial .stat-number,html .editorial .stat-suffix {background:none;backg
    cropped: losing the title or the baseline makes it unreadable. Contained
    inside the card's crop box, with the card surface showing through. */
 .editorial .project-cover--chart {object-fit:contain;object-position:center;background:#f2f4ef;}
+
+/* 38. Tonal score and elevation.
+   The page ran 8,200px of scroll on two near-identical whites (#f7f6f0 body,
+   #ffffff surface): the alternation existed but sat below the threshold where an
+   eye reads it, so the whole site looked like one flat sheet. It now moves through
+   four tones and one dark chapter.
+
+       hero        paper    the fixed .data-atmosphere field shows through here
+       stats       paper    and here, and nowhere else — the bands below are opaque
+       #01 cases   sand
+       #02 capab.  paper
+       about       white    (already was)
+       projects    DARK     the chapter break
+       experience  paper
+       contact     sand
+
+   The bands are token overrides, not colour overrides. Everything inside already
+   draws from var(--bg-*) / var(--text-*), and custom properties inherit down the
+   tree whatever selector consumes them, so redefining the tokens on a section
+   restyles its whole subtree without touching a single component rule. */
+.editorial {
+    --band-sand: #1c2925;
+    --shadow-1: 0 1px 2px rgba(0,0,0,.28), 0 4px 14px rgba(0,0,0,.20);
+    --shadow-2: 0 2px 6px rgba(0,0,0,.32), 0 18px 40px rgba(0,0,0,.32);
+}
+html.light-theme .editorial {
+    --band-sand: #eceadf;
+    --shadow-1: 0 1px 2px rgba(32,41,35,.04), 0 4px 12px rgba(32,41,35,.05);
+    --shadow-2: 0 2px 4px rgba(32,41,35,.05), 0 14px 32px rgba(32,41,35,.10);
+}
+
+/* Opaque bands. Making these opaque is also what confines the fixed atmosphere
+   field to the hero, which is the only place it was ever masked to be visible. */
+.editorial #data-passion,
+.editorial #contact { background: var(--band-sand); }
+.editorial #toolbox,
+.editorial #experience { background: var(--bg-body); }
+
+/* The dark chapter. Projects carries the loudest imagery on the page — the AI
+   illustrations — and a dark ground is what stops them reading as garish rather
+   than deliberate. It is also the longest section, so the band is long enough to
+   read as a chapter instead of a stripe. In the dark theme the same section has to
+   go the other way: lighter than its surroundings, not darker. */
+.editorial #projects { background: #1e2d28; border-top: 0; }
+html.light-theme .editorial #projects {
+    --bg-body: #17221f;
+    --bg-surface: #22312b;
+    --bg-surface-hover: #2b3d34;
+    --text-primary: #f5f3eb;
+    --text-secondary: #c3cdc6;
+    --primary-color: #b5ddc1;
+    --text-accent: var(--primary-color);
+    --border: #3f564a;
+    --border-hover: #b5ddc1;
+    --shadow-1: 0 1px 2px rgba(0,0,0,.28), 0 4px 14px rgba(0,0,0,.20);
+    --shadow-2: 0 2px 6px rgba(0,0,0,.32), 0 18px 40px rgba(0,0,0,.32);
+    background: var(--bg-body);
+    color: var(--text-primary);
+    border-top: 0;
+}
+/* Three tag colours are hardcoded for the light theme back in styles.css and would
+   survive the token swap as blue and amber on forest green. */
+html.light-theme .editorial #projects .project-tag {
+    background: var(--bg-body);
+    border-color: var(--border);
+    color: var(--text-secondary);
+}
+
+/* Elevation. Every card was a 1px border over a fill three percent away from the
+   surface behind it, so nothing sat above anything. box-shadow was not in the
+   existing transition list, so it has to be re-declared or the hover snaps. */
+.editorial .project-card {
+    box-shadow: var(--shadow-1);
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.editorial .project-card:hover { box-shadow: var(--shadow-2); }
+.editorial .stat-item {
+    box-shadow: var(--shadow-1);
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.editorial .stat-item:hover { box-shadow: var(--shadow-2); }
+/* Capabilities and timeline entries are not clickable, so they get depth but no
+   hover lift: a card that rises under the cursor and does nothing is a lie. */
+.editorial .capability,
+.editorial .timeline__content { box-shadow: var(--shadow-1); }

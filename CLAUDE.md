@@ -57,9 +57,10 @@ a los primeros. Dos trampas reales que ya han mordido:
   los casos: lo que haya en `script.js` para esas claves se pierde.
 
 ## CSS — Secciones numeradas
-`styles.css` usa comentarios numerados del 1 al 26. `editorial.css` continúa:
-27-Hero Entry/Stats/Reveal, 28-Timeline, 29-Project UI capture.
-**La próxima sección disponible es la 30, en `editorial.css`.**
+`styles.css` usa comentarios numerados del 1 al 26. `editorial.css` continúa a
+partir de la 27. La última es la **38 — partitura tonal y elevación**, que da a cada
+sección su banda redefiniendo los *tokens*, no los colores (ver `INV-STYLE-004`).
+**La próxima sección disponible es la 39, en `editorial.css`.**
 
 ## JavaScript — Patrones clave
 - **i18n:** objeto `translations` con claves `en` y `es`. Atributos `data-i18n` en HTML.

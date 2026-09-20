@@ -1,126 +1,61 @@
 {
-  "revision": "39e03d7ec2344f2558486d88944f396a90ca0de0",
-  "task_spec": ".specanchor/tasks/TASK-010.spec.md",
+  "revision": "e475b66bf5140caacedc627d7450ada7931f986e",
+  "task_spec": ".specanchor/tasks/TASK-011.spec.md",
   "files": [
-    {
-      "path": "index.html",
-      "kind": "contract",
-      "specs": [
-        ".specanchor/modules/site-pages.spec.md"
-      ],
-      "rationale": "Four source links added to project cards, the proj2 card replaced with the clean-room rebuild, GitHub added to contact, the employer UI capture swapped for a drawn cover, and the cache-busting version bumped.",
-      "evidence": [
-        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
-      ]
-    },
-    {
-      "path": "js/script.js",
-      "kind": "contract",
-      "specs": [
-        ".specanchor/modules/site-behavior.spec.md"
-      ],
-      "rationale": "The proj2 modal content is rewritten in both languages to describe the rebuild. No employer reference survives in either block.",
-      "evidence": [
-        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
-      ]
-    },
-    {
-      "path": "js/portfolio.js",
-      "kind": "contract",
-      "specs": [
-        ".specanchor/modules/site-behavior.spec.md"
-      ],
-      "rationale": "Adds the capture-phase guard that stops a Code click reaching the card's modal handler, and the studio.chartCaption key in both languages.",
-      "evidence": [
-        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
-      ]
-    },
     {
       "path": "css/editorial.css",
       "kind": "behavior_preserving",
       "specs": [
+        ".specanchor/modules/site-styles.spec.md",
+        ".specanchor/modules/chat-widget.spec.md"
+      ],
+      "rationale": "Adds section 38: the tonal score and the shadow scale. Each banded section redefines the theme tokens on itself rather than setting colours, so the whole subtree follows. Also fixes the chat launcher and Send button, which set color:#fff over var(--primary-color) and rendered at contrast 1.49 on the dark theme's mint.",
+      "evidence": [
+        ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
+      ]
+    },
+    {
+      "path": "css/styles.css",
+      "kind": "behavior_preserving",
+      "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Sections 35 to 37: the code-link pill, the GitHub mark, and object-fit contain for the chart cover. Presentation only.",
+      "rationale": "Nine legacy rules under html.light-theme hardcoded #0F172A and #475569 from the superseded blue theme. A literal cannot follow a section that overrides the tokens, so project titles rendered at contrast 1.31 on the new dark band. All nine converted to var(--text-primary) / var(--text-secondary), which INV-STYLE-002 already required. Resolved values are unchanged outside a band.",
       "evidence": [
-        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+        ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
       ]
     },
     {
-      "path": "assets/images/project-art/revenue-planner.svg",
-      "kind": "contract",
-      "specs": [
-        ".specanchor/modules/site-assets.spec.md"
-      ],
-      "rationale": "New cover, drawn rather than captured, at 1200x470 to match the card crop box. Replaces a screenshot of employer software.",
-      "evidence": [
-        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
-      ]
-    },
-    {
-      "path": "assets/images/project-art/bpbuilder-640.webp",
-      "kind": "contract",
-      "specs": [
-        ".specanchor/modules/site-assets.spec.md"
-      ],
-      "rationale": "Removed: a capture of an employer-internal tool's UI, now covered by INV-ASSET-005.",
-      "evidence": [
-        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
-      ]
-    },
-    {
-      "path": "assets/images/project-art/bpbuilder-1200.webp",
-      "kind": "contract",
-      "specs": [
-        ".specanchor/modules/site-assets.spec.md"
-      ],
-      "rationale": "Removed: a capture of an employer-internal tool's UI, now covered by INV-ASSET-005.",
-      "evidence": [
-        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
-      ]
-    },
-    {
-      "path": "assets/images/project-art/bpbuilder-1800.webp",
-      "kind": "contract",
-      "specs": [
-        ".specanchor/modules/site-assets.spec.md"
-      ],
-      "rationale": "Removed: a capture of an employer-internal tool's UI, now covered by INV-ASSET-005.",
-      "evidence": [
-        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
-      ]
-    },
-    {
-      "path": ".specanchor/modules/site-pages.spec.md",
-      "kind": "requirement",
+      "path": "index.html",
+      "kind": "behavior_preserving",
       "specs": [
         ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "Records which card links which repository, and the rule that an unaudited repository is not linked.",
+      "rationale": "Cache-busting version only, bumped to 20260920-bands across 12 links. No markup change: the bands are applied by section id, so the tonal score needed no new classes.",
       "evidence": [
-        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+        ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
       ]
     },
     {
-      "path": ".specanchor/modules/site-assets.spec.md",
-      "kind": "requirement",
+      "path": "cv.html",
+      "kind": "behavior_preserving",
       "specs": [
-        ".specanchor/modules/site-assets.spec.md"
+        ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "Adds INV-ASSET-005 forbidding captures of employer software, and qualifies INV-ASSET-001 so a caption must describe what the image actually is.",
+      "rationale": "Cache-busting version only, 3 links. The CV shares styles.css, so it has to pick up the token conversion.",
       "evidence": [
-        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+        ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
       ]
     },
     {
-      "path": ".specanchor/modules/site-behavior.spec.md",
-      "kind": "requirement",
+      "path": "CLAUDE.md",
+      "kind": "documentation",
       "specs": [
-        ".specanchor/modules/site-behavior.spec.md"
+        ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Documents the capture-phase guard as part of the module's behaviour.",
+      "rationale": "The next free CSS section number was stale at 30 and is now 39, with a pointer to INV-STYLE-004 so the next person writing a band redefines tokens instead of colours.",
       "evidence": [
-        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+        ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
       ]
     },
     {
@@ -129,73 +64,80 @@
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Next free CSS section number moves from 35 to 38.",
+      "rationale": "INV-STYLE-004 records the band mechanism. The literal-colour trap is recorded beside the specificity one, because INV-STYLE-002 had forbidden it since bootstrap and nothing enforced it.",
       "evidence": [
-        ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+        ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
       ]
     },
     {
-      "path": ".specanchor/global/product-behavior.spec.md",
+      "path": ".specanchor/modules/chat-widget.spec.md",
       "kind": "correction",
       "specs": [
-        ".specanchor/global/product-behavior.spec.md"
+        ".specanchor/modules/chat-widget.spec.md"
       ],
-      "rationale": "The spec said no verifiable external evidence is linked. That was true when written at the bootstrap revision and is now partly false. Corrected, and narrowed to what genuinely remains missing: no Tableau Public dashboard for the three analytical cases.",
+      "rationale": "Records the dark-theme contrast fix on the launcher and the Send button. The bug shipped with TASK-001 and was found by the audit run here.",
       "evidence": [
-        ".specanchor/tasks/TASK-010.spec.md#7-evidence",
-        ".specanchor/bootstrap-report.md"
+        ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
+      ]
+    },
+    {
+      "path": ".specanchor/tasks/TASK-011.spec.md",
+      "kind": "documentation",
+      "specs": [
+        ".specanchor/modules/site-styles.spec.md"
+      ],
+      "rationale": "The task itself.",
+      "evidence": [
+        ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
+      ]
+    },
+    {
+      "path": ".specanchor/findings/FIND-002-dead-background-system.md",
+      "kind": "documentation",
+      "specs": [
+        ".specanchor/modules/site-styles.spec.md"
+      ],
+      "rationale": "Out-of-scope discovery: .neural-atmosphere is a complete second background system that no page references and no script injects. Recorded rather than deleted, because removing a block of CSS does not belong in a task whose diff should read as what changed visually.",
+      "evidence": [
+        ".specanchor/findings/FIND-002-dead-background-system.md"
       ]
     }
   ],
   "traceability": [
     {
-      "requirement": "TASK-010/REQ-001",
-      "acceptance": "TASK-010/AC-001",
-      "verification": "browser read of the four code links and their attributes",
+      "requirement": "TASK-011/REQ-001",
+      "acceptance": "TASK-011/AC-001",
+      "verification": "computed background-color of the eight sections, light theme",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+      "evidence": ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-010/REQ-002",
-      "acceptance": "TASK-010/AC-002",
-      "verification": "dispatched a bubbling click, checked the modal stayed closed",
+      "requirement": "TASK-011/REQ-002",
+      "acceptance": "TASK-011/AC-001",
+      "verification": "computed background-color of the eight sections, dark theme; the banded section is lighter than the body",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+      "evidence": ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-010/REQ-004",
-      "acceptance": "TASK-010/AC-003",
-      "verification": "grep for bpbuilder across tracked files",
+      "requirement": "TASK-011/REQ-003",
+      "acceptance": "TASK-011/AC-001",
+      "verification": "computed box-shadow per card class; no hover rule on the non-interactive ones",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+      "evidence": ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-010/REQ-003",
-      "acceptance": "TASK-010/AC-004",
-      "verification": "pattern scan of both proj2 translation blocks",
+      "requirement": "TASK-011/REQ-004",
+      "acceptance": "TASK-011/AC-002",
+      "verification": "contrast audit over 213 rendered text nodes in each theme against the nearest painted background",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+      "evidence": ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-010/REQ-006",
-      "acceptance": "TASK-010/AC-005",
-      "verification": "browser read of the cover plus computed object-fit",
+      "requirement": "TASK-011/REQ-005",
+      "acceptance": "TASK-011/AC-002",
+      "verification": "scripted conversion asserting one match per selector and nine changed lines",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-010.spec.md#7-evidence"
-    },
-    {
-      "requirement": "TASK-010/REQ-006",
-      "acceptance": "TASK-010/AC-006",
-      "verification": "EN/ES key parity scan of portfolio.js",
-      "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-010.spec.md#7-evidence"
-    },
-    {
-      "requirement": "TASK-010/REQ-005",
-      "acceptance": "TASK-010/AC-007",
-      "verification": "node --check on both scripts, console on a freshly created tab",
-      "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-010.spec.md#7-evidence"
+      "evidence": ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
     }
   ]
 }
