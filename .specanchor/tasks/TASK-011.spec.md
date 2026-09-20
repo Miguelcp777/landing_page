@@ -146,6 +146,27 @@ endpoint, the worker, the profile and the content are untouched.
   exactly nine changed lines.
 - **EV-006** — bumped to `20260920-bands`.
 
+## Follow-up after the first deploy
+
+Production verification of the deployed CSS found a **third** instance of the same
+`color:#fff`-over-`var(--primary-color)` bug: `.chat__msg--user`, the visitor's own
+chat bubble. The AA audit had not caught it, and the reason matters — the audit walks
+rendered nodes, and the chat panel is closed on load, so that bubble does not exist
+when the audit runs. "213 nodes, zero failures" was true and still missed it.
+
+Re-verified with the panel opened and one bubble of each role planted: **212 nodes,
+zero failures, in both themes**. The user bubble now reads 10.95 in the dark theme.
+
+One remaining `color:#fff` in `editorial.css` is correct and stays: the `Code` pill
+sits on its own `rgba(8,12,22,.72)` ground over the cover image, so it is white on
+near-black whatever the theme does.
+
+A dark-theme audit run immediately after clicking the theme toggle reported 42
+failures, including nav links at 1.58 from a rule that does not match the DOM. It was
+the browser pane returning stale computed styles, not a defect: a clean load into the
+dark theme returns the correct token value and zero failures. Third time this session
+that pane has done this.
+
 ## Open
 
 - Verified in the local preview, not in production. Not yet deployed to the NAS.

@@ -1,5 +1,5 @@
 {
-  "revision": "e475b66bf5140caacedc627d7450ada7931f986e",
+  "revision": "9b3f158068a21eda39f69058ed62391b5cc01e8e",
   "task_spec": ".specanchor/tasks/TASK-011.spec.md",
   "files": [
     {
@@ -9,7 +9,7 @@
         ".specanchor/modules/site-styles.spec.md",
         ".specanchor/modules/chat-widget.spec.md"
       ],
-      "rationale": "Adds section 38: the tonal score and the shadow scale. Each banded section redefines the theme tokens on itself rather than setting colours, so the whole subtree follows. Also fixes the chat launcher and Send button, which set color:#fff over var(--primary-color) and rendered at contrast 1.49 on the dark theme's mint.",
+      "rationale": "Adds section 38: the tonal score and the shadow scale. Each banded section redefines the theme tokens on itself rather than setting colours, so the whole subtree follows. Also fixes the chat launcher and Send button, which set color:#fff over var(--primary-color) and rendered at contrast 1.49 on the dark theme's mint. Follow-up: .chat__msg--user carried the same bug and was found only by re-auditing with the panel open.",
       "evidence": [
         ".specanchor/tasks/TASK-011.spec.md#verification-evidence"
       ]

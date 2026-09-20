@@ -75,6 +75,14 @@ Both files are served uncompiled and unminified, cache-busted by the shared `?v=
   refactor is unguarded.
 - Some icons are emoji characters rather than SVG. (OBSERVED) Inconsistent with the
   LinkedIn and chat marks, which are inline SVG.
+- **More literal colours survive** the TASK-011 conversion, in `styles.css:1086-1110`:
+  `#334155` on `.nav__link` and `.hero__description`, `#1D4ED8` on
+  `.hero__subtitle`, `.hero__badge` and the nav hover. (VERIFIED by grep) They were
+  left because they are not currently broken -- the header sits outside every section
+  so no band can reach it, and the hero band is paper. They are the same trap as the
+  nine that were converted, waiting for the day a band moves. Note that in the light
+  theme these beat the editorial tokens on specificity, so the nav is slate `#334155`
+  rather than the editorial `#536157`; nobody has ever noticed.
 
 ## Statement evidence
 
