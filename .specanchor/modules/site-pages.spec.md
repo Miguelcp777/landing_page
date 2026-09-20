@@ -39,8 +39,10 @@ Static documents. `cv.html` is standalone and carries its own print stylesheet.
 - **INV-PAGES-003** — `data-chat` is `"on"` since 2026-09-20, when the Worker went
   live. It must go back to `"off"` in the same change as any Worker outage or
   teardown: a chat button that fails on every message is worse than no chat button.
-- **INV-PAGES-004** — CSS and JS links share one `?v=` value. Divergence has silently
-  shipped stale assets before.
+- **INV-PAGES-004** — CSS and JS links share one `?v=` value **across both documents**.
+  Divergence has silently shipped stale assets before, and under TASK-008 `cv.html`
+  was found carrying three separate stale values while `index.html` had one: the
+  invariant was written but never checked. Check both files, not just the landing.
 - **INV-PAGES-005** — `cv.html` fits on one printed A4 page.
 
 ## Dependencies
@@ -54,6 +56,9 @@ Static documents. `cv.html` is standalone and carries its own print stylesheet.
   (OBSERVED) Not yet reconciled with `product-behavior.spec.md`.
 - `cv.html` duplicates styling inline instead of sharing the CSS layers. (OBSERVED)
   Deliberate for print isolation, but it is duplication.
+- **Nothing checks INV-PAGES-004 automatically.** It was violated in `cv.html` for an
+  unknown number of commits and found only by reading the file. A one-line check
+  comparing the distinct `?v=` values across both documents would have caught it.
 
 ## Tests / verification
 
@@ -67,7 +72,8 @@ No automated tests. Print layout and section integrity are verified manually.
 | Canonical present once per page | VERIFIED | assertion in the edit script, one match per file | pass |
 | `data-chat` currently `off` | VERIFIED | `grep data-chat index.html` @ `ebaf2a1298fab854cfc3b571215d8d5f90a21fa5` | pass |
 | `?v=` unified | VERIFIED | one distinct value across all links | pass |
-| CV fits one A4 page | OBSERVED | measured in a prior session after the QR was added | — |
+| CV fits one A4 page | VERIFIED | print rules applied at 703×1047; content 969px, 78px spare, after adding Education | pass |
+| `?v=` unified across both documents | VERIFIED | one distinct value in `index.html` and `cv.html` @ `0dd583ab96757632fc7b59ed102fc1d393039341` | pass |
 | Eight sections render | VERIFIED | DOM query in a browser, all eight present | pass |
 
 ## Change history

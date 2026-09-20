@@ -1,6 +1,6 @@
 {
-  "revision": "80b78e6cd893bd6d1349c12603d63e49215909e7",
-  "task_spec": ".specanchor/tasks/TASK-007.spec.md",
+  "revision": "0dd583ab96757632fc7b59ed102fc1d393039341",
+  "task_spec": ".specanchor/tasks/TASK-008.spec.md",
   "files": [
     {
       "path": "chatbot/src/profile.ts",
@@ -8,11 +8,69 @@
       "specs": [
         ".specanchor/modules/chat-worker.spec.md"
       ],
-      "rationale": "Knowledge-base text only, correcting a fact the owner restated. The module contract is untouched. The prohibition on degree-like phrasing is strengthened because the correct qualification is more, not less, exposed to being rendered as an engineering title in English.",
+      "rationale": "Knowledge-base text: correct Spanish phrasing for the qualification and a prohibition on classifying it by level. The module contract is untouched.",
       "evidence": [
-        ".specanchor/tasks/TASK-007.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-008.spec.md#verification-evidence"
+      ]
+    },
+    {
+      "path": "cv.html",
+      "kind": "behavior_preserving",
+      "specs": [
+        ".specanchor/modules/site-pages.spec.md"
+      ],
+      "rationale": "Adds an Education section and unifies three stale cache-busting values onto the one index.html already uses. INV-PAGES-005, the one-page rule, is preserved and measured: 969px against 1047px available.",
+      "evidence": [
+        ".specanchor/tasks/TASK-008.spec.md#verification-evidence"
+      ]
+    },
+    {
+      "path": ".specanchor/modules/site-pages.spec.md",
+      "kind": "requirement",
+      "specs": [
+        ".specanchor/modules/site-pages.spec.md"
+      ],
+      "rationale": "INV-PAGES-004 extended to say explicitly that the ?v= value is shared across both documents, because it was violated in cv.html and the wording did not make the scope clear. Adds the measured one-page evidence and records that nothing checks the invariant automatically.",
+      "evidence": [
+        ".specanchor/tasks/TASK-008.spec.md#verification-evidence"
       ]
     }
   ],
-  "traceability": []
+  "traceability": [
+    {
+      "requirement": "TASK-008/REQ-001",
+      "acceptance": "TASK-008/AC-001",
+      "verification": "grep of chatbot/src/profile.ts for the Spanish phrasing rule",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-008.spec.md#verification-evidence"
+    },
+    {
+      "requirement": "TASK-008/REQ-002",
+      "acceptance": "TASK-008/AC-001",
+      "verification": "grep of chatbot/src/profile.ts for the do-not-classify rule",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-008.spec.md#verification-evidence"
+    },
+    {
+      "requirement": "TASK-008/REQ-003",
+      "acceptance": "TASK-008/AC-002",
+      "verification": "DOM read of the rendered CV, four sections ending in Education",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-008.spec.md#verification-evidence"
+    },
+    {
+      "requirement": "TASK-008/REQ-004",
+      "acceptance": "TASK-008/AC-003",
+      "verification": "print rules applied at 703x1047, content height measured",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-008.spec.md#verification-evidence"
+    },
+    {
+      "requirement": "TASK-008/REQ-005",
+      "acceptance": "TASK-008/AC-004",
+      "verification": "pattern scan asserting one shared version across both documents",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-008.spec.md#verification-evidence"
+    }
+  ]
 }

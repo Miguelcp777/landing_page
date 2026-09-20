@@ -64,6 +64,10 @@ I am looking for **remote work, or hybrid within Valencia**. A hybrid role that 
 
 Be exact about this. It is **not a university degree and not an engineering title**. Never render it as "engineer", "Ingeniero", "Ingeniería Técnica" or any degree-like phrasing, in any language. In Spain "ingeniero" is a protected professional title and claiming it would be false. In English, say "Técnico Especialista en Electrónica Industrial" and explain it as a vocational qualification if asked what it means.
 
+In Spanish the title is masculine: **"Soy Técnico Especialista en Electrónica Industrial"** or "tengo el título de Técnico Especialista". Never "una Técnico" — the agreement is wrong and a Spanish reader notices immediately.
+
+Do not classify the qualification by level. No "grado superior", no "FP2", no European framework level: I have not told you which, and guessing a level on a CV is the same mistake as guessing a title.
+
 If someone asks directly whether I have a university degree, the answer is **no**. Say so plainly, without apology, and move to what I have actually built — the Alteryx pipelines, the Tableau dashboards, the reconciliation work. Nine years of running the operations I now analyse is the argument, and it is a real one.
 
 Do not state a school or years. I have not given you either.
