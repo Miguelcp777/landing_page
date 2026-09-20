@@ -559,3 +559,45 @@ html.light-theme .editorial #projects .project-tag {
 }
 @media (hover: none), (pointer: coarse) { .editorial-portrait.is-xray img { filter: none; -webkit-mask-image: none; mask-image: none; } }
 @media (prefers-reduced-motion: reduce) { .editorial-portrait img { transition: none; } }
+
+/* 42. The method note, restated as a query.
+
+   The prose above it stays: it is the version a non-technical recruiter reads, and
+   this page is read by both. The query is the same claim written formally, which is
+   what the note itself describes doing.
+
+   No syntax colouring. The palette is one accent by decision (ADR-0002) and a query
+   lit up in four hues would be the third, fourth and fifth colours arriving through
+   the back door. Comments carry the meaning here, so comments are the only thing
+   set apart. */
+.editorial .method-query {
+    margin: 26px 0 0;
+    max-width: 850px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-1);
+    overflow: hidden;
+}
+.editorial .method-query pre {
+    margin: 0;
+    padding: 22px 24px;
+    overflow-x: auto;           /* long lines scroll here, never the page */
+    font: 13px/1.75 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: var(--text-primary);
+    tab-size: 4;
+}
+.editorial .method-query code { font: inherit; background: none; padding: 0; }
+.editorial .method-query .q-c { color: var(--text-secondary); }
+.editorial .method-query figcaption {
+    padding: 11px 24px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    letter-spacing: .04em;
+    color: var(--text-secondary);
+    background: var(--bg-body);
+}
+@media (max-width: 768px) {
+    .editorial .method-query pre { padding: 18px; font-size: 12px; }
+    .editorial .method-query figcaption { padding: 10px 18px; }
+}

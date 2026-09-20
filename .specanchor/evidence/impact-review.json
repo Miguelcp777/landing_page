@@ -1,38 +1,38 @@
 {
-  "revision": "74e27e16b8d255c2027f518559198128e22b447b",
-  "task_spec": ".specanchor/tasks/TASK-014.spec.md",
+  "revision": "7ee8cf81148e8765086b8a9061ea6646a8cdccfc",
+  "task_spec": ".specanchor/tasks/TASK-015.spec.md",
   "files": [
+    {
+      "path": "index.html",
+      "kind": "contract",
+      "specs": [
+        ".specanchor/modules/site-pages.spec.md"
+      ],
+      "rationale": "Adds figure.method-query to #toolbox after the method note: the same claim written as valid PostgreSQL, with the method's steps as comments above each clause. The prose is preserved for non-technical readers. Cache-bust bumped.",
+      "evidence": [
+        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+      ]
+    },
+    {
+      "path": "js/portfolio.js",
+      "kind": "contract",
+      "specs": [
+        ".specanchor/modules/site-behavior.spec.md"
+      ],
+      "rationale": "Six translation keys for the query's comments in both languages. The SQL itself is not translated, as it would not be in a repository.",
+      "evidence": [
+        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+      ]
+    },
     {
       "path": "css/editorial.css",
       "kind": "behavior_preserving",
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Section 41: a 150px lens masked into the portrait while hovered, 62% transparent at the centre, with a slow desaturation under it. Targets the image only, so the caption stays fully legible. At rest the portrait carries no mask and no filter.",
+      "rationale": "Section 42 styles the block: surface, border, the existing shadow scale, monospace, overflow-x auto so long lines scroll in the block and never the page. No syntax colouring, per ADR-0002.",
       "evidence": [
-        ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
-      ]
-    },
-    {
-      "path": "js/portfolio.js",
-      "kind": "behavior_preserving",
-      "specs": [
-        ".specanchor/modules/site-behavior.spec.md"
-      ],
-      "rationale": "trackXray() follows the cursor inside the figure in the figure's own coordinates and toggles is-xray. It rides the existing pointer handler, so the Pause effects control, reduced motion, coarse pointers and narrow viewports suppress it with no second gate.",
-      "evidence": [
-        ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
-      ]
-    },
-    {
-      "path": "index.html",
-      "kind": "behavior_preserving",
-      "specs": [
-        ".specanchor/modules/site-pages.spec.md"
-      ],
-      "rationale": "Cache-busting version only; the effect needs no markup.",
-      "evidence": [
-        ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
       ]
     },
     {
@@ -43,7 +43,7 @@
       ],
       "rationale": "Cache-busting version only.",
       "evidence": [
-        ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
       ]
     },
     {
@@ -52,9 +52,9 @@
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Next free CSS section is 42.",
+      "rationale": "Next free section is 43, and a new rule: validate any SQL shown on the page with a parser before publishing it.",
       "evidence": [
-        ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
       ]
     },
     {
@@ -63,9 +63,31 @@
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Section 41 recorded, plus the stale-screenshot trap as a working rule.",
+      "rationale": "Section 42 recorded, with the reason it carries no syntax highlighting.",
       "evidence": [
-        ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+      ]
+    },
+    {
+      "path": ".specanchor/modules/site-pages.spec.md",
+      "kind": "requirement",
+      "specs": [
+        ".specanchor/modules/site-pages.spec.md"
+      ],
+      "rationale": "Records the new block in #toolbox and its partial-translation contract.",
+      "evidence": [
+        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+      ]
+    },
+    {
+      "path": ".specanchor/tasks/TASK-015.spec.md",
+      "kind": "requirement",
+      "specs": [
+        ".specanchor/modules/site-pages.spec.md"
+      ],
+      "rationale": "The task, including why the first draft was rejected.",
+      "evidence": [
+        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
       ]
     },
     {
@@ -74,51 +96,47 @@
       "specs": [
         ".specanchor/modules/site-behavior.spec.md"
       ],
-      "rationale": "Records that the pointer handler now also tracks the portrait.",
+      "rationale": "Records the six comment keys and why they are per-span: the i18n pass writes textContent, so one key for the whole block would destroy the SQL around the comments.",
       "evidence": [
-        ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
-      ]
-    },
-    {
-      "path": ".specanchor/tasks/TASK-014.spec.md",
-      "kind": "requirement",
-      "specs": [
-        ".specanchor/modules/site-styles.spec.md"
-      ],
-      "rationale": "The task, including the requirement with no executed evidence.",
-      "evidence": [
-        ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
       ]
     }
   ],
   "traceability": [
     {
-      "requirement": "TASK-014/REQ-001",
-      "acceptance": "TASK-014/REQ-001",
-      "verification": "lens driven to the face; code readable through head and shoulder",
+      "requirement": "TASK-015/REQ-001",
+      "acceptance": "TASK-015/REQ-001",
+      "verification": "sqlglot parse in the postgres dialect plus a GROUP BY completeness check",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-014/REQ-002",
-      "acceptance": "TASK-014/REQ-002",
-      "verification": "fresh load reports mask none, filter none, is-xray false",
+      "requirement": "TASK-015/REQ-002",
+      "acceptance": "TASK-015/REQ-002",
+      "verification": "previousElementSibling is .method-note",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-014/REQ-003",
-      "acceptance": "TASK-014/REQ-003",
-      "verification": "the rule addresses img only; the caption is a sibling",
+      "requirement": "TASK-015/REQ-003",
+      "acceptance": "TASK-015/REQ-003",
+      "verification": "zero one-sided keys across translations.en.studio and translations.es.studio",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-014/REQ-005",
-      "acceptance": "TASK-014/REQ-005",
-      "verification": "contrast audit, 212 nodes, chat open",
+      "requirement": "TASK-015/REQ-004",
+      "acceptance": "TASK-015/REQ-004",
+      "verification": "computed overflow-x auto; block and page scroll widths measured",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
+    },
+    {
+      "requirement": "TASK-015/REQ-005",
+      "acceptance": "TASK-015/REQ-005",
+      "verification": "contrast audit, 220 nodes, plus the block's own 14.97 and 6.53",
+      "result": "pass",
+      "evidence": ".specanchor/tasks/TASK-015.spec.md#verification-evidence"
     }
   ]
 }

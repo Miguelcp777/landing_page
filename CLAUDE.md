@@ -64,7 +64,12 @@ La **39 — portadas** apaga las ilustraciones de IA en reposo y les devuelve el
 al pasar por encima.
 La **40 — velo de código** revela SQL y Python alrededor del cursor.
 La **41 — radiografía del retrato** abre un hueco en la foto al pasar el ratón.
-**La próxima sección disponible es la 42, en `editorial.css`.**
+La **42 — la nota de método como consulta** añade el SQL bajo el texto en Capacidades.
+**La próxima sección disponible es la 43, en `editorial.css`.**
+
+Si añades SQL visible a la página, **valídalo con un parser antes de subirlo**
+(`sqlglot`, dialecto postgres). Un SQL roto en la web de un analista hace más daño
+que no tener SQL.
 
 **Nada decorativo por encima del texto** (`INV-STYLE-005`): el velo va en `z-index:1`
 con `pointer-events:none` y el contenido de cada sección sube a `z-index:2`. Se

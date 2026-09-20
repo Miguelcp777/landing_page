@@ -85,3 +85,8 @@ runs first whatever order the scripts loaded in.
   hero portrait, in the figure's own coordinates, so the veil can be revealed
   through the photo. One handler and one gate, so the Pause effects control
   governs it with nothing new to keep in sync.
+- 2026-09-20 — TASK-015: six i18n keys for the method query's comments,
+  `studio.q0`-`q4` and `studio.qCaption`. The SQL around them is not
+  translated, so only the `<span class="q-c">` comments carry `data-i18n`.
+  The i18n pass writes `textContent`, which is why per-comment spans survive a
+  language switch while a single key for the whole block would not.

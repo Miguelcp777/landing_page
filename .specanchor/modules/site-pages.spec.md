@@ -97,3 +97,7 @@ No automated tests. Print layout and section integrity are verified manually.
 ## Change history
 
 - 2026-09-19 — Created during SDD bootstrap.
+- 2026-09-20 — TASK-015: `#toolbox` gains a `figure.method-query` after the
+  method note. Only its comments are translated (`studio.q0`-`q4`,
+  `studio.qCaption`); the SQL is identical in both languages. The query is
+  valid PostgreSQL, checked with a parser — see the task for why that matters.

@@ -417,3 +417,8 @@ document.addEventListener('keydown', function (event) {
     var code = event.target.closest && event.target.closest('.project-card__code');
     if (code) event.stopPropagation();
 }, true);
+
+// The method note restated as a query. Only the comments are translated; the SQL
+// itself is the same in both languages, as it would be in a repository.
+Object.assign(translations.en.studio, { q0: "-- the question: what is covered, and what is exposed, by platform", q1: "-- prepare the data: one source, joined on the asset", q2: "-- analyse", q3: "-- validate: drop nothing silently, keep only what reconciles", q4: "-- communicate: biggest exposure first", qCaption: "The same method, written out. Invented schema." });
+Object.assign(translations.es.studio, { q0: "-- la pregunta: qué está cubierto y qué está expuesto, por plataforma", q1: "-- preparar los datos: una sola fuente, unida por el equipo", q2: "-- analizar", q3: "-- validar: no descartar nada en silencio, quedarse con lo que cuadra", q4: "-- comunicar: primero la mayor exposición", qCaption: "El mismo método, escrito. Esquema inventado." });
