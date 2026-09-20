@@ -63,7 +63,8 @@ sección su banda redefiniendo los *tokens*, no los colores (ver `INV-STYLE-004`
 La **39 — portadas** apaga las ilustraciones de IA en reposo y les devuelve el color
 al pasar por encima.
 La **40 — velo de código** revela SQL y Python alrededor del cursor.
-**La próxima sección disponible es la 41, en `editorial.css`.**
+La **41 — radiografía del retrato** abre un hueco en la foto al pasar el ratón.
+**La próxima sección disponible es la 42, en `editorial.css`.**
 
 **Nada decorativo por encima del texto** (`INV-STYLE-005`): el velo va en `z-index:1`
 con `pointer-events:none` y el contenido de cada sección sube a `z-index:2`. Se

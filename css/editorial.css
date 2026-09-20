@@ -536,3 +536,26 @@ html.light-theme .editorial #projects .project-tag {
 @media (hover: none), (pointer: coarse) { .code-veil { display: none; } }
 @media (max-width: 768px) { .code-veil { display: none; } }
 @media (prefers-reduced-motion: reduce) { .code-veil { display: none; } }
+
+/* 41. X-ray on the portrait.
+
+   The photo is the one opaque thing large enough to hide the veil completely, so
+   hovering it opens a soft hole and the code shows through. Behind the portrait
+   there is no band colour -- the hero is transparent -- so what comes through is the
+   veil, the atmosphere field and the paper, in that order. "The data behind the
+   person" is the page's actual argument, which is why this is the one place the
+   effect earns a second appearance.
+
+   The hole is 62% transparent at its centre and fully opaque by 150px, so it reads
+   as translucency rather than a bite taken out of a face. The caption is untouched:
+   the role and the employer stay fully legible whatever the cursor is doing. */
+.editorial-portrait img { transition: filter .35s ease; }
+.editorial-portrait.is-xray img {
+    filter: grayscale(.32) contrast(1.03);
+    -webkit-mask-image: radial-gradient(circle 150px at var(--px, 50%) var(--py, 50%),
+        rgba(0,0,0,.38) 0%, rgba(0,0,0,.74) 46%, #000 100%);
+    mask-image: radial-gradient(circle 150px at var(--px, 50%) var(--py, 50%),
+        rgba(0,0,0,.38) 0%, rgba(0,0,0,.74) 46%, #000 100%);
+}
+@media (hover: none), (pointer: coarse) { .editorial-portrait.is-xray img { filter: none; -webkit-mask-image: none; mask-image: none; } }
+@media (prefers-reduced-motion: reduce) { .editorial-portrait img { transition: none; } }

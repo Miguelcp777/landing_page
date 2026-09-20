@@ -1,6 +1,6 @@
 {
-  "revision": "150ba0c253e47bb290fa38bff4e250393b885871",
-  "task_spec": ".specanchor/tasks/TASK-013.spec.md",
+  "revision": "74e27e16b8d255c2027f518559198128e22b447b",
+  "task_spec": ".specanchor/tasks/TASK-014.spec.md",
   "files": [
     {
       "path": "css/editorial.css",
@@ -8,9 +8,9 @@
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Section 40: the code veil. z-index 1 with pointer-events none, section containers lifted to z-index 2, so the layer cannot cover text or take a click. Ink comes from a variable the script sets per band, after mix-blend-mode: overlay proved invisible against a near-white ground.",
+      "rationale": "Section 41: a 150px lens masked into the portrait while hovered, 62% transparent at the centre, with a slow desaturation under it. Targets the image only, so the caption stays fully legible. At rest the portrait carries no mask and no filter.",
       "evidence": [
-        ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
       ]
     },
     {
@@ -19,9 +19,9 @@
       "specs": [
         ".specanchor/modules/site-behavior.spec.md"
       ],
-      "rationale": "Builds the veil from eight invented SQL and Python snippets, moves its mask with the pointer through the existing rAF-throttled handler, and picks the ink from the --primary-color of the band under the cursor. Also splits the effects gate: interactive() for visitor-facing effects everywhere, enabled() adding the canvas's on-screen condition. That split fixes a TASK-012 regression that killed the cursor ring below the hero.",
+      "rationale": "trackXray() follows the cursor inside the figure in the figure's own coordinates and toggles is-xray. It rides the existing pointer handler, so the Pause effects control, reduced motion, coarse pointers and narrow viewports suppress it with no second gate.",
       "evidence": [
-        ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
       ]
     },
     {
@@ -30,9 +30,9 @@
       "specs": [
         ".specanchor/modules/site-pages.spec.md"
       ],
-      "rationale": "Cache-busting version only. The veil is built by script, so no markup changed.",
+      "rationale": "Cache-busting version only; the effect needs no markup.",
       "evidence": [
-        ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
       ]
     },
     {
@@ -43,7 +43,7 @@
       ],
       "rationale": "Cache-busting version only.",
       "evidence": [
-        ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
       ]
     },
     {
@@ -52,9 +52,9 @@
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "Next free section is 41, and the no-decoration-above-text rule plus the invented-code rule are stated where someone editing CSS will read them.",
+      "rationale": "Next free CSS section is 42.",
       "evidence": [
-        ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
       ]
     },
     {
@@ -63,69 +63,62 @@
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "INV-STYLE-005 makes the stacking guarantee a contract rather than an implementation detail, so a future overlay has to prove it the same way.",
+      "rationale": "Section 41 recorded, plus the stale-screenshot trap as a working rule.",
       "evidence": [
-        ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
       ]
     },
     {
       "path": ".specanchor/modules/site-behavior.spec.md",
-      "kind": "correction",
+      "kind": "requirement",
       "specs": [
         ".specanchor/modules/site-behavior.spec.md"
       ],
-      "rationale": "Records the split gate and the TASK-012 regression it corrects.",
+      "rationale": "Records that the pointer handler now also tracks the portrait.",
       "evidence": [
-        ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
       ]
     },
     {
-      "path": ".specanchor/tasks/TASK-013.spec.md",
+      "path": ".specanchor/tasks/TASK-014.spec.md",
       "kind": "requirement",
       "specs": [
         ".specanchor/modules/site-styles.spec.md"
       ],
-      "rationale": "The task, including the two requirements with no executed evidence.",
+      "rationale": "The task, including the requirement with no executed evidence.",
       "evidence": [
-        ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
+        ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
       ]
     }
   ],
   "traceability": [
     {
-      "requirement": "TASK-013/REQ-001",
-      "acceptance": "TASK-013/REQ-001",
-      "verification": "veil lit at points in #hero and #projects and captured",
+      "requirement": "TASK-014/REQ-001",
+      "acceptance": "TASK-014/REQ-001",
+      "verification": "lens driven to the face; code readable through head and shoulder",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-013/REQ-002",
-      "acceptance": "TASK-013/REQ-002",
-      "verification": "computed z-index of veil and containers, pointer-events none, elementFromPoint returns the card",
+      "requirement": "TASK-014/REQ-002",
+      "acceptance": "TASK-014/REQ-002",
+      "verification": "fresh load reports mask none, filter none, is-xray false",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-013/REQ-003",
-      "acceptance": "TASK-013/REQ-003",
-      "verification": "resolved ink over each band: #235d47 on hero, #b5ddc1 on projects",
+      "requirement": "TASK-014/REQ-003",
+      "acceptance": "TASK-014/REQ-003",
+      "verification": "the rule addresses img only; the caption is a sibling",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
     },
     {
-      "requirement": "TASK-013/REQ-004",
-      "acceptance": "TASK-013/REQ-004",
-      "verification": "snippets written for this task with invented tables and columns",
+      "requirement": "TASK-014/REQ-005",
+      "acceptance": "TASK-014/REQ-005",
+      "verification": "contrast audit, 212 nodes, chat open",
       "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
-    },
-    {
-      "requirement": "TASK-013/REQ-007",
-      "acceptance": "TASK-013/REQ-007",
-      "verification": "contrast audit with the chat open, veil descendants excluded",
-      "result": "pass",
-      "evidence": ".specanchor/tasks/TASK-013.spec.md#verification-evidence"
+      "evidence": ".specanchor/tasks/TASK-014.spec.md#verification-evidence"
     }
   ]
 }

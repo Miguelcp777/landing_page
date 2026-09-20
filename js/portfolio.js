@@ -245,7 +245,27 @@ group by ib.cluster;`,
     });
     veil.append(veilGrid);
     document.body.prepend(veil);
-    let veilFrame = 0, veilAt = null;
+    let veilFrame = 0, veilAt = null, xray = null;
+    /* The portrait is the one thing on the page that covers the veil completely, so
+       hovering it opens a hole and the code shows through the photo. Coordinates are
+       the portrait's own, not the viewport's. It rides the same pointer handler as
+       everything else, so the Pause effects control governs it too. */
+    function trackXray(target) {
+        const fig = target && target.closest ? target.closest('.editorial-portrait') : null;
+        if (fig !== xray) {
+            if (xray) xray.classList.remove('is-xray');
+            xray = fig;
+            if (fig) fig.classList.add('is-xray');
+        }
+        if (!fig || !veilAt) return;
+        const box = fig.getBoundingClientRect();
+        fig.style.setProperty('--px', (veilAt.x - box.left) + 'px');
+        fig.style.setProperty('--py', (veilAt.y - box.top) + 'px');
+    }
+    function clearXray() {
+        if (xray) xray.classList.remove('is-xray');
+        xray = null;
+    }
     /* The ink follows the band under the cursor. A fixed layer spans bands of
        opposite lightness and no single colour reads on both, but only the band the
        cursor is over is ever revealed, so one colour at a time is enough. */
@@ -329,6 +349,7 @@ group by ib.cluster;`,
         aura.classList.remove('is-visible');
         veil.classList.remove('is-lit');
         veil.style.removeProperty('--veil-ink');
+        clearXray();
         veilInk = new WeakMap();  /* the theme may have flipped; cached inks are stale */
         veilAt = null;
         pointer={x:-1000,y:-1000};
@@ -361,10 +382,11 @@ group by ib.cluster;`,
         aura.classList.toggle('is-interactive',Boolean(event.target.closest('a,button,summary,[role="button"]')));
         veilAt = {x: event.clientX, y: event.clientY};
         veil.classList.add('is-lit');
+        trackXray(event.target);
         if(!veilFrame) veilFrame = requestAnimationFrame(paintVeil);
         if(!ringFrame) ringFrame=requestAnimationFrame(moveRing);
     }, {passive:true});
-    document.documentElement.addEventListener('pointerleave',()=>{aura.classList.remove('is-visible');veil.classList.remove('is-lit');veilAt=null;pointer={x:-1000,y:-1000};cancelAnimationFrame(ringFrame);ringFrame=0;cancelAnimationFrame(veilFrame);veilFrame=0;});
+    document.documentElement.addEventListener('pointerleave',()=>{aura.classList.remove('is-visible');veil.classList.remove('is-lit');clearXray();veilAt=null;pointer={x:-1000,y:-1000};cancelAnimationFrame(ringFrame);ringFrame=0;cancelAnimationFrame(veilFrame);veilFrame=0;});
     toggle.addEventListener('click',()=>{paused=!paused;try{localStorage.setItem('site-effects',paused?'paused':'on');}catch(_){}sync();});
     if('IntersectionObserver' in window) {
         new IntersectionObserver(entries => {

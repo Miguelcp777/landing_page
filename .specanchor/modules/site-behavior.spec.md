@@ -81,3 +81,7 @@ runs first whatever order the scripts loaded in.
   the cursor ring and the veil everywhere; `enabled()` adds the atmosphere
   canvas's own on-screen condition. Folding the two together had killed the
   cursor ring below the hero.
+- 2026-09-20 — TASK-014: the pointer handler also tracks the cursor inside the
+  hero portrait, in the figure's own coordinates, so the veil can be revealed
+  through the photo. One handler and one gate, so the Pause effects control
+  governs it with nothing new to keep in sync.
